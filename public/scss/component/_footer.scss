@@ -1,0 +1,200 @@
+@use "../abstracts/index" as *;
+
+.footer {
+  border-radius: 16px;
+  border: 1px solid var(--Line);
+  .footer-body {
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-item {
+    padding: 38px 30px 40px;
+  }
+  .footer-about,
+  .footer-newsletter {
+    flex: 11%;
+  }
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    border-left: 1px solid var(--Line);
+    border-right: 1px solid var(--Line);
+    flex: 28.6%;
+  }
+
+  .box-fieldset-item {
+    a {
+      text-decoration: underline;
+    }
+  }
+  .footer-bottom {
+    padding: 13px 60px;
+    border-top: 1px solid var(--Line);
+  }
+  .list {
+    --spacing-list: 25px;
+    gap: var(--spacing-list);
+    li {
+      position: relative;
+      &:not(:last-child) {
+        &::before {
+          position: absolute;
+          content: "";
+          width: 1px;
+          height: 16px;
+          background-color: var(--Line);
+          right: calc((var(--spacing-list) / 2) * -1);
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+  @include res(md, min) {
+    .footer-col-block {
+      max-width: 140px;
+      width: 100%;
+    }
+  }
+  @include res(xxl, min) {
+    .footer-item {
+      padding: 38px 60px 40px;
+    }
+    .footer-content {
+      flex: 19.6%;
+    }
+  }
+  @include res(lg) {
+    .footer-body {
+      flex-direction: column;
+    }
+    .footer-content {
+      border: unset;
+    }
+  }
+  @include res(md) {
+    .footer-content {
+      flex-direction: column;
+      gap: 30px;
+    }
+    .footer-top {
+      gap: 12px;
+    }
+    .footer-body {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      .right {
+        flex-direction: column;
+        gap: 23px;
+      }
+    }
+    .footer-top,
+    .footer-top .content {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    .footer-menu-list {
+      padding-top: 13px;
+      padding-left: 12px;
+    }
+    .footer-heading-mobile {
+      display: block;
+      position: relative;
+      &::after {
+        position: absolute;
+        content: "";
+        right: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 15px;
+        height: 1px;
+        background-color: var(--Secondary);
+        transition: 0.25s ease-in-out;
+      }
+      &::before {
+        position: absolute;
+        content: "";
+        right: 15px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1px;
+        height: 15px;
+        background-color: var(--Secondary);
+        transition: 0.25s ease-in-out;
+      }
+    }
+    .footer-col-block {
+      width: 100%;
+      .tf-collapse-content {
+        display: none;
+      }
+      .footer-heading {
+        margin-bottom: 0 !important;
+      }
+      &.open {
+        .footer-heading-mobile {
+          &::before {
+            opacity: 0;
+          }
+          &::after {
+            transform: translate(0%, -50%) rotate(180deg);
+          }
+        }
+      }
+      .tf-collapse-content {
+        display: none;
+      }
+    }
+    .footer-about,
+    .footer-content,
+    .footer-newsletter,
+    .footer-bottom {
+      padding: 20px 15px;
+    }
+  }
+  @include res(sm) {
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 24px;
+    }
+    .list {
+      --spacing-list: 12px;
+    }
+    .footer-heading {
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+  &.style-1 {
+    .footer-about,
+    .footer-newsletter {
+      flex: 11.4%;
+    }
+    .footer-content {
+      flex: 7.6%;
+    }
+  }
+  &.style-2 {
+    .footer-about {
+      flex: 10%;
+    }
+    @include res(xl, min) {
+      .footer-item {
+        padding: 40px 60px 40px;
+      }
+      .footer-content {
+        border: none;
+        flex: 21.6%;
+        border-left: 1px solid var(--Line);
+      }
+    }
+    @include res(xxxl, min) {
+      .footer-content {
+        padding: 38px 60px 42px 146px;
+      }
+    }
+  }
+}

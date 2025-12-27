@@ -1,18 +1,25 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
+if (typeof window !== "undefined") {
+  const stored = localStorage.getItem("darkMode");
+  const darkDefault = stored !== null ? JSON.parse(stored) : true;
+  if (darkDefault) document.body.classList.add("dark-mode");
+}
+
 export default function DarkModeToggler() {
   // Initialize state from localStorage or default to false
   const [show, setShow] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("darkMode") === "true";
+      const stored = localStorage.getItem("darkMode");
+      return stored !== null ? JSON.parse(stored) : true;
     }
-    return false;
+    return true;
   });
 
   const toggleMode = () => {
-    setDarkMode((prev) => {
+    setDarkMode((prev: boolean) => {
       const newMode = !prev;
       localStorage.setItem("darkMode", JSON.stringify(newMode));
       return newMode;

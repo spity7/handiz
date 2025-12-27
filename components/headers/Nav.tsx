@@ -66,13 +66,13 @@ export default function Nav() {
     <>
       {/* Home */}
       <li
-        className={`has-child text-menu ${
+        className={`text-menu ${
           isMenuParentActive(homePages) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        <a href="#" className="toggle splitting link-no-action">
+        <a href="/" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
             Home
           </span>
@@ -80,7 +80,7 @@ export default function Nav() {
             Home
           </span>
         </a>
-        <ul className="submenu">
+        {/* <ul className="submenu">
           {homePages.map(({ href, label }) => (
             <li
               key={href}
@@ -91,12 +91,12 @@ export default function Nav() {
               <Link href={href}>{label}</Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </li>
 
       {/* Features */}
       <li
-        className={`has-child text-menu ${
+        className={`text-menu ${
           isMenuParentActive(categoryLinks) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
@@ -104,13 +104,13 @@ export default function Nav() {
       >
         <a href="#" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
-            Features
+            Student Projects
           </span>
           <span className="text" data-splitting="">
-            Features
+            Student Projects
           </span>
         </a>
-        <ul className="submenu">
+        {/* <ul className="submenu">
           {categoryLinks.map(({ href, label }) => (
             <li
               key={href}
@@ -121,12 +121,12 @@ export default function Nav() {
               <Link href={href}>{label}</Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </li>
 
       {/* Post Styles */}
       <li
-        className={`has-child text-menu ${
+        className={`text-menu ${
           isMenuParentActive(singlePostLinks) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
@@ -134,13 +134,13 @@ export default function Nav() {
       >
         <a href="#" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
-            Post Styles
+            Courses
           </span>
           <span className="text" data-splitting="">
-            Post Styles
+            Courses
           </span>
         </a>
-        <ul className="submenu">
+        {/* <ul className="submenu">
           {singlePostLinks.map(({ href, label }) => (
             <li
               key={href}
@@ -151,34 +151,34 @@ export default function Nav() {
               <Link href={href}>{label}</Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </li>
 
       {/* Categories */}
       <li
-        className="has-child text-menu"
+        className="text-menu"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
         <a href="#" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
-            Categories
+            Who We Are?
           </span>
           <span className="text" data-splitting="">
-            Categories
+            Who We Are?
           </span>
         </a>
-        <ul className="submenu">
+        {/* <ul className="submenu">
           {categoryLinks2.map(({ href, label, slug }) => (
             <li key={label} className="menu-item">
               <Link href={`${href}/${slug}`}>{label}</Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </li>
 
       {/* About */}
-      <li
+      {/* <li
         className={`text-menu ${
           isMenuActive({ href: "/about" }) ? " current-menu" : ""
         }`}
@@ -191,7 +191,7 @@ export default function Nav() {
             About
           </span>
         </Link>
-      </li>
+      </li> */}
 
       {/* Contact */}
       <li
@@ -205,6 +205,22 @@ export default function Nav() {
           </span>
           <span className="text" data-splitting="">
             Contact
+          </span>
+        </Link>
+      </li>
+
+      {/* Contact */}
+      <li
+        className={`text-menu ${
+          isMenuActive({ href: "/contact" }) ? " current-menu" : ""
+        }`}
+      >
+        <Link href={`/contact`} className="toggle splitting">
+          <span className="text" data-splitting="">
+            Volunteer
+          </span>
+          <span className="text" data-splitting="">
+            Volunteer
           </span>
         </Link>
       </li>

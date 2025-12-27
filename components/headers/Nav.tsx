@@ -6,6 +6,7 @@ import {
   categoryLinks2,
   homePages,
   singlePostLinks,
+  otherPages,
 } from "@/data/menu";
 import { usePathname } from "next/navigation";
 import { MenuItem } from "@/types/menu-item";
@@ -97,12 +98,12 @@ export default function Nav() {
       {/* Features */}
       <li
         className={`text-menu ${
-          isMenuParentActive(categoryLinks) ? "current-menu" : ""
+          isMenuParentActive(otherPages) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        <a href="#" className="toggle splitting link-no-action">
+        <a href="/student-projects" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
             Student Projects
           </span>

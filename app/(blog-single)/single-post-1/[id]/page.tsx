@@ -144,6 +144,60 @@ export default async function page({
               </div>
               <div className="col-lg-6">
                 <div className="post-details">
+                  <div className="p-3">
+                    <ul className="list-unstyled mb-0">
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-people me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Student:</span>
+                        <span className="fw-semibold">Ali</span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-aspect-ratio me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Area:</span>
+                        <span className="fw-semibold">
+                          320 m<sup>2</sup>
+                        </span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-tags me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Category:</span>
+                        <span className="fw-semibold">Real Estate</span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-lightbulb me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Concept:</span>
+                        <span className="fw-semibold">Anything</span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-calendar-event me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Year:</span>
+                        <span className="fw-semibold">2024</span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Location:</span>
+                        <span className="fw-semibold">Lebanon</span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">Type:</span>
+                        <span className="fw-semibold">Lebanon</span>
+                      </li>
+
+                      <li className="d-flex align-items-center mb-4">
+                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
+                        <span className="text-light me-2">University:</span>
+                        <span className="fw-semibold">Lebanon</span>
+                      </li>
+                    </ul>
+                  </div>
+
                   <p className="mb_28">
                     In a world that often feels overwhelming, building a joyful
                     and fulfilling life doesn’t have to be complicated.

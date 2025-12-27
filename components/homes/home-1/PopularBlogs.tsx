@@ -8,7 +8,10 @@ import BlogCard1 from "@/components/blog-cards/BlogCard1";
 
 export default function PopularBlogs() {
   return (
-    <div className="section-most-popular tf-spacing-1">
+    <div
+      className="section-most-popular tf-spacing-1"
+      style={{ paddingTop: "0px" }}
+    >
       <div className="tf-container sw-layout">
         <div className="heading-section d-flex justify-content-between mb_28">
           <h3>Most Popular</h3>

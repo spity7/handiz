@@ -214,7 +214,7 @@ export default function Hero() {
           </div>
           <div className="col-lg-3">
             <div className="box-author style-1 v2 text-center">
-              <h5 className="heading-title">Wellcome To Drozy</h5>
+              {/* <h5 className="heading-title">Wellcome To Drozy</h5> */}
               <div className="info">
                 <div className="avatar mb_12">
                   <Image
@@ -232,7 +232,7 @@ export default function Hero() {
                 <p className="text-body-1">Portland, Oregon, USA</p>
               </div>
               <ul className="social">
-                <li className="h6 fw-7 text_on-surface-color">
+                {/* <li className="h6 fw-7 text_on-surface-color">
                   <a href="#" className="d-flex align-items-center gap_12">
                     <i className="icon-FacebookLogo" />
                     23k Likes
@@ -243,11 +243,11 @@ export default function Hero() {
                     <i className="icon-XLogo" />
                     41k Follower
                   </a>
-                </li>
+                </li> */}
                 <li className="h6 fw-7 text_on-surface-color">
                   <a href="#" className="d-flex align-items-center gap_12">
-                    <i className="icon-PinterestLogo" />
-                    32k Follower
+                    <i className="icon-InstagramLogo" />
+                    43k Followers
                   </a>
                 </li>
               </ul>

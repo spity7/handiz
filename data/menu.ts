@@ -20,3 +20,6 @@ export const categoryLinks2 = [
   { href: "/categories-1", label: "Fashion", slug: "fashion" },
   { href: "/categories-1", label: "Skincare", slug: "skincare" },
 ];
+export const otherPages = [
+  { href: "/student-projects", label: "Student Projects", isCurrent: true },
+];

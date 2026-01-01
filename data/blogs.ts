@@ -1093,6 +1093,66 @@ export const posts3 = [
     title: "Easy One-Pot Dinners for Busy Weeknights",
   },
 ];
+
+export const studentProjects = [
+  {
+    id: 110,
+    imgSrc: "/images/feature-post/feature-item-1.webp",
+    category: "Fashion",
+    date: "February 19, 2025",
+    author: "Jane Cooper",
+    title: "How To Start Your Own Online Magazine",
+  },
+  {
+    id: 111,
+    imgSrc: "/images/feature-post/feature-item-14.webp",
+    category: "Travel",
+    date: "March 25, 2025",
+    author: "Ralph Edwards",
+    title: "Exploring Europe On A Budget: 7 Must-Visit Cities",
+  },
+  {
+    id: 112,
+    imgSrc: "/images/feature-post/feature-item-15.webp",
+    category: "Food",
+    date: "April 15, 2025",
+    author: "Theresa Webb",
+    title: "Easy One-Pot Dinners For Busy Weeknights",
+  },
+  {
+    id: 113,
+    imgSrc: "/images/feature-post/feature-item-16.webp",
+    category: "Food",
+    date: "January 10, 2025",
+    author: "Wade Warren",
+    title: "Home Workouts That Actually Work",
+  },
+  {
+    id: 114,
+    imgSrc: "/images/feature-post/feature-item-17.webp",
+    category: "Mindfulness",
+    date: "February 6, 2025",
+    author: "Darrell Steward",
+    title: "How To Start Journaling For Mental Clarity",
+  },
+  {
+    id: 115,
+    imgSrc: "/images/feature-post/feature-item-1.webp",
+    category: "Fashion",
+    date: "February 19, 2025",
+    author: "Jane Cooper",
+    title: "How To Start Your Own Online Magazine",
+  },
+  {
+    id: 116,
+    imgSrc: "/images/feature-post/feature-item-14.webp",
+    category: "Travel",
+    date: "March 25, 2025",
+    author: "Ralph Edwards",
+    title: "Exploring Europe On A Budget: 7 Must-Visit Cities",
+  },
+];
+
 export const allBlogs = [
   ...featurePosts,
   ...heroBanners,
@@ -1124,4 +1184,5 @@ export const allBlogs = [
   ...featurePosts3,
   ...featurePosts4,
   ...posts3,
+  ...studentProjects,
 ];

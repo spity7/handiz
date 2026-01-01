@@ -12,13 +12,13 @@ export const singlePostLinks = [
   { href: "/single-post-2/20", label: "Single Post Style 2" },
 ];
 export const categoryLinks2 = [
-  { href: "/categories-1", label: "Home Decor", slug: "home-decor" },
-  { href: "/categories-1", label: "Travel", slug: "travel" },
-  { href: "/categories-1", label: "Food", slug: "food" },
-  { href: "/categories-1", label: "Mindfulness", slug: "mindfulness" },
-  { href: "/categories-1", label: "Fitness", slug: "fitness" },
-  { href: "/categories-1", label: "Fashion", slug: "fashion" },
-  { href: "/categories-1", label: "Skincare", slug: "skincare" },
+  { href: "/categories-1", label: "Gradua. Proj", slug: "home-decor" },
+  { href: "/categories-1", label: "UnderGraduated Projects", slug: "travel" },
+  { href: "/categories-1", label: "Arab Projects", slug: "food" },
+  { href: "/categories-1", label: "Competitions", slug: "mindfulness" },
+  // { href: "/categories-1", label: "Fitness", slug: "fitness" },
+  // { href: "/categories-1", label: "Fashion", slug: "fashion" },
+  // { href: "/categories-1", label: "Skincare", slug: "skincare" },
 ];
 export const otherPages = [
   { href: "/student-projects", label: "Student Projects", isCurrent: true },

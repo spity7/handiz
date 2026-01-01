@@ -1,8 +1,8 @@
 export const quickLinks = [
   { label: "Homepage", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Our Store", href: "/about" },
+  { label: "Courses", href: "#" },
+  { label: "Who We Are?", href: "#" },
+  { label: "Volunteer", href: "#" },
 ];
 
 export const categories = [
@@ -25,4 +25,10 @@ export const policies = [
   { label: "Terms Of Services" },
   { label: "Privacy Policy" },
   { label: "Cookie Policy" },
+];
+
+export const concepts = [
+  { label: "Sustainability" },
+  { label: "Function" },
+  { label: "Formalism" },
 ];

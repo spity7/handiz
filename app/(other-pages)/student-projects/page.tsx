@@ -11,6 +11,7 @@ import LatestPosts from "@/components/homes/home-2/LatestPosts";
 import PopularBlogs from "@/components/homes/home-1/PopularBlogs";
 
 import type { Metadata } from "next";
+import StudentProjects from "@/components/homes/home-1/StudentProjects";
 export const metadata: Metadata = {
   title: "Student Project || Handiz",
   description: "Student Project",
@@ -23,7 +24,8 @@ export default function page() {
       {/* <Hero /> */}
       <HeroSP />
       <div className="main-content">
-        <PopularBlogs />
+        {/* <PopularBlogs /> */}
+        <StudentProjects />
         {/* <Categories />
         <Cta />
         <LatestPosts />

@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { pages, policies, quickLinks } from "@/data/footerLinks";
+import { pages, policies, quickLinks, concepts } from "@/data/footerLinks";
 import { categoryLinks2 } from "@/data/menu";
 import NewsLetterForm from "../common/NewsLetterForm";
+import WhatsappForm from "../common/WhatsappForm";
 import Link from "next/link";
 
 export default function Footer1({
@@ -56,14 +57,14 @@ export default function Footer1({
               <img
                 alt="logo"
                 className="main-logo light-mode-logo"
-                src="/images/logo/logo.svg"
+                src="/images/logo/Logo-black-black.png"
                 width={194}
                 height={44}
               />
               <img
                 alt="logo"
                 className="main-logo dark-mode-logo"
-                src="/images/logo/logo-dark.svg"
+                src="/images/logo/Logo white - White.png"
                 width={194}
                 height={44}
               />
@@ -74,17 +75,32 @@ export default function Footer1({
             </p>
             <ul className="tf-social d-flex">
               <li>
-                <a href="#" className="icon-FacebookLogo" />
+                <a
+                  href="https://wa.me/96171601751"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bi-whatsapp"
+                />
               </li>
               <li>
-                <a href="#" className="icon-XLogo" />
+                <a
+                  href="https://www.linkedin.com/company/handiz-architecture-academy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bi-linkedin"
+                />
               </li>
               <li>
-                <a href="#" className="icon-PinterestLogo" />
+                <a
+                  href="https://www.instagram.com/handizacademy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-InstagramLogo"
+                />
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="icon-InstagramLogo" />
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -148,14 +164,14 @@ export default function Footer1({
                   onClick={() => toggleBlock("useful")}
                   style={{ cursor: isMobile ? "pointer" : "default" }}
                 >
-                  Useful Links
+                  Concepts
                 </h6>
                 <div
                   className="tf-collapse-content"
                   style={getContentStyle("useful")}
                 >
                   <ul className="footer-menu-list d-grid gap_12">
-                    {pages.map((page, index) => (
+                    {concepts.map((page, index) => (
                       <li className="text-caption-1" key={index}>
                         <a href="#" className="link">
                           {page.label}
@@ -171,10 +187,8 @@ export default function Footer1({
           {/* Newsletter */}
           {!(type == 3) && (
             <div className="footer-newsletter footer-item">
-              <h6 className="footer-title mb_20">
-                Subscribe for all the top news!
-              </h6>
-              <NewsLetterForm />
+              <h6 className="footer-title mb_20">Subscribe for more Info!</h6>
+              <WhatsappForm />
               <div className="box-fieldset-item d-flex">
                 <fieldset className="d-flex gap_12">
                   <input type="checkbox" className="tf-check" id="note" />
@@ -198,7 +212,7 @@ export default function Footer1({
         {/* Footer bottom */}
         <div className="footer-bottom d-flex align-items-center justify-content-between">
           <p className="text-caption-1">
-            {new Date().getFullYear()} Drozy. All Rights Reserved.
+            {new Date().getFullYear()} Handiz. All Rights Reserved.
           </p>
           <ul className="list d-flex">
             {policies.map((item, index) => (

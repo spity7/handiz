@@ -75,44 +75,14 @@ export default function Nav() {
       >
         <a href="/" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
-            Home
+            Student Projects
           </span>
           <span className="text" data-splitting="">
-            Home
+            Student Projects
           </span>
         </a>
         {/* <ul className="submenu">
           {homePages.map(({ href, label }) => (
-            <li
-              key={href}
-              className={`menu-item ${
-                isMenuActive({ href }) ? " current-menu-item" : ""
-              }`}
-            >
-              <Link href={href}>{label}</Link>
-            </li>
-          ))}
-        </ul> */}
-      </li>
-
-      {/* Features */}
-      <li
-        className={`text-menu ${
-          isMenuParentActive(otherPages) ? "current-menu" : ""
-        }`}
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-      >
-        <a href="/student-projects" className="toggle splitting link-no-action">
-          <span className="text" data-splitting="">
-            Student Projects
-          </span>
-          <span className="text" data-splitting="">
-            Student Projects
-          </span>
-        </a>
-        {/* <ul className="submenu">
-          {categoryLinks.map(({ href, label }) => (
             <li
               key={href}
               className={`menu-item ${

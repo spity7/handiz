@@ -1,22 +1,19 @@
-export default function BlogTags() {
+type BlogTagsProps = {
+  tags: string[];
+};
+
+export default function BlogTags({ tags }: BlogTagsProps) {
+  if (!tags || tags.length === 0) return null;
+
   return (
     <>
-      {" "}
-      <li>
-        <a href="#" className="tag text-caption-1">
-          Fashion
-        </a>
-      </li>
-      <li>
-        <a href="#" className="tag text-caption-1">
-          Technology
-        </a>
-      </li>
-      <li>
-        <a href="#" className="tag text-caption-1">
-          Travel List
-        </a>
-      </li>
+      {tags.map((tag, index) => (
+        <li key={index}>
+          <a href="#" className="tag text-caption-1">
+            {tag}
+          </a>
+        </li>
+      ))}
     </>
   );
 }

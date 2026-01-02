@@ -1,8 +1,8 @@
 type BlogTagsProps = {
-  tags: string[];
+  tags?: string[];
 };
 
-export default function BlogTags({ tags }: BlogTagsProps) {
+export default function BlogTags({ tags = [] }: BlogTagsProps) {
   if (!tags || tags.length === 0) return null;
 
   return (

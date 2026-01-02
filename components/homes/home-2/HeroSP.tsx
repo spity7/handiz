@@ -28,7 +28,7 @@ export default function HeroSP({
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("https://api.handiz.org/api/v1/projects")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
       .then((res) => res.json())
       .then((data) => {
         const allCategories: string[] = data.projects.flatMap((p: any) =>

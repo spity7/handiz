@@ -11,7 +11,7 @@ import { allBlogs } from "@/data/blogs";
 import { notFound } from "next/navigation";
 
 async function getProject(id: string): Promise<Project | null> {
-  const res = await fetch(`https://api.handiz.org/api/v1/projects/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects/${id}`, {
     cache: "no-store",
   });
 
@@ -21,8 +21,13 @@ async function getProject(id: string): Promise<Project | null> {
   return data.project;
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const project = await getProject(params.id);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const project = await getProject(id);
 
   if (!project) {
     return { title: "Project Not Found" };
@@ -39,8 +44,13 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-export default async function page({ params }: { params: { id: string } }) {
-  const project = await getProject(params.id);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const project = await getProject(id);
 
   if (!project) return notFound();
 

@@ -37,7 +37,7 @@ export default function StudentProjects({
   };
 
   useEffect(() => {
-    fetch("https://api.handiz.org/api/v1/projects")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
       .then((res) => res.json())
       .then((data) => {
         setProjects(data.projects);

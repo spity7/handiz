@@ -7,9 +7,34 @@ import BlogCard1 from "@/components/blog-cards/BlogCard1";
 import StudentProjectCard1 from "@/components/blog-cards/StudentProjectCard1";
 import { Project } from "@/types/project";
 
-export default function StudentProjects() {
+export default function StudentProjects({
+  selectedCategories,
+  searchQuery,
+}: {
+  selectedCategories: string[];
+  searchQuery: string;
+}) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const projectMatchesSearch = (project: Project, query: string) => {
+    if (!query) return true;
+
+    const searchableText = `
+    ${project.title}
+    ${project.student}
+    ${project.area}
+    ${project.description}
+    ${project.category?.join(" ")}
+    ${project.category?.join(" ")}
+    ${project.type?.join(" ")}
+    ${project.year?.join(" ")}
+    ${project.location?.join(" ")}
+    ${project.university?.join(" ")}
+  `.toLowerCase();
+
+    return searchableText.includes(query.toLowerCase());
+  };
 
   useEffect(() => {
     fetch("https://api.handiz.org/api/v1/projects")
@@ -23,6 +48,16 @@ export default function StudentProjects() {
 
   if (loading) return null;
 
+  const filteredProjects = projects.filter((project) => {
+    const matchesCategories =
+      selectedCategories.length === 0 ||
+      project.category?.some((c) => selectedCategories.includes(c));
+
+    const matchesSearch = projectMatchesSearch(project, searchQuery);
+
+    return matchesCategories && matchesSearch;
+  });
+
   return (
     <div
       className="section-most-popular tf-spacing-1"
@@ -30,7 +65,7 @@ export default function StudentProjects() {
     >
       <div className="tf-container sw-layout">
         <div className="heading-section d-flex justify-content-between mb_28">
-          <h3>Most Popular</h3>
+          <h3>Student Projects</h3>
 
           <div className="wrap-sw-button d-flex gap_12 md-hide">
             <div className="sw-button sz-56 v2 style-cycle nav-prev-layout snbp6">
@@ -73,7 +108,7 @@ export default function StudentProjects() {
             nextEl: ".snbn6",
           }}
         >
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <SwiperSlide className="swiper-slide" key={project._id}>
               <StudentProjectCard1 project={project} />
             </SwiperSlide>

@@ -1,8 +1,7 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { categories } from "@/data/categories";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   EffectCreative,
@@ -11,8 +10,43 @@ import {
   Parallax,
 } from "swiper/modules";
 import { heroSlides } from "@/data/blogs";
+import { useEffect, useState } from "react";
 
-export default function HeroSP() {
+type Props = {
+  selectedCategories: string[];
+  setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  searchQuery: string;
+  setSearchQuery: (v: string) => void;
+};
+
+export default function HeroSP({
+  selectedCategories,
+  setSelectedCategories,
+  searchQuery,
+  setSearchQuery,
+}: Props) {
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("https://api.handiz.org/api/v1/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        const allCategories = data.projects.flatMap(
+          (p: any) => p.category || []
+        );
+        const uniqueCategories = Array.from(new Set(allCategories));
+        setCategories(uniqueCategories);
+      });
+  }, []);
+
+  const toggleCategory = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
   return (
     <div className="page-title homepage-2 sw-layout">
       <div className="tf-container w-xxl">
@@ -35,7 +69,9 @@ export default function HeroSP() {
                 type="text"
                 name="search"
                 id="search"
-                placeholder="Searching...."
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </fieldset>
             <div className="btn-submit">
@@ -92,16 +128,26 @@ export default function HeroSP() {
           <div className="sw-button style-cycle text_primary-color nav-prev-layout snbp8">
             <i className="icon-CaretLeft" />
           </div>
-          {categories.map((category, index) => (
-            <SwiperSlide className="swiper-slide" key={index}>
-              <Link
-                href={`/categories-1`}
-                className="tag text_on-surface-color h6"
-              >
-                {category}
-              </Link>
-            </SwiperSlide>
-          ))}
+
+          {categories.map((category) => {
+            const isActive = selectedCategories.includes(category);
+
+            return (
+              <SwiperSlide className="swiper-slide" key={category}>
+                <button
+                  onClick={() => toggleCategory(category)}
+                  className="tag h6"
+                  style={{
+                    backgroundColor: isActive ? "#ffffff" : "transparent",
+                    color: isActive ? "#000000" : "inherit",
+                  }}
+                >
+                  {category}
+                </button>
+              </SwiperSlide>
+            );
+          })}
+
           <div className="sw-button style-cycle text_primary-color nav-next-layout snbn8">
             <i className="icon-CaretRight" />
           </div>

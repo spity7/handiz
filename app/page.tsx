@@ -1,3 +1,5 @@
+"use client";
+
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 import Header2 from "@/components/headers/Header2";
@@ -9,23 +11,30 @@ import HighlightPosts from "@/components/homes/home-2/HighlightPosts";
 import InstagramPosts from "@/components/homes/home-2/InstagramPosts";
 import LatestPosts from "@/components/homes/home-2/LatestPosts";
 import PopularBlogs from "@/components/homes/home-1/PopularBlogs";
-
-import type { Metadata } from "next";
 import StudentProjects from "@/components/homes/home-1/StudentProjects";
-export const metadata: Metadata = {
-  title: "Student Project || Handiz",
-  description: "Student Project",
-};
+import { useState } from "react";
+
 export default function page() {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <>
       {/* <Header2 /> */}
       <Header1 />
       {/* <Hero /> */}
-      <HeroSP />
+      <HeroSP
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <div className="main-content">
         {/* <PopularBlogs /> */}
-        <StudentProjects />
+        <StudentProjects
+          selectedCategories={selectedCategories}
+          searchQuery={searchQuery}
+        />
         {/* <Categories />
         <Cta />
         <LatestPosts />

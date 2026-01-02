@@ -14,6 +14,7 @@ export default function StudentProjectCard1({ project }: { project: Project }) {
           height={246}
           alt="feature post"
           src={project.thumbnailUrl}
+          style={{ height: "246px", maxHeight: "246px" }}
         />
         <div className="wrap-tag">
           {project.category?.[0] && (

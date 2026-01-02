@@ -67,17 +67,17 @@ export default function StudentProjects({
         <div className="heading-section d-flex justify-content-between mb_28">
           <h3>Student Projects</h3>
 
-          <div className="wrap-sw-button d-flex gap_12 md-hide">
+          {/* <div className="wrap-sw-button d-flex gap_12 md-hide">
             <div className="sw-button sz-56 v2 style-cycle nav-prev-layout snbp6">
               <i className="icon-CaretLeft" />
             </div>
             <div className="sw-button sz-56 v2 style-cycle nav-next-layout snbn6">
               <i className="icon-CaretRight" />
             </div>
-          </div>
+          </div> */}
         </div>
 
-        <Swiper
+        {/* <Swiper
           className="swiper"
           spaceBetween={15}
           breakpoints={{
@@ -114,7 +114,14 @@ export default function StudentProjects({
             </SwiperSlide>
           ))}
           <div className="sw-dots sw-pagination-layout mt_22 justify-content-center d-flex d-md-none spd6" />
-        </Swiper>
+        </Swiper> */}
+
+        {/* GRID */}
+        <div className="projects-grid">
+          {filteredProjects.map((project) => (
+            <StudentProjectCard1 project={project} />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -31,9 +31,10 @@ export default function HeroSP({
     fetch("https://api.handiz.org/api/v1/projects")
       .then((res) => res.json())
       .then((data) => {
-        const allCategories = data.projects.flatMap(
-          (p: any) => p.category || []
+        const allCategories: string[] = data.projects.flatMap((p: any) =>
+          Array.isArray(p.category) ? p.category : []
         );
+
         const uniqueCategories = Array.from(new Set(allCategories));
         setCategories(uniqueCategories);
       });

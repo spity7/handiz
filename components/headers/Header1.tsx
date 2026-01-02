@@ -36,17 +36,32 @@ export default function Header1() {
           <div className="topbar-inner d-flex justify-content-between align-items-center">
             <ul className="tf-social d-flex lg-hide">
               <li>
-                <a href="#" className="icon-InstagramLogo" />
+                <a
+                  href="https://wa.me/96171601751"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bi-whatsapp"
+                />
               </li>
               <li>
-                <a href="#" className="icon-FacebookLogo" />
+                <a
+                  href="https://www.linkedin.com/company/handiz-architecture-academy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bi-linkedin"
+                />
               </li>
               <li>
-                <a href="#" className="icon-XLogo" />
+                <a
+                  href="https://www.instagram.com/handizacademy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-InstagramLogo"
+                />
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="icon-PinterestLogo" />
-              </li>
+              </li> */}
             </ul>
             <Link href={`/`} className="site-logo">
               <Image

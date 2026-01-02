@@ -78,14 +78,14 @@ export default function MobileMenu() {
               className="main-logo light-mode-logo"
               width={193}
               height={44}
-              src="/images/logo/logo.svg"
+              src="/images/logo/Logo-black-black.png"
             />
             <Image
               alt="logo"
               className="main-logo dark-mode-logo"
               width={193}
               height={44}
-              src="/images/logo/logo-dark.svg"
+              src="/images/logo/Logo white - White.png"
             />
           </Link>
         </div>
@@ -97,6 +97,42 @@ export default function MobileMenu() {
         <div className="mb-body">
           <ul id="menu-mobile-menu" className="style-1">
             <li
+              className={`menu-item    ${
+                isMenuActive({ href: "/" }) ? "active" : ""
+              }`}
+            >
+              <Link href={`/`} className="item-menu-mobile">
+                Student Projects
+              </Link>
+            </li>
+            <li
+              className={`menu-item    ${
+                isMenuActive({ href: "#" }) ? "active" : ""
+              }`}
+            >
+              <Link href={`#`} className="item-menu-mobile">
+                Courses
+              </Link>
+            </li>
+            <li
+              className={`menu-item    ${
+                isMenuActive({ href: "#" }) ? "active" : ""
+              }`}
+            >
+              <Link href={`#`} className="item-menu-mobile">
+                Who We Are?
+              </Link>
+            </li>
+            <li
+              className={`menu-item    ${
+                isMenuActive({ href: "#" }) ? "active" : ""
+              }`}
+            >
+              <Link href={`#`} className="item-menu-mobile">
+                Volunteer
+              </Link>
+            </li>
+            {/* <li
               className={`menu-item menu-item-has-children-mobile  ${
                 isMenuParentActive(homePages) ? "active" : ""
               } `}
@@ -236,27 +272,33 @@ export default function MobileMenu() {
               <Link href={`/contact`} className="item-menu-mobile">
                 Contact
               </Link>
-            </li>
+            </li> */}
           </ul>
           <div className="support">
-            <Link
-              href={`/contact`}
+            <a
+              href="https://wa.me/96171601751"
+              target="_blank"
+              rel="noopener noreferrer"
               className="tf-btn style-2 animate-hover-btn"
             >
               <span>Let's Talk!</span>
-            </Link>
-            <a href="#" className="text-need">
-              {" "}
+            </a>
+            <a
+              href="https://wa.me/96171601751"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-need"
+            >
               Need help?
             </a>
             <ul className="mb-info">
-              <li>
+              {/* <li>
                 Call Us Now: <span className="number">+1 666 8888</span>
-              </li>
+              </li> */}
               <li>
                 Support 24/7:{" "}
                 <a href="#" className="link">
-                  themesflat@gmail.com
+                  atrchstudio@gmail.com
                 </a>
               </li>
               <li>
@@ -264,20 +306,35 @@ export default function MobileMenu() {
                   <p>Follow us:</p>
                   <ul className="tf-social d-flex style-1">
                     <li>
-                      <a href="#" className="icon-TwitterLogo" />
+                      <a
+                        href="https://wa.me/96171601751"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bi-whatsapp"
+                      />
                     </li>
                     <li>
-                      <a href="#" className="icon-XLogo" />
+                      <a
+                        href="https://www.linkedin.com/company/handiz-architecture-academy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bi-linkedin"
+                      />
                     </li>
                     <li>
-                      <a href="#" className="icon-FacebookLogo" />
+                      <a
+                        href="https://www.instagram.com/handizacademy/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="icon-InstagramLogo"
+                      />
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="#" className="icon-PinterestLogo" />
                     </li>
                     <li>
                       <a href="#" className="icon-InstagramLogo" />
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </li>

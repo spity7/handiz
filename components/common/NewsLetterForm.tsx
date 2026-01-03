@@ -6,12 +6,14 @@ import { FormEvent, useState } from "react";
 export default function NewsLetterForm() {
   const [success, setSuccess] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
+
   const handleShowMessage = () => {
     setShowMessage(true);
     setTimeout(() => {
       setShowMessage(false);
     }, 2000);
   };
+
   const sendEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission behavior
     const form = e.currentTarget;
@@ -39,22 +41,39 @@ export default function NewsLetterForm() {
       form.reset();
     }
   };
+
+  const sendToWhatsApp = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const message = (form.elements.namedItem("message") as HTMLInputElement)
+      ?.value;
+
+    if (!message) return;
+
+    const whatsappUrl = `https://wa.me/96171601751?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    form.reset();
+    setShowMessage(true);
+
+    setTimeout(() => setShowMessage(false), 2000);
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        sendEmail(e);
-      }}
-      className="form-newslate mb_20"
-    >
+    <form onSubmit={sendToWhatsApp} className="form-newslate mb_20">
       <div className="position-relative">
         <fieldset className="fieldset-item">
-          <input
-            type="email"
-            placeholder="E-mail"
-            name="email"
-            aria-required="true"
+          <textarea
+            name="message"
+            placeholder="Write your message..."
             required
+            rows={3}
+            defaultValue="Hello, I need more info about courses"
+            style={{ resize: "none", color: "#fff" }}
           />
         </fieldset>
         <div className="box-btn">

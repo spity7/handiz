@@ -28,6 +28,7 @@ export default function Header1() {
     // Cleanup on unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <header className="bg-surface-color">
       {/* topbar */}

@@ -1153,6 +1153,128 @@ export const studentProjects = [
   },
 ];
 
+export const courses = [
+  {
+    id: 117,
+    imgSrc: "/images/courses/Poster course D5-03.jpg",
+    imgSrcSet: "/images/courses/Poster course D5-03.jpg 428w",
+    category: "Home Decor",
+    date: "February 19, 2025",
+    author: "Jane Cooper",
+    title: "Coming Soon - D5 Render Course",
+  },
+  {
+    id: 118,
+    imgSrc: "/images/courses/Exection Files Poster.jpg",
+    imgSrcSet: "/images/courses/Exection Files Poster.jpg 428w",
+    category: "Fashion",
+    date: "February 19, 2025",
+    author: "Ralph Edwards",
+    title: "Coming Soon - Execution Files Course",
+  },
+  {
+    id: 119,
+    imgSrc: "/images/courses/Rhino Course 001.jpg",
+    imgSrcSet: "/images/courses/Rhino Course 001.jpg 200w",
+    category: "Mindfulness",
+    date: "February 6, 2025",
+    author: "Ralph Edwards",
+    title: "Coming Soon - Rhino & Grasshopper Course",
+  },
+];
+
+export const largeFeatureCompetitions = [
+  {
+    id: 120,
+    imgSrc: "/images/feature-post/feature-item-large-1.webp",
+    category: "Lifestyle",
+    date: "FEBRUARY 12, 2025",
+    author: "EMMA CARSON",
+    views: "200 VIEWS",
+    comments: "12 COMMENT",
+    title: "10 Simple Habits To Build A More Joyful And Fulfilling Life.",
+    excerpt:
+      "Learn how to build a personalized self-care routine that fits your lifestyle, brings real results, and supports your long-term mental.",
+  },
+  {
+    id: 121,
+    imgSrc: "/images/feature-post/feature-item-large-1.webp",
+    category: "Lifestyle",
+    date: "FEBRUARY 12, 2025",
+    author: "EMMA CARSON",
+    views: "200 VIEWS",
+    comments: "12 COMMENT",
+    title: "10 Simple Habits To Build A More Joyful And Fulfilling Life.",
+    excerpt:
+      "Learn how to build a personalized self-care routine that fits your lifestyle, brings real results, and supports your long-term mental.",
+  },
+];
+
+export const listStyleCompetitions = [
+  {
+    id: 122,
+    imgSrc: "/images/feature-post/feature-item-14.webp",
+    category: "DIY",
+    date: "January 10, 2025",
+    author: "Albert Flores",
+    title: "Weekend Projects That Refresh Your Home And Save Money.",
+    excerpt:
+      "Easy, budget-friendly ideas to transform your space and spark creativity over the weekend.",
+    hasVideo: true,
+    videoURL: "https://www.youtube.com/embed/junJU-qj92k?si=RouSFVECNqVSG5aK",
+  },
+  {
+    id: 123,
+    imgSrc: "/images/feature-post/feature-item-19.webp",
+    category: "Pets",
+    date: "January 15, 2025",
+    author: "Robert Fox",
+    title: "Healthy Treats Your Dog Will Love And Beg You For Daily.",
+    excerpt:
+      "Nourishing, vet-approved snacks your pup will go crazy for without the guilt.",
+    hasVideo: false,
+  },
+  {
+    id: 124,
+    imgSrcSet: `
+      images/feature-post/feature-item-20.webp 200w,
+      images/feature-post/feature-item-23.webp 400w`,
+    imgSrc: "/images/feature-post/feature-item-20.webp",
+    category: "Food",
+    date: "January 18, 2025",
+    author: "Annette Black",
+    title: "How To Beat Procrastination And Boost Your Productivity Fast.",
+    excerpt:
+      "Practical tips and proven strategies to overcome delays and get more done starting now.",
+    hasVideo: false,
+  },
+  {
+    id: 125,
+    imgSrc: "/images/feature-post/feature-item-19.webp",
+    category: "Pets",
+    date: "January 15, 2025",
+    author: "Robert Fox",
+    title: "Healthy Treats Your Dog Will Love And Beg You For Daily.",
+    excerpt:
+      "Nourishing, vet-approved snacks your pup will go crazy for without the guilt.",
+    hasVideo: false,
+  },
+  {
+    id: 126,
+    imgSrcSet: `
+      images/feature-post/feature-item-20.webp 200w,
+      images/feature-post/feature-item-23.webp 400w`,
+    imgSrc: "/images/feature-post/feature-item-20.webp",
+    category: "Food",
+    date: "January 18, 2025",
+    author: "Annette Black",
+    title: "How To Beat Procrastination And Boost Your Productivity Fast.",
+    excerpt:
+      "Practical tips and proven strategies to overcome delays and get more done starting now.",
+    hasVideo: false,
+  },
+];
+
 export const allBlogs = [
   ...featurePosts,
   ...heroBanners,

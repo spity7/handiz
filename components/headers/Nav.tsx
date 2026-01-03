@@ -98,12 +98,12 @@ export default function Nav() {
       {/* Post Styles */}
       <li
         className={`text-menu ${
-          isMenuParentActive(singlePostLinks) ? "current-menu" : ""
+          isMenuParentActive(otherPages) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        <a href="#" className="toggle splitting link-no-action">
+        <a href="/courses" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
             Courses
           </span>
@@ -123,6 +123,23 @@ export default function Nav() {
             </li>
           ))}
         </ul> */}
+      </li>
+
+      <li
+        className={`text-menu ${
+          isMenuParentActive(otherPages) ? "current-menu" : ""
+        }`}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      >
+        <a href="/competitions" className="toggle splitting link-no-action">
+          <span className="text" data-splitting="">
+            Competitions
+          </span>
+          <span className="text" data-splitting="">
+            Competitions
+          </span>
+        </a>
       </li>
 
       {/* Categories */}

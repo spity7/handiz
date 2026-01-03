@@ -21,5 +21,6 @@ export const categoryLinks2 = [
   // { href: "/categories-1", label: "Skincare", slug: "skincare" },
 ];
 export const otherPages = [
-  { href: "/student-projects", label: "Student Projects", isCurrent: true },
+  { href: "/courses", label: "Courses", isCurrent: false },
+  { href: "/competitions", label: "Competitions", isCurrent: false },
 ];

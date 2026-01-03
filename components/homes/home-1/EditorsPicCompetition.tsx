@@ -59,11 +59,13 @@ export default function EditorsPicCompetition() {
                 <div className="content">
                   <div className="wrap-meta d-flex justify-content-between mb_16">
                     <ul className="meta-feature fw-7 d-flex text-body-1">
-                      <li>{post.date}</li>
+                      {/* <li>{post.date}</li> */}
                       <li>
-                        <span className="text_secodary2-color">POST BY</span>
+                        <span className="text_secodary2-color">
+                          REGISTRATION DEADLINE:{" "}
+                        </span>
                         <a href="#" className="link">
-                          {post.author}
+                          January 15, 2025
                         </a>
                       </li>
                     </ul>
@@ -176,11 +178,13 @@ export default function EditorsPicCompetition() {
 
                 <div className="content">
                   <ul className="meta-feature fw-7 d-flex mb_12 text-caption-2 text-uppercase">
-                    <li>{post.date}</li>
+                    {/* <li>{post.date}</li> */}
                     <li>
-                      <span className="text_secodary2-color">POST BY</span>
+                      <span className="text_secodary2-color">
+                        REGISTRATION DEADLINE:{" "}
+                      </span>
                       <a href="#" className="link">
-                        {post.author}
+                        January 15, 2025
                       </a>
                     </li>
                   </ul>

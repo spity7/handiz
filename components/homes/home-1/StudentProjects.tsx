@@ -9,9 +9,13 @@ import { Project } from "@/types/project";
 
 export default function StudentProjects({
   selectedCategories,
+  selectedConcepts,
+  selectedTypes,
   searchQuery,
 }: {
   selectedCategories: string[];
+  selectedConcepts?: string[];
+  selectedTypes?: string[];
   searchQuery: string;
 }) {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -53,9 +57,21 @@ export default function StudentProjects({
       selectedCategories.length === 0 ||
       project.category?.some((c) => selectedCategories.includes(c));
 
+    const matchesConcepts =
+      !selectedConcepts ||
+      selectedConcepts.length === 0 ||
+      project.concept?.some((c) => selectedConcepts.includes(c));
+
+    const matchesTypes =
+      !selectedTypes ||
+      selectedTypes.length === 0 ||
+      project.type?.some((t) => selectedTypes.includes(t));
+
     const matchesSearch = projectMatchesSearch(project, searchQuery);
 
-    return matchesCategories && matchesSearch;
+    return (
+      matchesCategories && matchesConcepts && matchesTypes && matchesSearch
+    );
   });
 
   return (

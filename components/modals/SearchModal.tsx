@@ -7,6 +7,14 @@ import Link from "next/link";
 export default function SearchModal() {
   const [projects, setProjects] = useState<Project[]>([]);
 
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+  const [availableConcepts, setAvailableConcepts] = useState<string[]>([]);
+  const [availableTypes, setAvailableTypes] = useState<string[]>([]);
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedConcepts, setSelectedConcepts] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
       .then((res) => res.json())
@@ -16,6 +24,21 @@ export default function SearchModal() {
             (a: Project, b: Project) => (a.order || 0) - (b.order || 0)
           );
           setProjects(sorted);
+
+          // Extract unique filters
+          const categories = new Set<string>();
+          const concepts = new Set<string>();
+          const types = new Set<string>();
+
+          data.projects.forEach((p: Project) => {
+            p.category?.forEach((c) => categories.add(c));
+            p.concept?.forEach((c) => concepts.add(c));
+            p.type?.forEach((c) => types.add(c));
+          });
+
+          setAvailableCategories(Array.from(categories));
+          setAvailableConcepts(Array.from(concepts));
+          setAvailableTypes(Array.from(types));
         }
       });
   }, []);
@@ -32,6 +55,18 @@ export default function SearchModal() {
     }
   };
 
+  const toggleFilter = (
+    item: string,
+    selected: string[],
+    setSelected: (s: string[]) => void
+  ) => {
+    if (selected.includes(item)) {
+      setSelected(selected.filter((i) => i !== item));
+    } else {
+      setSelected([...selected, item]);
+    }
+  };
+
   return (
     <div className="offcanvas offcanvas-top offcanvas-search" id="canvasSearch">
       <button
@@ -42,6 +77,7 @@ export default function SearchModal() {
       >
         <i className="icon-X" />
       </button>
+
       <div className="offcanvas-body">
         <div className="tf-container w-xl">
           <div className="wrap-form">
@@ -55,13 +91,23 @@ export default function SearchModal() {
                 const input = form.elements.namedItem(
                   "search"
                 ) as HTMLInputElement;
-                if (input.value.trim()) {
-                  closeModal();
 
-                  window.location.href = `/?search=${encodeURIComponent(
-                    input.value.trim()
-                  )}`;
+                const params = new URLSearchParams();
+                if (input.value.trim()) {
+                  params.set("search", input.value.trim());
                 }
+                if (selectedCategories.length > 0) {
+                  params.set("categories", selectedCategories.join(","));
+                }
+                if (selectedConcepts.length > 0) {
+                  params.set("concepts", selectedConcepts.join(","));
+                }
+                if (selectedTypes.length > 0) {
+                  params.set("types", selectedTypes.join(","));
+                }
+
+                closeModal();
+                window.location.href = `/?${params.toString()}`;
               }}
             >
               <fieldset className="input-search">
@@ -86,34 +132,84 @@ export default function SearchModal() {
               </div>
             </form>
           </div>
-          <div className="popular-searches">
-            <h5 className="title">Popular Searches:</h5>
+
+          <div className="popular-searches mb_16">
+            <h5 className="title">Categories:</h5>
             <ul className="list d-flex align-items-center flex-wrap">
-              <li>
-                <a href="#" className="text-body-1 text_on-surface-color fw-7">
-                  Magazine
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-body-1 text_on-surface-color fw-7">
-                  Life Style
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-body-1 text_on-surface-color fw-7">
-                  News
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-body-1 text_on-surface-color fw-7">
-                  Entertainment
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-body-1 text_on-surface-color fw-7">
-                  Tech Ai
-                </a>
-              </li>
+              {availableCategories.map((cat) => (
+                <li key={cat}>
+                  <a
+                    href="#"
+                    className={`text-body-1 fw-7 ${
+                      selectedCategories.includes(cat)
+                        ? "text_primary-color"
+                        : "text_on-surface-color"
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleFilter(
+                        cat,
+                        selectedCategories,
+                        setSelectedCategories
+                      );
+                    }}
+                  >
+                    {cat}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="popular-searches mb_16">
+            <h5 className="title">Concepts:</h5>
+            <ul className="list d-flex align-items-center flex-wrap">
+              {availableConcepts.map((concept) => (
+                <li key={concept}>
+                  <a
+                    href="#"
+                    className={`text-body-1 fw-7 ${
+                      selectedConcepts.includes(concept)
+                        ? "text_primary-color"
+                        : "text_on-surface-color"
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleFilter(
+                        concept,
+                        selectedConcepts,
+                        setSelectedConcepts
+                      );
+                    }}
+                  >
+                    {concept}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="popular-searches">
+            <h5 className="title">Types:</h5>
+            <ul className="list d-flex align-items-center flex-wrap">
+              {availableTypes.map((type) => (
+                <li key={type}>
+                  <a
+                    href="#"
+                    className={`text-body-1 fw-7 ${
+                      selectedTypes.includes(type)
+                        ? "text_primary-color"
+                        : "text_on-surface-color"
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleFilter(type, selectedTypes, setSelectedTypes);
+                    }}
+                  >
+                    {type}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 

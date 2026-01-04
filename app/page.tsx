@@ -17,6 +17,8 @@ import { useEffect, useState, Suspense } from "react";
 
 function PageContent() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedConcepts, setSelectedConcepts] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const searchParams = useSearchParams();
 
@@ -24,6 +26,27 @@ function PageContent() {
     const search = searchParams.get("search");
     if (search) {
       setSearchQuery(search);
+    }
+
+    const categories = searchParams.get("categories");
+    if (categories) {
+      setSelectedCategories(categories.split(","));
+    } else {
+      setSelectedCategories([]);
+    }
+
+    const concepts = searchParams.get("concepts");
+    if (concepts) {
+      setSelectedConcepts(concepts.split(","));
+    } else {
+      setSelectedConcepts([]);
+    }
+
+    const types = searchParams.get("types");
+    if (types) {
+      setSelectedTypes(types.split(","));
+    } else {
+      setSelectedTypes([]);
     }
   }, [searchParams]);
 
@@ -44,6 +67,8 @@ function PageContent() {
         {/* <PopularBlogs /> */}
         <StudentProjects
           selectedCategories={selectedCategories}
+          selectedConcepts={selectedConcepts}
+          selectedTypes={selectedTypes}
           searchQuery={searchQuery}
         />
         {/* <Categories />

@@ -98,7 +98,7 @@ export default function Nav() {
       {/* Post Styles */}
       <li
         className={`text-menu ${
-          isMenuParentActive(otherPages) ? "current-menu" : ""
+          isMenuActive({ href: "/courses" }) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
@@ -127,7 +127,7 @@ export default function Nav() {
 
       <li
         className={`text-menu ${
-          isMenuParentActive(otherPages) ? "current-menu" : ""
+          isMenuActive({ href: "/competitions" }) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
@@ -184,23 +184,7 @@ export default function Nav() {
       {/* Contact */}
       <li
         className={`text-menu ${
-          isMenuActive({ href: "/contact" }) ? " current-menu" : ""
-        }`}
-      >
-        <Link href={`/contact`} className="toggle splitting">
-          <span className="text" data-splitting="">
-            Contact
-          </span>
-          <span className="text" data-splitting="">
-            Contact
-          </span>
-        </Link>
-      </li>
-
-      {/* Contact */}
-      <li
-        className={`text-menu ${
-          isMenuActive({ href: "/contact" }) ? " current-menu" : ""
+          isMenuActive({ href: "#" }) ? " current-menu" : ""
         }`}
       >
         <Link href={`/contact`} className="toggle splitting">

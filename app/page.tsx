@@ -12,11 +12,20 @@ import InstagramPosts from "@/components/homes/home-2/InstagramPosts";
 import LatestPosts from "@/components/homes/home-2/LatestPosts";
 import PopularBlogs from "@/components/homes/home-1/PopularBlogs";
 import StudentProjects from "@/components/homes/home-1/StudentProjects";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
 
-export default function page() {
+function PageContent() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const search = searchParams.get("search");
+    if (search) {
+      setSearchQuery(search);
+    }
+  }, [searchParams]);
 
   return (
     <>
@@ -27,7 +36,9 @@ export default function page() {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+        setSearchQuery={(q) => {
+          setSearchQuery(q);
+        }}
       />
       <div className="main-content">
         {/* <PopularBlogs /> */}
@@ -43,5 +54,13 @@ export default function page() {
       </div>
       <Footer1 />
     </>
+  );
+}
+
+export default function page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PageContent />
+    </Suspense>
   );
 }

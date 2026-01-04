@@ -21,7 +21,31 @@ export default function SearchModal() {
             <form
               action="#"
               className="form-search"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const input = form.elements.namedItem(
+                  "search"
+                ) as HTMLInputElement;
+                if (input.value.trim()) {
+                  // close modal
+                  const closeBtn =
+                    document.getElementById("close-search-modal");
+                  if (closeBtn) {
+                    closeBtn.click();
+                  } else {
+                    // fallback if button not found, though we will add ID to it
+                    const dismissBtn = document.querySelector(
+                      '[data-bs-dismiss="offcanvas"]'
+                    ) as HTMLButtonElement;
+                    dismissBtn?.click();
+                  }
+
+                  window.location.href = `/?search=${encodeURIComponent(
+                    input.value.trim()
+                  )}`;
+                }
+              }}
             >
               <fieldset className="input-search">
                 <input

@@ -16,17 +16,18 @@ export default function CourseCard1({ post }: { post: BlogPost }) {
             src={post.imgSrc}
           />
           <div className="wrap-tag">
-            <Link
-              href={`/categories-1`}
-              className="tag categories text-caption-2 text_white"
-            >
+            <span className="tag categories text-caption-2 text_white">
               {post.category}
-            </Link>
+            </span>
             <div className="tag time text-caption-2 text_white">
               <i className="icon-Timer" /> 4 Mins read
             </div>
           </div>
-          <Link href={`/single-post-1/${post.id}`} className="overlay-link" />
+          <a
+            href={`https://wa.me/96171601751`}
+            target="_blank"
+            className="overlay-link"
+          ></a>
         </div>
       ) : (
         ""

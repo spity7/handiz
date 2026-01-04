@@ -9,6 +9,7 @@ import Header1 from "@/components/headers/Header1";
 import { Project } from "@/types/project";
 import { allBlogs } from "@/data/blogs";
 import { notFound } from "next/navigation";
+import RelatedStudentProjects from "@/components/blog-single/RelatedStudentProjects";
 
 async function getProject(id: string): Promise<Project | null> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects/${id}`, {
@@ -19,6 +20,24 @@ async function getProject(id: string): Promise<Project | null> {
 
   const data = await res.json();
   return data.project;
+}
+
+async function getRelatedProjects(
+  concepts: string[],
+  currentId: string
+): Promise<Project[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) return [];
+
+  const data = await res.json();
+
+  return data.projects.filter(
+    (p: Project) =>
+      p._id !== currentId && p.concept?.some((c) => concepts.includes(c))
+  );
 }
 
 export async function generateMetadata({
@@ -53,6 +72,11 @@ export default async function Page({
   const project = await getProject(id);
 
   if (!project) return notFound();
+
+  const relatedProjects = await getRelatedProjects(
+    project.concept,
+    project._id
+  );
 
   return (
     <>
@@ -151,62 +175,62 @@ export default async function Page({
                   <div className="p-3">
                     <ul className="list-unstyled mb-0">
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-people me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Student:</span>
+                        <i className="bi bi-people me-3 fs-2"></i>
+                        <span className="me-2">Student:</span>
                         <span className="fw-semibold">{project.student}</span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-aspect-ratio me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Area:</span>
+                        <i className="bi bi-aspect-ratio me-3 fs-2"></i>
+                        <span className="me-2">Area:</span>
                         <span className="fw-semibold">
                           {project.area} m<sup>2</sup>
                         </span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-tags me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Category:</span>
+                        <i className="bi bi-tags me-3 fs-2"></i>
+                        <span className="me-2">Category:</span>
                         <span className="fw-semibold">
                           {project.category.join(", ")}
                         </span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-lightbulb me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Concept:</span>
+                        <i className="bi bi-lightbulb me-3 fs-2"></i>
+                        <span className="me-2">Concept:</span>
                         <span className="fw-semibold">
                           {project.concept.join(", ")}
                         </span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-calendar-event me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Year:</span>
+                        <i className="bi bi-calendar-event me-3 fs-2"></i>
+                        <span className="me-2">Year:</span>
                         <span className="fw-semibold">
                           {project.year.join(", ")}
                         </span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Location:</span>
+                        <i className="bi bi-geo-alt me-3 fs-2"></i>
+                        <span className="me-2">Location:</span>
                         <span className="fw-semibold">
                           {project.location.join(", ")}
                         </span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">Type:</span>
+                        <i className="bi bi-geo-alt me-3 fs-2"></i>
+                        <span className="me-2">Type:</span>
                         <span className="fw-semibold">
                           {project.type.join(", ")}
                         </span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
-                        <span className="text-light me-2">University:</span>
+                        <i className="bi bi-geo-alt me-3 fs-2"></i>
+                        <span className="me-2">University:</span>
                         <span className="fw-semibold">
                           {project.university.join(", ")}
                         </span>
@@ -270,70 +294,13 @@ export default async function Page({
                       <BlogTags tags={project.concept} />
                     </ul>
                   </div>
-
-                  <h4 className="title mb_24">About The Author</h4>
-                  <div className="box-author">
-                    <div className="info text-center">
-                      <div className="avatar mb_12">
-                        <Image
-                          alt="avatar"
-                          src="/images/avatar/avatar-1.jpg"
-                          width={100}
-                          height={100}
-                        />
-                      </div>
-                      <h6 className="mb_4">
-                        <a href="#" className="link">
-                          Emma Carson
-                        </a>
-                      </h6>
-                      <p className="text-caption-1">Portland, USA</p>
-                    </div>
-                    <div className="content">
-                      <p className="mb_20">
-                        Emma Carson (@Emma_carson) is a writer who draws. He’s
-                        the Bestselling author of The Year. Curabitur aliquam ac
-                        arcu in mattis. Phasellus pulvinar erat at aliquam
-                        hendrerit. Nam ut velit dolor.
-                      </p>
-                      <ul className="social">
-                        <li className="text-title fw-7 text_on-surface-color">
-                          <a
-                            href="#"
-                            className="d-flex align-items-center gap_12"
-                          >
-                            <i className="icon-FacebookLogo" />
-                            23k Likes
-                          </a>
-                        </li>
-                        <li className="text-title fw-7 text_on-surface-color">
-                          <a
-                            href="#"
-                            className="d-flex align-items-center gap_12"
-                          >
-                            <i className="icon-XLogo" />
-                            41k Follower
-                          </a>
-                        </li>
-                        <li className="text-title fw-7 text_on-surface-color">
-                          <a
-                            href="#"
-                            className="d-flex align-items-center gap_12"
-                          >
-                            <i className="icon-PinterestLogo" />
-                            32k Follower
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
-                <Comment />
               </div>
             </div>
           </div>
         </div>
-        <RelatedBlogs />
+
+        <RelatedStudentProjects projects={relatedProjects} />
       </div>
       <Footer1 parentClass="tf-container" />
     </>

@@ -1,9 +1,37 @@
 "use client";
-import { posts3 } from "@/data/blogs";
+import { Project } from "@/types/project";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function SearchModal() {
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.projects) {
+          const sorted = data.projects.sort(
+            (a: Project, b: Project) => (a.order || 0) - (b.order || 0)
+          );
+          setProjects(sorted);
+        }
+      });
+  }, []);
+
+  const closeModal = () => {
+    const closeBtn = document.getElementById("close-search-modal");
+    if (closeBtn) {
+      closeBtn.click();
+    } else {
+      const dismissBtn = document.querySelector(
+        '[data-bs-dismiss="offcanvas"]'
+      ) as HTMLButtonElement;
+      dismissBtn?.click();
+    }
+  };
+
   return (
     <div className="offcanvas offcanvas-top offcanvas-search" id="canvasSearch">
       <button
@@ -28,18 +56,7 @@ export default function SearchModal() {
                   "search"
                 ) as HTMLInputElement;
                 if (input.value.trim()) {
-                  // close modal
-                  const closeBtn =
-                    document.getElementById("close-search-modal");
-                  if (closeBtn) {
-                    closeBtn.click();
-                  } else {
-                    // fallback if button not found, though we will add ID to it
-                    const dismissBtn = document.querySelector(
-                      '[data-bs-dismiss="offcanvas"]'
-                    ) as HTMLButtonElement;
-                    dismissBtn?.click();
-                  }
+                  closeModal();
 
                   window.location.href = `/?search=${encodeURIComponent(
                     input.value.trim()
@@ -99,40 +116,48 @@ export default function SearchModal() {
               </li>
             </ul>
           </div>
+
           <div className="tf-line" />
+
           <div className="trending">
             <h5 className="title">Trending Now</h5>
             <div className="tf-grid-layout lg-col-3 md-col-2">
-              {posts3.map((post, index) => (
+              {projects.slice(0, 6).map((project, index) => (
                 <div
                   className="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid"
                   key={index}
                 >
                   <Link
-                    href={`/single-post-1/${post.id}`}
+                    href={`/student-project/${project._id}`}
                     className="img-style"
+                    onClick={closeModal}
                   >
                     <Image
                       decoding="async"
                       loading="lazy"
                       width={123}
                       height={92}
-                      alt="feature"
-                      src={post.imgSrc}
+                      alt={project.title}
+                      src={project.thumbnailUrl}
+                      style={{ height: "92px" }}
                     />
                   </Link>
                   <div className="content">
                     <ul className="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                      <li>{post.date}</li>
-                      <li>
+                      <li>{project.student}</li>
+                      {/* <li>
                         <a href="#" className="text-uppercase">
-                          {post.author}
+                          {project.author}
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                     <h6 className="title">
-                      <Link href={`/single-post-1/${post.id}`} className="link">
-                        {post.title}
+                      <Link
+                        href={`/student-project/${project._id}`}
+                        className="link"
+                        onClick={closeModal}
+                      >
+                        {project.title}
                       </Link>
                     </h6>
                   </div>

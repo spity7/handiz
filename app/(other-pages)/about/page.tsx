@@ -29,7 +29,7 @@ export default function page() {
         <div className="tf-container">
           <div className="heading-title text-center">
             <div className="mb_20 text-display-1 fw-7 text_on-surface-color">
-              About DROZY
+              About HANDIZ
             </div>
             <p className="h5">
               We’re A Passionate Team Of Creatives, Storytellers, And Experts

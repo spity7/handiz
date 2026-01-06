@@ -144,11 +144,13 @@ export default function Nav() {
 
       {/* Categories */}
       <li
-        className="text-menu"
+        className={`text-menu ${
+          isMenuActive({ href: "/about" }) ? "current-menu" : ""
+        }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        <a href="#" className="toggle splitting link-no-action">
+        <a href="/about" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
             Who We Are?
           </span>
@@ -183,18 +185,23 @@ export default function Nav() {
 
       {/* Contact */}
       <li
-        className={`text-menu ${
-          isMenuActive({ href: "#" }) ? " current-menu" : ""
-        }`}
+        className="text-menu"
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
       >
-        <Link href={`/contact`} className="toggle splitting">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScI0HN9XiNjEmMJVr_Pd0wMiXrixp8OMQ8zL5x1_bGFvQk7qQ/viewform?pli=1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="toggle splitting"
+        >
           <span className="text" data-splitting="">
             Volunteer
           </span>
           <span className="text" data-splitting="">
             Volunteer
           </span>
-        </Link>
+        </a>
       </li>
     </>
   );

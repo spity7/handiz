@@ -128,18 +128,19 @@ export default function MobileMenu() {
                 isMenuActive({ href: "#" }) ? "active" : ""
               }`}
             >
-              <Link href={`#`} className="item-menu-mobile">
+              <Link href={`/about`} className="item-menu-mobile">
                 Who We Are?
               </Link>
             </li>
-            <li
-              className={`menu-item    ${
-                isMenuActive({ href: "#" }) ? "active" : ""
-              }`}
-            >
-              <Link href={`#`} className="item-menu-mobile">
+            <li className="menu-item">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScI0HN9XiNjEmMJVr_Pd0wMiXrixp8OMQ8zL5x1_bGFvQk7qQ/viewform?pli=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="item-menu-mobile"
+              >
                 Volunteer
-              </Link>
+              </a>
             </li>
             {/* <li
               className={`menu-item menu-item-has-children-mobile  ${

@@ -1275,6 +1275,72 @@ export const listStyleCompetitions = [
   },
 ];
 
+export const aiTools = [
+  {
+    id: 127,
+    date: "February 19, 2025",
+    author: "Jane Cooper",
+    title: "How To Style Neutrals for Any Weather.",
+    imgSrc: "/images/sections/latest-post-1.webp",
+    imgSrcSet: "/images/sections/latest-post-1.webp 312w",
+    category: "Skincare",
+  },
+  {
+    id: 128,
+    date: "January 10, 2025",
+    author: "Annette Black",
+    title: "Home Workouts That Actually Work",
+    imgSrc: "/images/sections/latest-post-2.webp",
+    imgSrcSet: "/images/sections/latest-post-2.webp 312w",
+    category: "Food",
+  },
+  {
+    id: 129,
+    date: "February 6, 2025",
+    author: "Jane Cooper",
+    title: "How To Start Journaling For Mental Clarity",
+    imgSrc: "/images/sections/latest-post-3.webp",
+    imgSrcSet: "/images/sections/latest-post-3.webp 312w",
+    category: "Furniture",
+  },
+  {
+    id: 130,
+    date: "March 25, 2025",
+    author: "Ralph Edwards",
+    title: "Exploring Europe On A Budget: 7 Must-Visit Cities",
+    imgSrc: "/images/sections/latest-post-4.webp",
+    imgSrcSet: "/images/sections/latest-post-4.webp 312w",
+    category: "Skincare",
+  },
+  {
+    id: 131,
+    date: "January 10, 2025",
+    author: "Annette Black",
+    title: "Home Workouts That Actually Work",
+    imgSrc: "/images/sections/latest-post-2.webp",
+    imgSrcSet: "/images/sections/latest-post-2.webp 312w",
+    category: "Food",
+  },
+  {
+    id: 132,
+    date: "February 6, 2025",
+    author: "Jane Cooper",
+    title: "How To Start Journaling For Mental Clarity",
+    imgSrc: "/images/sections/latest-post-3.webp",
+    imgSrcSet: "/images/sections/latest-post-3.webp 312w",
+    category: "Furniture",
+  },
+  {
+    id: 133,
+    date: "March 25, 2025",
+    author: "Ralph Edwards",
+    title: "Exploring Europe On A Budget: 7 Must-Visit Cities",
+    imgSrc: "/images/sections/latest-post-4.webp",
+    imgSrcSet: "/images/sections/latest-post-4.webp 312w",
+    category: "Skincare",
+  },
+];
+
 export const allBlogs = [
   ...featurePosts,
   ...heroBanners,

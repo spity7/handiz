@@ -142,6 +142,15 @@ export default function MobileMenu() {
                 Volunteer
               </a>
             </li>
+            <li
+              className={`menu-item    ${
+                isMenuActive({ href: "#" }) ? "active" : ""
+              }`}
+            >
+              <Link href={`/ai-tools`} className="item-menu-mobile">
+                AI Tools
+              </Link>
+            </li>
             {/* <li
               className={`menu-item menu-item-has-children-mobile  ${
                 isMenuParentActive(homePages) ? "active" : ""

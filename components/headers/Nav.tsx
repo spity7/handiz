@@ -185,7 +185,7 @@ export default function Nav() {
 
       {/* Contact */}
       <li
-        className="text-menu"
+        className={"text-menu"}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
@@ -202,6 +202,30 @@ export default function Nav() {
             Volunteer
           </span>
         </a>
+      </li>
+
+      <li
+        className={`text-menu ${
+          isMenuActive({ href: "/ai-tools" }) ? "current-menu" : ""
+        }`}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      >
+        <a href="/ai-tools" className="toggle splitting link-no-action">
+          <span className="text" data-splitting="">
+            AI Tools
+          </span>
+          <span className="text" data-splitting="">
+            AI Tools
+          </span>
+        </a>
+        {/* <ul className="submenu">
+          {categoryLinks2.map(({ href, label, slug }) => (
+            <li key={label} className="menu-item">
+              <Link href={`${href}/${slug}`}>{label}</Link>
+            </li>
+          ))}
+        </ul> */}
       </li>
     </>
   );

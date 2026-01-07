@@ -26,8 +26,11 @@ export default function HeroSP({
   setSearchQuery,
 }: Props) {
   const [categories, setCategories] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+
     fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
       .then((res) => res.json())
       .then((data) => {
@@ -37,6 +40,12 @@ export default function HeroSP({
 
         const uniqueCategories = Array.from(new Set(allCategories));
         setCategories(uniqueCategories);
+      })
+      .catch((err) => {
+        console.error("Failed to load categories", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -78,6 +87,7 @@ export default function HeroSP({
             <div className="btn-submit">
               <button
                 type="submit"
+                disabled={loading}
                 className="tf-btn animate-hover-btn btn-switch-text"
               >
                 <span>
@@ -116,43 +126,61 @@ export default function HeroSP({
           </a>
         </div>
 
-        <Swiper
-          className="swiper sw-layout wrap-tag-categories style-1"
-          spaceBetween={12}
-          slidesPerView={"auto"}
-          modules={[Navigation]}
-          navigation={{
-            prevEl: ".snbp8",
-            nextEl: ".snbn8",
-          }}
-        >
-          <div className="sw-button style-cycle text_primary-color nav-prev-layout snbp8">
-            <i className="icon-CaretLeft" />
+        {/* CATEGORIES */}
+        {loading && (
+          <div
+            style={{
+              minHeight: "80px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+            }}
+          >
+            <div className="spinner" />
+            <span className="text-body-1">Loading categories…</span>
           </div>
+        )}
 
-          {categories.map((category) => {
-            const isActive = selectedCategories.includes(category);
+        {!loading && categories.length > 0 && (
+          <Swiper
+            className="swiper sw-layout wrap-tag-categories style-1"
+            spaceBetween={12}
+            slidesPerView={"auto"}
+            modules={[Navigation]}
+            navigation={{
+              prevEl: ".snbp8",
+              nextEl: ".snbn8",
+            }}
+          >
+            <div className="sw-button style-cycle text_primary-color nav-prev-layout snbp8">
+              <i className="icon-CaretLeft" />
+            </div>
 
-            return (
-              <SwiperSlide className="swiper-slide" key={category}>
-                <button
-                  onClick={() => toggleCategory(category)}
-                  className="tag h6"
-                  style={{
-                    backgroundColor: isActive ? "#ffffff" : "transparent",
-                    color: isActive ? "#000000" : "inherit",
-                  }}
-                >
-                  {category}
-                </button>
-              </SwiperSlide>
-            );
-          })}
+            {categories.map((category) => {
+              const isActive = selectedCategories.includes(category);
 
-          <div className="sw-button style-cycle text_primary-color nav-next-layout snbn8">
-            <i className="icon-CaretRight" />
-          </div>
-        </Swiper>
+              return (
+                <SwiperSlide className="swiper-slide" key={category}>
+                  <button
+                    onClick={() => toggleCategory(category)}
+                    className="tag h6"
+                    style={{
+                      backgroundColor: isActive ? "#ffffff" : "transparent",
+                      color: isActive ? "#000000" : "inherit",
+                    }}
+                  >
+                    {category}
+                  </button>
+                </SwiperSlide>
+              );
+            })}
+
+            <div className="sw-button style-cycle text_primary-color nav-next-layout snbn8">
+              <i className="icon-CaretRight" />
+            </div>
+          </Swiper>
+        )}
       </div>
     </div>
   );

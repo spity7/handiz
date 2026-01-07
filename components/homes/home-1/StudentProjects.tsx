@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import BlogCard1 from "@/components/blog-cards/BlogCard1";
 import StudentProjectCard1 from "@/components/blog-cards/StudentProjectCard1";
 import { Project } from "@/types/project";
 
@@ -50,8 +47,6 @@ export default function StudentProjects({
       .catch(() => setLoading(false));
   }, []);
 
-  if (loading) return null;
-
   const filteredProjects = projects.filter((project) => {
     const matchesCategories =
       selectedCategories.length === 0 ||
@@ -84,10 +79,27 @@ export default function StudentProjects({
           <h3>Student Projects</h3>
         </div>
 
+        {/* LOADING STATE */}
+        {loading && (
+          <div
+            style={{
+              minHeight: "300px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: "16px",
+            }}
+          >
+            <div className="spinner" />
+            <p className="text-body-1">Loading student projects…</p>
+          </div>
+        )}
+
         {/* GRID */}
         <div className="projects-grid">
           {filteredProjects.map((project) => (
-            <StudentProjectCard1 project={project} />
+            <StudentProjectCard1 key={project._id} project={project} />
           ))}
         </div>
       </div>

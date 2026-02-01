@@ -17,7 +17,8 @@
     "react-dom": "^19.0.0",
     "sass": "^1.89.2",
     "splitting": "^1.1.0",
-    "swiper": "^11.2.8"
+    "swiper": "^11.2.8",
+    "yet-another-react-lightbox": "^3.28.0"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",

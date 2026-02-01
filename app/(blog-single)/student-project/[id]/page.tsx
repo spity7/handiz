@@ -10,6 +10,7 @@ import { Project } from "@/types/project";
 import { allBlogs } from "@/data/blogs";
 import { notFound } from "next/navigation";
 import RelatedStudentProjects from "@/components/blog-single/RelatedStudentProjects";
+import ProjectGallery from "@/components/blog-single/ProjectGallery";
 
 async function getProject(id: string): Promise<Project | null> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects/${id}`, {
@@ -24,7 +25,7 @@ async function getProject(id: string): Promise<Project | null> {
 
 async function getRelatedProjects(
   concepts: string[],
-  currentId: string
+  currentId: string,
 ): Promise<Project[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`, {
     cache: "no-store",
@@ -36,7 +37,7 @@ async function getRelatedProjects(
 
   return data.projects.filter(
     (p: Project) =>
-      p._id !== currentId && p.concept?.some((c) => concepts.includes(c))
+      p._id !== currentId && p.concept?.some((c) => concepts.includes(c)),
   );
 }
 
@@ -75,7 +76,7 @@ export default async function Page({
 
   const relatedProjects = await getRelatedProjects(
     project.concept,
-    project._id
+    project._id,
   );
 
   return (
@@ -285,6 +286,10 @@ export default async function Page({
                         return null;
                     }
                   })}
+
+                  {project.gallery && project.gallery.length > 0 && (
+                    <ProjectGallery images={project.gallery} />
+                  )}
 
                   <div className="wrap-tag d-flex flex-wrap align-items-center gap_12">
                     <span className="text-title text_on-surface-color fw-7">

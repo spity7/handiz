@@ -43,10 +43,7 @@ export default function CourseCard1({ post }: { post: BlogPost }) {
           </li>
         </ul>
         <h5 className="title">
-          <Link
-            href={`/single-post-1/${post.id}`}
-            className="line-clamp-2 link"
-          >
+          <Link href={`#`} className="line-clamp-2 link">
             {post.title}
           </Link>
         </h5>

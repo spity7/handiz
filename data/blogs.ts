@@ -1341,6 +1341,51 @@ export const aiTools = [
   },
 ];
 
+export const offices = [
+  {
+    _id: "117",
+    title: "Coming Soon - D5 Render Course",
+    location: "safdfsa",
+    email: "asf",
+    instagram: "asdf",
+    linkedin: "fs",
+    teamNb: 4,
+    order: 1,
+    category: ["Home Decor", "Fashion"],
+    thumbnailUrl: "/images/courses/Poster course D5-03.jpg",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: "118",
+    title: "Coming Soon - Execution Files Course",
+    location: "asf",
+    email: "asdf",
+    instagram: "adsf",
+    linkedin: "asfd",
+    teamNb: 4,
+    order: 2,
+    category: ["Fashion", "Mindfulness"],
+    thumbnailUrl: "/images/courses/Exection Files Poster.jpg",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: "119",
+    title: "Coming Soon - Rhino & Grasshopper Course",
+    location: "asdf",
+    email: "asdf",
+    instagram: "asdf",
+    linkedin: "asdf",
+    teamNb: 4,
+    order: 3,
+    category: ["Mindfulness", "Fashion"],
+    thumbnailUrl: "/images/courses/Rhino Course 001.jpg",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
 export const allBlogs = [
   ...featurePosts,
   ...heroBanners,

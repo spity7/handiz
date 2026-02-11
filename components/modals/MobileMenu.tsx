@@ -57,7 +57,7 @@ export default function MobileMenu() {
     // Close all open offcanvas
 
     const instance = bootstrap.Offcanvas.getOrCreateInstance(
-      mobileMeneRef.current!
+      mobileMeneRef.current!,
     );
     if (instance) instance.hide();
   }, [pathname]);
@@ -121,6 +121,15 @@ export default function MobileMenu() {
             >
               <Link href={`/competitions`} className="item-menu-mobile">
                 Competitions
+              </Link>
+            </li>
+            <li
+              className={`menu-item    ${
+                isMenuActive({ href: "#" }) ? "active" : ""
+              }`}
+            >
+              <Link href={`/arch-offices`} className="item-menu-mobile">
+                Arch. Offices
               </Link>
             </li>
             <li

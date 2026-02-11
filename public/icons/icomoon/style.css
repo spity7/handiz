@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?7xu8la');
-  src:  url('fonts/icomoon.eot?7xu8la#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?7xu8la') format('truetype'),
-    url('fonts/icomoon.woff?7xu8la') format('woff'),
-    url('fonts/icomoon.svg?7xu8la#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?vtnflr');
+  src:  url('fonts/icomoon.eot?vtnflr#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?vtnflr') format('truetype'),
+    url('fonts/icomoon.woff?vtnflr') format('woff'),
+    url('fonts/icomoon.svg?vtnflr#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -85,6 +85,13 @@
 .icon-play-filled:before {
   content: "\e946";
 }
+.icon-gmail:before {
+  content: "\e909";
+  color: #d14836;
+}
 .icon-pause:before {
   content: "\ea16";
+}
+.icon-share2:before {
+  content: "\ea82";
 }

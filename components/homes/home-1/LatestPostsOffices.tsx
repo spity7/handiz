@@ -8,7 +8,7 @@ export default function LatestPostsOffices({ offices }: { offices: Office[] }) {
       <div className="heading-section mb_28">
         <h3 className="title">Arch Offices</h3>
       </div>
-      <div className="tf-grid-layout xxl-col-5 xl-col-5 lg-col-4 md-col-4 sm-col-2">
+      <div className="tf-grid-layout xxl-col-6 xl-col-5 lg-col-4 md-col-3 sm-col-2">
         {offices &&
           offices.map((office, index) => (
             <OfficeCard1 key={index} office={office} />

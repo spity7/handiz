@@ -27,6 +27,43 @@ export default function HeroSP({
 }: Props) {
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  // Track dark mode by observing the class on document.body
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // 1. Initialize logic
+    const checkDarkMode = () => {
+      if (typeof document !== "undefined" && document.body) {
+        setIsDark(document.body.classList.contains("dark-mode"));
+      }
+    };
+
+    // Initial check
+    checkDarkMode();
+
+    // 2. Setup observer
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          checkDarkMode();
+        }
+      });
+    });
+
+    if (typeof document !== "undefined" && document.body) {
+      observer.observe(document.body, {
+        attributes: true, // subscribe to attribute changes
+      });
+    }
+
+    // Cleanup
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -35,7 +72,7 @@ export default function HeroSP({
       .then((res) => res.json())
       .then((data) => {
         const allCategories: string[] = data.projects.flatMap((p: any) =>
-          Array.isArray(p.category) ? p.category : []
+          Array.isArray(p.category) ? p.category : [],
         );
 
         const uniqueCategories = Array.from(new Set(allCategories));
@@ -53,7 +90,7 @@ export default function HeroSP({
     setSelectedCategories((prev) =>
       prev.includes(category)
         ? prev.filter((c) => c !== category)
-        : [...prev, category]
+        : [...prev, category],
     );
   };
 
@@ -166,8 +203,23 @@ export default function HeroSP({
                     onClick={() => toggleCategory(category)}
                     className="tag h6"
                     style={{
-                      backgroundColor: isActive ? "#ffffff" : "transparent",
-                      color: isActive ? "#000000" : "inherit",
+                      // If dark mode (isDark=true): active is white bg/black text, inactive is transparent/white text
+                      // If light mode (isDark=false): active is black bg/white text, inactive is transparent/black text
+                      backgroundColor: isDark
+                        ? isActive
+                          ? "#ffffff" // Dark + Active = White BG
+                          : "transparent"
+                        : isActive
+                          ? "#000000" // Light + Active = Black BG
+                          : "transparent",
+                      color: isDark
+                        ? isActive
+                          ? "#000000" // Dark + Active = Black Text
+                          : "#ffffff" // Dark + Inactive = White Text
+                        : isActive
+                          ? "#ffffff" // Light + Active = White Text
+                          : "#000000", // Light + Inactive = Black Text
+                      border: isDark ? "1px solid white" : "1px solid black",
                     }}
                   >
                     {category}

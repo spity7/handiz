@@ -3,8 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function OfficeCard1({ office }: { office: Office }) {
+  const shareText = `Check out this office details:
+Title: ${office.title}
+Location: ${office.location}
+Team Size: ${office.teamNb}
+Email: ${office.email}
+${office.instagram ? `Instagram: ${office.instagram}` : ""}
+${office.linkedin ? `LinkedIn: ${office.linkedin}` : ""}
+${office.locationMap ? `Location Map: ${office.locationMap}` : ""}
+`;
+  const shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
   return (
-    <div className="feature-post-item style-default hover-image-translate">
+    <div className="feature-post-item style-default hover-image-translate mb_24">
       {office.status[0] === "Hiring" && (
         <>
           {office.thumbnailUrl ? (
@@ -63,69 +74,65 @@ export default function OfficeCard1({ office }: { office: Office }) {
               </li>
             </ul>
 
-            <div className="d-flex">
-              <div className="d-flex gap_12 align-items-center">
-                {office.instagram && (
-                  <p className="text-body-1 line-clamp-2">
-                    <a
-                      href={office.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-item text-body-3 fw-7"
-                    >
-                      <i className="icon-InstagramLogo" />
-                    </a>
-                  </p>
-                )}
-                {office.linkedin && (
-                  <p className="text-body-1 line-clamp-2">
-                    <a
-                      href={office.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-item text-body-3 fw-7"
-                    >
-                      <i className="bi-linkedin" />
-                    </a>
-                  </p>
-                )}
-                {office.locationMap && (
-                  <p className="text-body-1 line-clamp-2">
-                    <a
-                      href={office.locationMap}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-item text-body-3 fw-7"
-                    >
-                      <i className="icon-MapPin" />
-                    </a>
-                  </p>
-                )}
-                {office.email && (
-                  <p className="text-body-1 line-clamp-2">
-                    <a
-                      href={`mailto:${office.email}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-item text-body-3 fw-7"
-                    >
-                      <i className="icon-gmail" />
-                    </a>
-                  </p>
-                )}
-              </div>
-              <div className="d-flex justify-content-center w-100">
+            <div className="d-flex align-items-center justify-content-between w-75">
+              {office.instagram && (
                 <p className="text-body-1 line-clamp-2">
                   <a
-                    href={`https://handiz.org/arch-offices`}
+                    href={office.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-item text-body-3 fw-7"
                   >
-                    <i className="icon-share2" />
+                    <i className="icon-InstagramLogo" />
                   </a>
                 </p>
-              </div>
+              )}
+              {office.linkedin && (
+                <p className="text-body-1 line-clamp-2">
+                  <a
+                    href={office.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-item text-body-3 fw-7"
+                  >
+                    <i className="icon-linkedin2" />
+                  </a>
+                </p>
+              )}
+              {office.email && (
+                <p className="text-body-1 line-clamp-2">
+                  <a
+                    href={`mailto:${office.email}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-item text-body-3 fw-7"
+                  >
+                    <i className="icon-envelop" />
+                  </a>
+                </p>
+              )}
+              {office.locationMap && (
+                <p className="text-body-1 line-clamp-2">
+                  <a
+                    href={office.locationMap}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-item text-body-3 fw-7"
+                  >
+                    <i className="icon-MapPin" />
+                  </a>
+                </p>
+              )}
+              <p className="text-body-1 line-clamp-2">
+                <a
+                  href={shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-item text-body-3 fw-7"
+                >
+                  <i className="icon-share2" />
+                </a>
+              </p>
             </div>
           </div>
         </>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 async function getOffices() {
-  const res = await fetch("https://api.handiz.org/api/v1/offices", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}offices`, {
     cache: "no-store",
   });
   if (!res.ok) {

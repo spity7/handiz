@@ -15,13 +15,51 @@ export default function SearchModal() {
   const [selectedConcepts, setSelectedConcepts] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
 
+  // Track dark mode by observing the class on document.body
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // 1. Initialize logic
+    const checkDarkMode = () => {
+      if (typeof document !== "undefined" && document.body) {
+        setIsDark(document.body.classList.contains("dark-mode"));
+      }
+    };
+
+    // Initial check
+    checkDarkMode();
+
+    // 2. Setup observer
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          checkDarkMode();
+        }
+      });
+    });
+
+    if (typeof document !== "undefined" && document.body) {
+      observer.observe(document.body, {
+        attributes: true, // subscribe to attribute changes
+      });
+    }
+
+    // Cleanup
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
       .then((res) => res.json())
       .then((data) => {
         if (data.projects) {
           const sorted = data.projects.sort(
-            (a: Project, b: Project) => (a.order || 0) - (b.order || 0)
+            (a: Project, b: Project) => (a.order || 0) - (b.order || 0),
           );
           setProjects(sorted);
 
@@ -49,7 +87,7 @@ export default function SearchModal() {
       closeBtn.click();
     } else {
       const dismissBtn = document.querySelector(
-        '[data-bs-dismiss="offcanvas"]'
+        '[data-bs-dismiss="offcanvas"]',
       ) as HTMLButtonElement;
       dismissBtn?.click();
     }
@@ -58,7 +96,7 @@ export default function SearchModal() {
   const toggleFilter = (
     item: string,
     selected: string[],
-    setSelected: (s: string[]) => void
+    setSelected: (s: string[]) => void,
   ) => {
     if (selected.includes(item)) {
       setSelected(selected.filter((i) => i !== item));
@@ -66,6 +104,28 @@ export default function SearchModal() {
       setSelected([...selected, item]);
     }
   };
+
+  // Helper for style logic
+  const getFilterStyle = (isActive: boolean) => ({
+    backgroundColor: isDark
+      ? isActive
+        ? "#ffffff"
+        : "transparent"
+      : isActive
+        ? "#000000"
+        : "transparent",
+    color: isDark
+      ? isActive
+        ? "#000000"
+        : "#ffffff" // Ensure visible text in dark mode
+      : isActive
+        ? "#ffffff"
+        : "#000000", // Ensure visible text in light mode
+    border: isDark ? "1px solid white" : "1px solid black",
+    padding: "4px 12px", // Added padding for better look with border
+    borderRadius: "4px", // Rounded corners
+    transition: "all 0.3s ease",
+  });
 
   return (
     <div className="offcanvas offcanvas-top offcanvas-search" id="canvasSearch">
@@ -89,7 +149,7 @@ export default function SearchModal() {
                 e.preventDefault();
                 const form = e.target as HTMLFormElement;
                 const input = form.elements.namedItem(
-                  "search"
+                  "search",
                 ) as HTMLInputElement;
 
                 const params = new URLSearchParams();
@@ -135,22 +195,22 @@ export default function SearchModal() {
 
           <div className="popular-searches mb_16">
             <h5 className="title">Categories:</h5>
-            <ul className="list d-flex align-items-center flex-wrap">
+            <ul
+              className="list d-flex align-items-center flex-wrap"
+              style={{ gap: "8px" }}
+            >
               {availableCategories.map((cat) => (
                 <li key={cat}>
                   <a
                     href="#"
-                    className={`text-body-1 fw-7 ${
-                      selectedCategories.includes(cat)
-                        ? "text_primary-color"
-                        : "text_on-surface-color"
-                    }`}
+                    className="text-body-1 fw-7"
+                    style={getFilterStyle(selectedCategories.includes(cat))}
                     onClick={(e) => {
                       e.preventDefault();
                       toggleFilter(
                         cat,
                         selectedCategories,
-                        setSelectedCategories
+                        setSelectedCategories,
                       );
                     }}
                   >
@@ -163,22 +223,22 @@ export default function SearchModal() {
 
           <div className="popular-searches mb_16">
             <h5 className="title">Concepts:</h5>
-            <ul className="list d-flex align-items-center flex-wrap">
+            <ul
+              className="list d-flex align-items-center flex-wrap"
+              style={{ gap: "8px" }}
+            >
               {availableConcepts.map((concept) => (
                 <li key={concept}>
                   <a
                     href="#"
-                    className={`text-body-1 fw-7 ${
-                      selectedConcepts.includes(concept)
-                        ? "text_primary-color"
-                        : "text_on-surface-color"
-                    }`}
+                    className="text-body-1 fw-7"
+                    style={getFilterStyle(selectedConcepts.includes(concept))}
                     onClick={(e) => {
                       e.preventDefault();
                       toggleFilter(
                         concept,
                         selectedConcepts,
-                        setSelectedConcepts
+                        setSelectedConcepts,
                       );
                     }}
                   >
@@ -191,16 +251,16 @@ export default function SearchModal() {
 
           <div className="popular-searches">
             <h5 className="title">Types:</h5>
-            <ul className="list d-flex align-items-center flex-wrap">
+            <ul
+              className="list d-flex align-items-center flex-wrap"
+              style={{ gap: "8px" }}
+            >
               {availableTypes.map((type) => (
                 <li key={type}>
                   <a
                     href="#"
-                    className={`text-body-1 fw-7 ${
-                      selectedTypes.includes(type)
-                        ? "text_primary-color"
-                        : "text_on-surface-color"
-                    }`}
+                    className="text-body-1 fw-7"
+                    style={getFilterStyle(selectedTypes.includes(type))}
                     onClick={(e) => {
                       e.preventDefault();
                       toggleFilter(type, selectedTypes, setSelectedTypes);

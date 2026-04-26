@@ -222,7 +222,7 @@ export default async function Page({
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 fs-2"></i>
+                        <i className="bi bi-building me-3 fs-2"></i>
                         <span className="me-2">Type:</span>
                         <span className="fw-semibold">
                           {project.type.join(", ")}
@@ -230,13 +230,59 @@ export default async function Page({
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 fs-2"></i>
+                        <i className="bi bi-mortarboard me-3 fs-2"></i>
                         <span className="me-2">University:</span>
                         <span className="fw-semibold">
                           {project.university.join(", ")}
                         </span>
                       </li>
                     </ul>
+
+                    {(project.googleMapUrl?.trim() ||
+                      project.thesisUrl?.trim() ||
+                      project.fileUrl?.trim()) && (
+                      <div className="student-project-resources">
+                        {project.googleMapUrl?.trim() ? (
+                          <a
+                            href={project.googleMapUrl.trim()}
+                            className="student-project-resources__btn student-project-resources__btn--map"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i className="bi bi-pin-map" aria-hidden />
+                            Google Map
+                          </a>
+                        ) : null}
+                        {project.thesisUrl?.trim() ? (
+                          <a
+                            href={project.thesisUrl.trim()}
+                            className="student-project-resources__btn student-project-resources__btn--thesis"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i
+                              className="bi bi-file-earmark-text"
+                              aria-hidden
+                            />
+                            Thesis
+                          </a>
+                        ) : null}
+                        {project.fileUrl?.trim() ? (
+                          <a
+                            href={project.fileUrl.trim()}
+                            className="student-project-resources__btn student-project-resources__btn--file"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i
+                              className="bi bi-file-earmark-arrow-down"
+                              aria-hidden
+                            />
+                            File
+                          </a>
+                        ) : null}
+                      </div>
+                    )}
                   </div>
 
                   <p

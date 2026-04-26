@@ -156,8 +156,8 @@ export default function MobileMenu() {
                 isMenuActive({ href: "#" }) ? "active" : ""
               }`}
             >
-              <Link href={`/ai-tools`} className="item-menu-mobile">
-                AI Tools
+              <Link href={`/ai-prompts`} className="item-menu-mobile">
+                AI Prompts
               </Link>
             </li>
             {/* <li

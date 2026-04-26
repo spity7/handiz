@@ -1,0 +1,60 @@
+.student-project-resources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: 1.25;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition:
+      filter 0.2s ease,
+      transform 0.15s ease,
+      box-shadow 0.2s ease;
+
+    i {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    &:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    &--map {
+      color: #0d47a1;
+      background-color: #e3f2fd;
+      border-color: #1976d2;
+    }
+
+    &--thesis {
+      color: #5d4037;
+      background-color: #efebe9;
+      border-color: #6d4c41;
+    }
+
+    &--file {
+      color: #4a148c;
+      background-color: #f3e5f5;
+      border-color: #7b1fa2;
+    }
+  }
+}

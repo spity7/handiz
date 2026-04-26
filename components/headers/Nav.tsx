@@ -223,17 +223,17 @@ export default function Nav() {
 
       <li
         className={`text-menu ${
-          isMenuActive({ href: "/ai-tools" }) ? "current-menu" : ""
+          isMenuActive({ href: "/ai-prompts" }) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
-        <a href="/ai-tools" className="toggle splitting link-no-action">
+        <a href="/ai-prompts" className="toggle splitting link-no-action">
           <span className="text" data-splitting="">
-            AI Tools
+            AI Prompts
           </span>
           <span className="text" data-splitting="">
-            AI Tools
+            AI Prompts
           </span>
         </a>
         {/* <ul className="submenu">

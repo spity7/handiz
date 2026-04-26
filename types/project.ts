@@ -13,6 +13,9 @@ export type Project = {
   year: string[];
   location: string[];
   university: string[];
+  googleMapUrl?: string;
+  thesisUrl?: string;
+  fileUrl?: string;
   contentBlocks: {
     type: "title" | "image" | "description" | "quote";
     content: string;

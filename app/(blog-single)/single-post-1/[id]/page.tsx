@@ -185,13 +185,13 @@ export default async function page({
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
+                        <i className="bi bi-building me-3 text-light fs-2"></i>
                         <span className="text-light me-2">Type:</span>
                         <span className="fw-semibold">Lebanon</span>
                       </li>
 
                       <li className="d-flex align-items-center mb-4">
-                        <i className="bi bi-geo-alt me-3 text-light fs-2"></i>
+                        <i className="bi bi-mortarboard me-3 text-light fs-2"></i>
                         <span className="text-light me-2">University:</span>
                         <span className="fw-semibold">Lebanon</span>
                       </li>

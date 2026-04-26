@@ -4,11 +4,11 @@ import AiTools from "@/components/homes/home-2/AiTools";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ai Tools || Handiz",
-  description: "Handiz",
+  title: "AI Prompts || Handiz",
+  description: "Browse AI prompts for architecture and design workflows.",
 };
 
-export default function Page() {
+export default function AiPromptsPage() {
   return (
     <>
       <Header1 />

@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import StudentProjectCard1 from "@/components/blog-cards/StudentProjectCard1";
-import { Project } from "@/types/project";
+import { useProjects } from "@/components/providers/ProjectsProvider";
+import { ProjectListItem } from "@/types/project";
 
 export default function StudentProjects({
   selectedCategories,
@@ -15,10 +15,9 @@ export default function StudentProjects({
   selectedTypes?: string[];
   searchQuery: string;
 }) {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { projects, loading } = useProjects();
 
-  const projectMatchesSearch = (project: Project, query: string) => {
+  const projectMatchesSearch = (project: ProjectListItem, query: string) => {
     if (!query) return true;
 
     const searchableText = `
@@ -36,16 +35,6 @@ export default function StudentProjects({
 
     return searchableText.includes(query.toLowerCase());
   };
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data.projects);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
 
   const filteredProjects = projects.filter((project) => {
     const matchesCategories =

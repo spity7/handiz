@@ -3,12 +3,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import RelatedStudentProjectCard1 from "../blog-cards/RelatedStudentProjectCard1";
-import { Project } from "@/types/project";
+import { ProjectListItem } from "@/types/project";
 
 export default function RelatedStudentProjects({
   projects,
 }: {
-  projects: Project[];
+  projects: ProjectListItem[];
 }) {
   if (!projects.length) return null;
 

@@ -125,40 +125,6 @@ export default function Nav() {
         </ul> */}
       </li>
 
-      <li
-        className={`text-menu ${
-          isMenuActive({ href: "/competitions" }) ? "current-menu" : ""
-        }`}
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-      >
-        <a href="/competitions" className="toggle splitting link-no-action">
-          <span className="text" data-splitting="">
-            Competitions
-          </span>
-          <span className="text" data-splitting="">
-            Competitions
-          </span>
-        </a>
-      </li>
-
-      <li
-        className={`text-menu ${
-          isMenuActive({ href: "/arch-offices" }) ? "current-menu" : ""
-        }`}
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-      >
-        <a href="/arch-offices" className="toggle splitting link-no-action">
-          <span className="text" data-splitting="">
-            Arch. Offices
-          </span>
-          <span className="text" data-splitting="">
-            Arch. Offices
-          </span>
-        </a>
-      </li>
-
       {/* Categories */}
       <li
         className={`text-menu ${

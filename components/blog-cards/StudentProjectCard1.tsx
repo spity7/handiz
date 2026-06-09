@@ -1,9 +1,12 @@
-import { BlogPost } from "@/types/blog-post";
 import Image from "next/image";
 import Link from "next/link";
-import { Project } from "@/types/project";
+import { ProjectListItem } from "@/types/project";
 
-export default function StudentProjectCard1({ project }: { project: Project }) {
+export default function StudentProjectCard1({
+  project,
+}: {
+  project: ProjectListItem;
+}) {
   const plainDescription = project.description
     ?.replace(/<[^>]+>/g, "")
     .slice(0, 160);
@@ -16,8 +19,9 @@ export default function StudentProjectCard1({ project }: { project: Project }) {
           sizes="(max-width: 328px) 100vw, 328px"
           width={328}
           height={246}
-          alt="feature post"
+          alt={project.title}
           src={project.thumbnailUrl}
+          loading="lazy"
           style={{ height: "246px", maxHeight: "246px" }}
         />
         <div className="wrap-tag">

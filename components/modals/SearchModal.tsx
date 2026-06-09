@@ -1,15 +1,16 @@
 "use client";
-import { Project } from "@/types/project";
+import { useProjects } from "@/components/providers/ProjectsProvider";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function SearchModal() {
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
-  const [availableConcepts, setAvailableConcepts] = useState<string[]>([]);
-  const [availableTypes, setAvailableTypes] = useState<string[]>([]);
+  const {
+    projects,
+    categories: availableCategories,
+    concepts: availableConcepts,
+    types: availableTypes,
+  } = useProjects();
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedConcepts, setSelectedConcepts] = useState<string[]>([]);
@@ -51,34 +52,6 @@ export default function SearchModal() {
     return () => {
       observer.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.projects) {
-          const sorted = data.projects.sort(
-            (a: Project, b: Project) => (a.order || 0) - (b.order || 0),
-          );
-          setProjects(sorted);
-
-          // Extract unique filters
-          const categories = new Set<string>();
-          const concepts = new Set<string>();
-          const types = new Set<string>();
-
-          data.projects.forEach((p: Project) => {
-            p.category?.forEach((c) => categories.add(c));
-            p.concept?.forEach((c) => concepts.add(c));
-            p.type?.forEach((c) => types.add(c));
-          });
-
-          setAvailableCategories(Array.from(categories));
-          setAvailableConcepts(Array.from(concepts));
-          setAvailableTypes(Array.from(types));
-        }
-      });
   }, []);
 
   const closeModal = () => {

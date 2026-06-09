@@ -6,7 +6,7 @@ import RelatedBlogs from "@/components/blog-single/RelatedBlogs";
 import Socialshare from "@/components/blog-single/Socialshare";
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
-import { Project } from "@/types/project";
+import { Project, ProjectListItem } from "@/types/project";
 import { allBlogs } from "@/data/blogs";
 import { notFound } from "next/navigation";
 import RelatedStudentProjects from "@/components/blog-single/RelatedStudentProjects";
@@ -26,8 +26,8 @@ async function getProject(id: string): Promise<Project | null> {
 async function getRelatedProjects(
   concepts: string[],
   currentId: string,
-): Promise<Project[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`, {
+): Promise<ProjectListItem[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}projects/list`, {
     cache: "no-store",
   });
 
@@ -36,7 +36,7 @@ async function getRelatedProjects(
   const data = await res.json();
 
   return data.projects.filter(
-    (p: Project) =>
+    (p: ProjectListItem) =>
       p._id !== currentId && p.concept?.some((c) => concepts.includes(c)),
   );
 }

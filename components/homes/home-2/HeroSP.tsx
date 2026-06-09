@@ -9,7 +9,7 @@ import {
   Pagination,
   Parallax,
 } from "swiper/modules";
-import { heroSlides } from "@/data/blogs";
+import { useProjects } from "@/components/providers/ProjectsProvider";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -25,8 +25,7 @@ export default function HeroSP({
   searchQuery,
   setSearchQuery,
 }: Props) {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { categories, loading } = useProjects();
   // Track dark mode by observing the class on document.body
   const [isDark, setIsDark] = useState(false);
 
@@ -63,27 +62,6 @@ export default function HeroSP({
     return () => {
       observer.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    setLoading(true);
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}projects`)
-      .then((res) => res.json())
-      .then((data) => {
-        const allCategories: string[] = data.projects.flatMap((p: any) =>
-          Array.isArray(p.category) ? p.category : [],
-        );
-
-        const uniqueCategories = Array.from(new Set(allCategories));
-        setCategories(uniqueCategories);
-      })
-      .catch((err) => {
-        console.error("Failed to load categories", err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
   }, []);
 
   const toggleCategory = (category: string) => {

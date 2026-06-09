@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Project } from "@/types/project";
+import { ProjectListItem } from "@/types/project";
 
 export default function RelatedStudentProjectCard1({
   project,
 }: {
-  project: Project;
+  project: ProjectListItem;
 }) {
   return (
     <div className="feature-post-item style-default hover-image-translate">
@@ -18,6 +18,7 @@ export default function RelatedStudentProjectCard1({
           height={246}
           alt={project.title}
           src={project.thumbnailUrl}
+          loading="lazy"
         />
         <div className="wrap-tag">
           <span className="tag categories text-caption-2 text_white">

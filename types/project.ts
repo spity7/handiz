@@ -1,4 +1,20 @@
-export type Project = {
+export type ProjectListItem = {
+  _id: string;
+  title: string;
+  student: string;
+  area: string;
+  description: string;
+  order: number;
+  thumbnailUrl: string;
+  concept: string[];
+  type: string[];
+  category: string[];
+  year: string[];
+  location: string[];
+  university: string[];
+};
+
+export type Project = ProjectListItem & {
   _id: string;
   title: string;
   student: string;

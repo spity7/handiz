@@ -119,24 +119,6 @@ export default function MobileMenu() {
                 isMenuActive({ href: "#" }) ? "active" : ""
               }`}
             >
-              <Link href={`/competitions`} className="item-menu-mobile">
-                Competitions
-              </Link>
-            </li>
-            <li
-              className={`menu-item    ${
-                isMenuActive({ href: "#" }) ? "active" : ""
-              }`}
-            >
-              <Link href={`/arch-offices`} className="item-menu-mobile">
-                Arch. Offices
-              </Link>
-            </li>
-            <li
-              className={`menu-item    ${
-                isMenuActive({ href: "#" }) ? "active" : ""
-              }`}
-            >
               <Link href={`/about`} className="item-menu-mobile">
                 Who We Are?
               </Link>

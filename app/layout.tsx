@@ -1,4 +1,5 @@
 import GlobalEffectsProvider from "@/components/common/GlobalEffectsProvider";
+import { ProjectsProvider } from "@/components/providers/ProjectsProvider";
 import "../public/scss/main.scss";
 import SearchModal from "@/components/modals/SearchModal";
 import MobileMenu from "@/components/modals/MobileMenu";
@@ -12,12 +13,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <div id="wrapper">{children}</div>
-        <SearchModal />
-        <MobileMenu />
-        <ScrollTop />
-        <GlobalEffectsProvider />
+      <body suppressHydrationWarning>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem("darkMode");var d=s!==null?JSON.parse(s):true;if(d)document.body.classList.add("dark-mode");}catch(e){}})();`,
+          }}
+        />
+        <ProjectsProvider>
+          <div id="wrapper">{children}</div>
+          <SearchModal />
+          <MobileMenu />
+          <ScrollTop />
+          <GlobalEffectsProvider />
+        </ProjectsProvider>
       </body>
     </html>
   );

@@ -32,7 +32,7 @@ export default function Header1() {
   return (
     <header className="bg-surface-color">
       {/* topbar */}
-      <div className="topbar">
+      <div className="topbar py-3">
         <div className="tf-container">
           <div className="topbar-inner d-flex justify-content-between align-items-center">
             <ul className="tf-social d-flex lg-hide">

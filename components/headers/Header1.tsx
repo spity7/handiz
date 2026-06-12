@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import DarkModeToggler from "./DarkModeToggler";
 
+const studentProjectsHref = `${process.env.NEXT_PUBLIC_DASHBOARD_URL || ""}/ecommerce/student-projects`;
+
 export default function Header1() {
   const [isFixed, setIsFixed] = useState(false);
   const [willFixed, setWillFixed] = useState(false);
@@ -83,14 +85,17 @@ export default function Header1() {
             <div className="wrap d-flex justify-content-end">
               <DarkModeToggler />
               <a
-                href="https://wa.me/96171601751"
+                href={studentProjectsHref}
+                className="tf-btn style-2 btn-project-cta btn-switch-text animate-hover-btn md-hide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tf-btn style-2 btn-switch-text animate-hover-btn md-hide"
               >
                 <span>
-                  <span className="btn-double-text" data-text="Let's Talk!">
-                    Let's Talk!
+                  <span
+                    className="btn-double-text"
+                    data-text="Add Your Project!"
+                  >
+                    Add Your Project!
                   </span>
                 </span>
               </a>
@@ -119,6 +124,14 @@ export default function Header1() {
                 <span />
               </div>
             </div>
+            <a
+              href={studentProjectsHref}
+              className="tf-btn style-2 btn-project-cta animate-hover-btn d-md-none"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Add Your Project!</span>
+            </a>
             <nav className="main-menu lg-hide">
               <ul className="navigation">
                 <Nav />

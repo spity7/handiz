@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import DarkModeToggler from "./DarkModeToggler";
+import AccountMenu from "./AccountMenu";
 
 const studentProjectsHref = `${process.env.NEXT_PUBLIC_DASHBOARD_URL || ""}/ecommerce/student-projects`;
 
@@ -99,6 +100,7 @@ export default function Header1() {
                   </span>
                 </span>
               </a>
+              <AccountMenu />
             </div>
           </div>
         </div>

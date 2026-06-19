@@ -26,7 +26,10 @@ COPY . .
 
 # ✅ Inject your public API URL at build time
 ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_DASHBOARD_URL
+
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_PUBLIC_DASHBOARD_URL=${NEXT_PUBLIC_DASHBOARD_URL}
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry

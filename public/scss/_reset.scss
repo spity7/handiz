@@ -1042,6 +1042,9 @@ a {
     &.lg-col-5 {
       grid-template-columns: repeat(5, 1fr);
     }
+    &.lg-col-6 {
+      grid-template-columns: repeat(6, 1fr);
+    }
   }
 }
 
@@ -1055,6 +1058,12 @@ a {
     }
     &.xl-col-4 {
       grid-template-columns: repeat(4, 1fr);
+    }
+    &.xl-col-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    &.xl-col-6 {
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 }

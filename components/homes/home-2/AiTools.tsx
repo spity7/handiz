@@ -295,7 +295,7 @@ export default function AiTools() {
                 No prompts match your search or filters.
               </p>
             ) : (
-              <div className="tf-grid-layout lg-col-5 md-col-2 ai-prompts-grid">
+              <div className="tf-grid-layout xl-col-6 lg-col-5 md-col-2 ai-prompts-grid">
                 {filteredPrompts.map((p) => (
                   <div
                     className="feature-post-item style-default style-border hover-image-translate ai-prompt-card"
@@ -307,7 +307,7 @@ export default function AiTools() {
                         decoding="async"
                         loading="lazy"
                         fill
-                        sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 20vw"
+                        sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 17vw"
                         src={p.thumbnailUrl}
                         alt={p.title}
                         style={{ objectFit: "cover" }}

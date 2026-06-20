@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { AiPromptsPageSkeleton } from "@/components/skeletons/AiPromptsPageSkeleton";
 import Image from "next/image";
 
 /** Preferred chip order when a category exists in the data */
@@ -184,207 +185,187 @@ export default function AiTools() {
     }
   };
 
+  if (loading) {
+    return <AiPromptsPageSkeleton />;
+  }
+
   return (
     <>
-      {loading && (
+      <div className="page-title homepage-2 sw-layout ai-prompts-filter-band">
         <div className="tf-container w-xxl pt-5">
-          <div
-            style={{
-              minHeight: "260px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              gap: "16px",
-            }}
-          >
-            <div className="spinner" />
-            <p className="text-body-1">Loading AI prompts…</p>
-          </div>
-        </div>
-      )}
-
-      {!loading && (
-        <div className="page-title homepage-2 sw-layout ai-prompts-filter-band">
-          <div className="tf-container w-xxl pt-5">
-            <div className="ai-prompts-toolbar">
-              <form
-                action="#"
-                className="form-search"
-                onSubmit={(e) => e.preventDefault()}
-                style={{ width: "100%", marginBottom: "12px" }}
-              >
-                <fieldset className="input-search">
-                  <input
-                    type="text"
-                    name="ai-prompts-search"
-                    id="ai-prompts-search"
-                    placeholder="Search AI prompts..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    autoComplete="off"
-                  />
-                </fieldset>
-                <div className="btn-submit">
-                  <button
-                    type="submit"
-                    className="tf-btn animate-hover-btn btn-switch-text"
-                  >
-                    <span>
-                      <span className="btn-double-text" data-text="Search">
-                        Search
-                      </span>
+          <div className="ai-prompts-toolbar">
+            <form
+              action="#"
+              className="form-search"
+              onSubmit={(e) => e.preventDefault()}
+              style={{ width: "100%", marginBottom: "12px" }}
+            >
+              <fieldset className="input-search">
+                <input
+                  type="text"
+                  name="ai-prompts-search"
+                  id="ai-prompts-search"
+                  placeholder="Search AI prompts..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoComplete="off"
+                />
+              </fieldset>
+              <div className="btn-submit">
+                <button
+                  type="submit"
+                  className="tf-btn animate-hover-btn btn-switch-text"
+                >
+                  <span>
+                    <span className="btn-double-text" data-text="Search">
+                      Search
                     </span>
-                  </button>
-                </div>
-              </form>
+                  </span>
+                </button>
+              </div>
+            </form>
 
-              {availableCategories.length > 0 && (
-                <div className="ai-prompts-category-row">
-                  {availableCategories.map((category) => {
-                    const isActive = selectedCategories.includes(category);
-                    return (
-                      <button
-                        key={category}
-                        type="button"
-                        onClick={() => toggleCategory(category)}
-                        className="ai-prompts-category-chip tag h6"
-                        style={{
-                          backgroundColor: isDark
-                            ? isActive
-                              ? "#ffffff"
-                              : "transparent"
-                            : isActive
-                              ? "#000000"
-                              : "transparent",
-                          color: isDark
-                            ? isActive
-                              ? "#000000"
-                              : "#ffffff"
-                            : isActive
-                              ? "#ffffff"
-                              : "#000000",
-                          border: isDark
-                            ? "1px solid white"
-                            : "1px solid black",
-                        }}
-                      >
-                        {category}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {!loading && (
-        <div
-          className="section-most-popular tf-spacing-1 ai-prompts-main"
-          style={{ paddingTop: 0 }}
-        >
-          <div className="tf-container sw-layout">
-            <div className="heading-section mb_16">
-              <h3>AI Prompts</h3>
-            </div>
-
-            {filteredPrompts.length === 0 ? (
-              <p className="text-body-1 text-center py-5 mb-0">
-                No prompts match your search or filters.
-              </p>
-            ) : (
-              <div className="tf-grid-layout xl-col-6 lg-col-5 md-col-2 ai-prompts-grid">
-                {filteredPrompts.map((p) => (
-                  <div
-                    className="feature-post-item style-default style-border hover-image-translate ai-prompt-card"
-                    key={p._id}
-                  >
-                    <div className="img-style">
-                      <Image
-                        className="lazyload"
-                        decoding="async"
-                        loading="lazy"
-                        fill
-                        sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 17vw"
-                        src={p.thumbnailUrl}
-                        alt={p.title}
-                        style={{ objectFit: "cover" }}
-                      />
-
-                      <div className="wrap-tag">
-                        <span className="tag categories text-caption-2 text_white">
-                          {categoryLabel(p.category)}
-                        </span>
-                      </div>
-                      <button
-                        type="button"
-                        className="overlay-link"
-                        aria-label={`Open ${p.title}`}
-                        onClick={() => openPrompt(p)}
-                        style={{
-                          border: "none",
-                          padding: 0,
-                          background: "transparent",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </div>
-
-                    <div className="content mb_24">
-                      <h5 className="title">
-                        <button
-                          type="button"
-                          onClick={() => openPrompt(p)}
-                          className="link line-clamp-2 text-start w-100 border-0 bg-transparent p-0"
-                          style={{ cursor: "pointer" }}
-                        >
-                          {p.title}
-                        </button>
-                      </h5>
-                      <div className="ai-prompt-card-desc-row d-flex align-items-start gap-2 mt-2">
-                        <button
-                          type="button"
-                          onClick={() => openPrompt(p)}
-                          className="ai-prompt-card__desc-btn text-body-1 text-start flex-grow-1 min-w-0 border-0 bg-transparent p-0"
-                          style={{ cursor: "pointer", color: "inherit" }}
-                        >
-                          <span className="ai-prompt-card__desc-preview">
-                            {descriptionPlain(p.description)}
-                          </span>
-                        </button>
-                        <button
-                          type="button"
-                          className="ai-prompt-card-copy btn flex-shrink-0"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            void copyPlainDescription(p.description, p._id);
-                          }}
-                          aria-label={`Copy description: ${p.title}`}
-                          title={
-                            copiedKey === p._id ? "Copied!" : "Copy description"
-                          }
-                        >
-                          {copiedKey === p._id ? (
-                            <i
-                              className="bi bi-check2 text-success"
-                              aria-hidden
-                            />
-                          ) : (
-                            <i className="bi bi-clipboard" aria-hidden />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {availableCategories.length > 0 && (
+              <div className="ai-prompts-category-row">
+                {availableCategories.map((category) => {
+                  const isActive = selectedCategories.includes(category);
+                  return (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => toggleCategory(category)}
+                      className="ai-prompts-category-chip tag h6"
+                      style={{
+                        backgroundColor: isDark
+                          ? isActive
+                            ? "#ffffff"
+                            : "transparent"
+                          : isActive
+                            ? "#000000"
+                            : "transparent",
+                        color: isDark
+                          ? isActive
+                            ? "#000000"
+                            : "#ffffff"
+                          : isActive
+                            ? "#ffffff"
+                            : "#000000",
+                        border: isDark ? "1px solid white" : "1px solid black",
+                      }}
+                    >
+                      {category}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
         </div>
-      )}
+      </div>
+
+      <div
+        className="section-most-popular tf-spacing-1 ai-prompts-main"
+        style={{ paddingTop: 0 }}
+      >
+        <div className="tf-container sw-layout">
+          <div className="heading-section mb_16">
+            <h3>AI Prompts</h3>
+          </div>
+
+          {filteredPrompts.length === 0 ? (
+            <p className="text-body-1 text-center py-5 mb-0">
+              No prompts match your search or filters.
+            </p>
+          ) : (
+            <div className="tf-grid-layout xl-col-6 lg-col-5 md-col-2 ai-prompts-grid">
+              {filteredPrompts.map((p) => (
+                <div
+                  className="feature-post-item style-default style-border hover-image-translate ai-prompt-card"
+                  key={p._id}
+                >
+                  <div className="img-style">
+                    <Image
+                      className="lazyload"
+                      decoding="async"
+                      loading="lazy"
+                      fill
+                      sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 17vw"
+                      src={p.thumbnailUrl}
+                      alt={p.title}
+                      style={{ objectFit: "cover" }}
+                    />
+
+                    <div className="wrap-tag">
+                      <span className="tag categories text-caption-2 text_white">
+                        {categoryLabel(p.category)}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className="overlay-link"
+                      aria-label={`Open ${p.title}`}
+                      onClick={() => openPrompt(p)}
+                      style={{
+                        border: "none",
+                        padding: 0,
+                        background: "transparent",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+
+                  <div className="content mb_24">
+                    <h5 className="title">
+                      <button
+                        type="button"
+                        onClick={() => openPrompt(p)}
+                        className="link line-clamp-2 text-start w-100 border-0 bg-transparent p-0"
+                        style={{ cursor: "pointer" }}
+                      >
+                        {p.title}
+                      </button>
+                    </h5>
+                    <div className="ai-prompt-card-desc-row d-flex align-items-start gap-2 mt-2">
+                      <button
+                        type="button"
+                        onClick={() => openPrompt(p)}
+                        className="ai-prompt-card__desc-btn text-body-1 text-start flex-grow-1 min-w-0 border-0 bg-transparent p-0"
+                        style={{ cursor: "pointer", color: "inherit" }}
+                      >
+                        <span className="ai-prompt-card__desc-preview">
+                          {descriptionPlain(p.description)}
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        className="ai-prompt-card-copy btn flex-shrink-0"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          void copyPlainDescription(p.description, p._id);
+                        }}
+                        aria-label={`Copy description: ${p.title}`}
+                        title={
+                          copiedKey === p._id ? "Copied!" : "Copy description"
+                        }
+                      >
+                        {copiedKey === p._id ? (
+                          <i
+                            className="bi bi-check2 text-success"
+                            aria-hidden
+                          />
+                        ) : (
+                          <i className="bi bi-clipboard" aria-hidden />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
       {selected && (
         <div

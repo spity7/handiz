@@ -5,6 +5,7 @@ import Image from "next/image";
 import { largeFeatureCompetitions, listStyleCompetitions } from "@/data/blogs";
 import React, { useCallback, useState, useEffect } from "react";
 import type { Competition } from "@/types/competitions";
+import CompetitionsPageSkeleton from "@/components/skeletons/CompetitionsPageSkeleton";
 
 export default function EditorsPicCompetition() {
   const [side1, setSide1] = useState<Competition[]>([]);
@@ -22,7 +23,7 @@ export default function EditorsPicCompetition() {
         setLoading(true);
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}competitions`
+          `${process.env.NEXT_PUBLIC_API_URL}competitions`,
         );
         const data = await res.json();
 
@@ -52,24 +53,9 @@ export default function EditorsPicCompetition() {
         </div>
 
         {/* LOADING STATE */}
-        {loading && (
-          <div
-            style={{
-              minHeight: "320px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              gap: "16px",
-            }}
-          >
-            <div className="spinner" />
-            <p className="text-body-1">Loading competitions…</p>
-          </div>
-        )}
-
-        {/* CONTENT */}
-        {!loading && (
+        {loading ? (
+          <CompetitionsPageSkeleton />
+        ) : (
           <div className="row wrap">
             <div className="col-lg-6">
               {side1.map((post) => (

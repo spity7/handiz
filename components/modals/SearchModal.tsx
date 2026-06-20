@@ -1,5 +1,6 @@
 "use client";
 import { useProjects } from "@/components/providers/ProjectsProvider";
+import SearchModalSkeleton from "@/components/skeletons/SearchModalSkeleton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import Link from "next/link";
 export default function SearchModal() {
   const {
     projects,
+    loading,
     categories: availableCategories,
     concepts: availableConcepts,
     types: availableTypes,
@@ -166,134 +168,142 @@ export default function SearchModal() {
             </form>
           </div>
 
-          <div className="popular-searches mb_16">
-            <h5 className="title">Categories:</h5>
-            <ul
-              className="list d-flex align-items-center flex-wrap"
-              style={{ gap: "8px" }}
-            >
-              {availableCategories.map((cat) => (
-                <li key={cat}>
-                  <a
-                    href="#"
-                    className="text-body-1 fw-7"
-                    style={getFilterStyle(selectedCategories.includes(cat))}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleFilter(
-                        cat,
-                        selectedCategories,
-                        setSelectedCategories,
-                      );
-                    }}
-                  >
-                    {cat}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="popular-searches mb_16">
-            <h5 className="title">Concepts:</h5>
-            <ul
-              className="list d-flex align-items-center flex-wrap"
-              style={{ gap: "8px" }}
-            >
-              {availableConcepts.map((concept) => (
-                <li key={concept}>
-                  <a
-                    href="#"
-                    className="text-body-1 fw-7"
-                    style={getFilterStyle(selectedConcepts.includes(concept))}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleFilter(
-                        concept,
-                        selectedConcepts,
-                        setSelectedConcepts,
-                      );
-                    }}
-                  >
-                    {concept}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="popular-searches">
-            <h5 className="title">Types:</h5>
-            <ul
-              className="list d-flex align-items-center flex-wrap"
-              style={{ gap: "8px" }}
-            >
-              {availableTypes.map((type) => (
-                <li key={type}>
-                  <a
-                    href="#"
-                    className="text-body-1 fw-7"
-                    style={getFilterStyle(selectedTypes.includes(type))}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleFilter(type, selectedTypes, setSelectedTypes);
-                    }}
-                  >
-                    {type}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="tf-line" />
-
-          <div className="trending">
-            <h5 className="title">Trending Now</h5>
-            <div className="tf-grid-layout lg-col-3 md-col-2">
-              {projects.slice(0, 6).map((project, index) => (
-                <div
-                  className="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid"
-                  key={index}
+          {loading ? (
+            <SearchModalSkeleton />
+          ) : (
+            <>
+              <div className="popular-searches mb_16">
+                <h5 className="title">Categories:</h5>
+                <ul
+                  className="list d-flex align-items-center flex-wrap"
+                  style={{ gap: "8px" }}
                 >
-                  <Link
-                    href={`/student-project/${project._id}`}
-                    className="img-style"
-                    onClick={closeModal}
-                  >
-                    <Image
-                      decoding="async"
-                      loading="lazy"
-                      width={123}
-                      height={92}
-                      alt={project.title}
-                      src={project.thumbnailUrl}
-                      style={{ height: "92px" }}
-                    />
-                  </Link>
-                  <div className="content">
-                    <ul className="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                      <li>{project.student}</li>
-                      {/* <li>
+                  {availableCategories.map((cat) => (
+                    <li key={cat}>
+                      <a
+                        href="#"
+                        className="text-body-1 fw-7"
+                        style={getFilterStyle(selectedCategories.includes(cat))}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleFilter(
+                            cat,
+                            selectedCategories,
+                            setSelectedCategories,
+                          );
+                        }}
+                      >
+                        {cat}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="popular-searches mb_16">
+                <h5 className="title">Concepts:</h5>
+                <ul
+                  className="list d-flex align-items-center flex-wrap"
+                  style={{ gap: "8px" }}
+                >
+                  {availableConcepts.map((concept) => (
+                    <li key={concept}>
+                      <a
+                        href="#"
+                        className="text-body-1 fw-7"
+                        style={getFilterStyle(
+                          selectedConcepts.includes(concept),
+                        )}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleFilter(
+                            concept,
+                            selectedConcepts,
+                            setSelectedConcepts,
+                          );
+                        }}
+                      >
+                        {concept}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="popular-searches">
+                <h5 className="title">Types:</h5>
+                <ul
+                  className="list d-flex align-items-center flex-wrap"
+                  style={{ gap: "8px" }}
+                >
+                  {availableTypes.map((type) => (
+                    <li key={type}>
+                      <a
+                        href="#"
+                        className="text-body-1 fw-7"
+                        style={getFilterStyle(selectedTypes.includes(type))}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleFilter(type, selectedTypes, setSelectedTypes);
+                        }}
+                      >
+                        {type}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="tf-line" />
+
+              <div className="trending">
+                <h5 className="title">Trending Now</h5>
+                <div className="tf-grid-layout lg-col-3 md-col-2">
+                  {projects.slice(0, 6).map((project, index) => (
+                    <div
+                      className="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid"
+                      key={index}
+                    >
+                      <Link
+                        href={`/student-project/${project._id}`}
+                        className="img-style"
+                        onClick={closeModal}
+                      >
+                        <Image
+                          decoding="async"
+                          loading="lazy"
+                          width={123}
+                          height={92}
+                          alt={project.title}
+                          src={project.thumbnailUrl}
+                          style={{ height: "92px" }}
+                        />
+                      </Link>
+                      <div className="content">
+                        <ul className="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                          <li>{project.student}</li>
+                          {/* <li>
                         <a href="#" className="text-uppercase">
                           {project.author}
                         </a>
                       </li> */}
-                    </ul>
-                    <h6 className="title">
-                      <Link
-                        href={`/student-project/${project._id}`}
-                        className="link"
-                        onClick={closeModal}
-                      >
-                        {project.title}
-                      </Link>
-                    </h6>
-                  </div>
+                        </ul>
+                        <h6 className="title">
+                          <Link
+                            href={`/student-project/${project._id}`}
+                            className="link"
+                            onClick={closeModal}
+                          >
+                            {project.title}
+                          </Link>
+                        </h6>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

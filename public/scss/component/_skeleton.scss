@@ -1,0 +1,237 @@
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-block {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base, rgba(0, 0, 0, 0.06)) 0%,
+    var(--skeleton-highlight, rgba(0, 0, 0, 0.12)) 50%,
+    var(--skeleton-base, rgba(0, 0, 0, 0.06)) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+body.dark-mode {
+  .skeleton-block {
+    --skeleton-base: rgba(255, 255, 255, 0.08);
+    --skeleton-highlight: rgba(255, 255, 255, 0.16);
+  }
+}
+
+.student-project-card-skeleton {
+  pointer-events: none;
+
+  &__image {
+    width: 100%;
+    height: 246px;
+    max-height: 246px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+
+  &__tag {
+    width: 72px;
+    height: 24px;
+    border-radius: 4px;
+  }
+
+  &__meta {
+    width: 65%;
+    height: 14px;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    width: 88%;
+    height: 22px;
+    margin-bottom: 10px;
+  }
+
+  &__title-short {
+    width: 62%;
+    height: 22px;
+    margin-bottom: 12px;
+  }
+
+  &__text {
+    width: 100%;
+    height: 14px;
+    margin-bottom: 8px;
+  }
+
+  &__text-short {
+    width: 78%;
+    height: 14px;
+  }
+}
+
+.project-categories-skeleton {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 48px;
+  align-items: center;
+
+  &__chip {
+    width: 108px;
+    height: 40px;
+    border-radius: 999px;
+  }
+}
+
+.search-modal-skeleton {
+  &__title {
+    width: 120px;
+    height: 20px;
+    margin-bottom: 12px;
+  }
+
+  &__chip {
+    width: 92px;
+    height: 32px;
+    border-radius: 999px;
+  }
+
+  &__trending-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__thumb {
+    width: 123px;
+    height: 92px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  &__line {
+    width: 100%;
+    height: 12px;
+    margin-bottom: 8px;
+  }
+}
+
+.student-project-detail-skeleton {
+  &__breadcrumb {
+    width: 280px;
+    height: 14px;
+    margin: 20px 0;
+  }
+
+  &__tag {
+    width: 96px;
+    height: 28px;
+    border-radius: 4px;
+    margin: 0 auto 16px;
+  }
+
+  &__meta {
+    width: 220px;
+    height: 16px;
+    margin: 0 auto 16px;
+  }
+
+  &__heading {
+    width: min(640px, 80%);
+    height: 40px;
+    margin: 0 auto 24px;
+  }
+
+  &__avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+
+  &__author {
+    width: 140px;
+    height: 18px;
+  }
+
+  &__hero {
+    width: 100%;
+    height: 500px;
+    max-height: 500px;
+    border-radius: 12px;
+    margin-top: 32px;
+  }
+
+  &__sidebar-line {
+    width: 100%;
+    height: 18px;
+    margin-bottom: 20px;
+  }
+
+  &__paragraph {
+    width: 100%;
+    height: 14px;
+    margin-bottom: 10px;
+  }
+}
+
+.home-page-skeleton {
+  &__search {
+    width: 100%;
+    height: 52px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+}
+
+.competitions-page-skeleton {
+  &__hero {
+    width: 100%;
+    min-height: 420px;
+  }
+
+  &__thumb {
+    width: 180px;
+    height: 135px;
+  }
+
+  &__title {
+    width: 72%;
+    height: 1.5rem;
+  }
+
+  &__line {
+    width: 100%;
+    height: 0.875rem;
+  }
+}
+
+.about-page-skeleton {
+  &__breadcrumb {
+    width: 220px;
+    height: 0.875rem;
+    margin: 20px 0;
+  }
+
+  &__heading {
+    width: min(420px, 70%);
+    height: 2.5rem;
+    margin: 24px auto;
+  }
+
+  &__paragraph {
+    width: 100%;
+    height: 0.875rem;
+  }
+}
+
+.ai-prompt-card.student-project-card-skeleton {
+  .img-style {
+    position: relative;
+    min-height: 180px;
+  }
+}

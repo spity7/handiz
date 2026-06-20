@@ -12,6 +12,7 @@ import InstagramPosts from "@/components/homes/home-2/InstagramPosts";
 import LatestPosts from "@/components/homes/home-2/LatestPosts";
 import PopularBlogs from "@/components/homes/home-1/PopularBlogs";
 import StudentProjects from "@/components/homes/home-1/StudentProjects";
+import HomePageSkeleton from "@/components/skeletons/HomePageSkeleton";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 
@@ -84,7 +85,7 @@ function PageContent() {
 
 export default function page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<HomePageSkeleton />}>
       <PageContent />
     </Suspense>
   );

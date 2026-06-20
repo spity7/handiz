@@ -10,6 +10,7 @@ import {
   Parallax,
 } from "swiper/modules";
 import { useProjects } from "@/components/providers/ProjectsProvider";
+import ProjectCategoriesSkeleton from "@/components/skeletons/ProjectCategoriesSkeleton";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -142,74 +143,63 @@ export default function HeroSP({
         </div>
 
         {/* CATEGORIES */}
-        {loading && (
-          <div
-            style={{
-              minHeight: "80px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-            }}
-          >
-            <div className="spinner" />
-            <span className="text-body-1">Loading categories…</span>
-          </div>
-        )}
+        {loading ? (
+          <ProjectCategoriesSkeleton />
+        ) : (
+          categories.length > 0 && (
+            <Swiper
+              className="swiper sw-layout wrap-tag-categories style-1"
+              spaceBetween={12}
+              slidesPerView={"auto"}
+              modules={[Navigation]}
+              navigation={{
+                prevEl: ".snbp8",
+                nextEl: ".snbn8",
+              }}
+            >
+              <div className="sw-button style-cycle text_primary-color nav-prev-layout snbp8">
+                <i className="icon-CaretLeft" />
+              </div>
 
-        {!loading && categories.length > 0 && (
-          <Swiper
-            className="swiper sw-layout wrap-tag-categories style-1"
-            spaceBetween={12}
-            slidesPerView={"auto"}
-            modules={[Navigation]}
-            navigation={{
-              prevEl: ".snbp8",
-              nextEl: ".snbn8",
-            }}
-          >
-            <div className="sw-button style-cycle text_primary-color nav-prev-layout snbp8">
-              <i className="icon-CaretLeft" />
-            </div>
+              {categories.map((category) => {
+                const isActive = selectedCategories.includes(category);
 
-            {categories.map((category) => {
-              const isActive = selectedCategories.includes(category);
+                return (
+                  <SwiperSlide className="swiper-slide" key={category}>
+                    <button
+                      onClick={() => toggleCategory(category)}
+                      className="tag h6"
+                      style={{
+                        // If dark mode (isDark=true): active is white bg/black text, inactive is transparent/white text
+                        // If light mode (isDark=false): active is black bg/white text, inactive is transparent/black text
+                        backgroundColor: isDark
+                          ? isActive
+                            ? "#ffffff" // Dark + Active = White BG
+                            : "transparent"
+                          : isActive
+                            ? "#000000" // Light + Active = Black BG
+                            : "transparent",
+                        color: isDark
+                          ? isActive
+                            ? "#000000" // Dark + Active = Black Text
+                            : "#ffffff" // Dark + Inactive = White Text
+                          : isActive
+                            ? "#ffffff" // Light + Active = White Text
+                            : "#000000", // Light + Inactive = Black Text
+                        border: isDark ? "1px solid white" : "1px solid black",
+                      }}
+                    >
+                      {category}
+                    </button>
+                  </SwiperSlide>
+                );
+              })}
 
-              return (
-                <SwiperSlide className="swiper-slide" key={category}>
-                  <button
-                    onClick={() => toggleCategory(category)}
-                    className="tag h6"
-                    style={{
-                      // If dark mode (isDark=true): active is white bg/black text, inactive is transparent/white text
-                      // If light mode (isDark=false): active is black bg/white text, inactive is transparent/black text
-                      backgroundColor: isDark
-                        ? isActive
-                          ? "#ffffff" // Dark + Active = White BG
-                          : "transparent"
-                        : isActive
-                          ? "#000000" // Light + Active = Black BG
-                          : "transparent",
-                      color: isDark
-                        ? isActive
-                          ? "#000000" // Dark + Active = Black Text
-                          : "#ffffff" // Dark + Inactive = White Text
-                        : isActive
-                          ? "#ffffff" // Light + Active = White Text
-                          : "#000000", // Light + Inactive = Black Text
-                      border: isDark ? "1px solid white" : "1px solid black",
-                    }}
-                  >
-                    {category}
-                  </button>
-                </SwiperSlide>
-              );
-            })}
-
-            <div className="sw-button style-cycle text_primary-color nav-next-layout snbn8">
-              <i className="icon-CaretRight" />
-            </div>
-          </Swiper>
+              <div className="sw-button style-cycle text_primary-color nav-next-layout snbn8">
+                <i className="icon-CaretRight" />
+              </div>
+            </Swiper>
+          )
         )}
       </div>
     </div>

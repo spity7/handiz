@@ -2,6 +2,7 @@
 
 import StudentProjectCard1 from "@/components/blog-cards/StudentProjectCard1";
 import { useProjects } from "@/components/providers/ProjectsProvider";
+import StudentProjectsGridSkeleton from "@/components/skeletons/StudentProjectsGridSkeleton";
 import { ProjectListItem } from "@/types/project";
 
 export default function StudentProjects({
@@ -68,29 +69,19 @@ export default function StudentProjects({
           <h3>Student Projects</h3>
         </div>
 
-        {/* LOADING STATE */}
-        {loading && (
-          <div
-            style={{
-              minHeight: "300px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              gap: "16px",
-            }}
-          >
-            <div className="spinner" />
-            <p className="text-body-1">Loading student projects…</p>
+        {loading ? (
+          <StudentProjectsGridSkeleton />
+        ) : filteredProjects.length > 0 ? (
+          <div className="projects-grid">
+            {filteredProjects.map((project) => (
+              <StudentProjectCard1 key={project._id} project={project} />
+            ))}
           </div>
+        ) : (
+          <p className="text-body-1 text-center py-5">
+            No student projects match your filters.
+          </p>
         )}
-
-        {/* GRID */}
-        <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <StudentProjectCard1 key={project._id} project={project} />
-          ))}
-        </div>
       </div>
     </div>
   );

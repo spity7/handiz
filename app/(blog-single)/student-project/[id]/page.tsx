@@ -125,14 +125,14 @@ export default async function Page({
             <h1 className="mb_16">{project.title}</h1>
 
             <div className="user-post d-flex align-items-center justify-content-center gap_20">
-              <div className="avatar">
+              {/* <div className="avatar">
                 <Image
                   alt="avatar"
                   src={project.thumbnailUrl}
                   width={100}
                   height={100}
                 />
-              </div>
+              </div> */}
 
               <p className="fw-7">
                 <span className="text_secodary2-color">Post by</span>{" "}

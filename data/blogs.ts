@@ -1153,36 +1153,6 @@ export const studentProjects = [
   },
 ];
 
-export const courses = [
-  {
-    id: 117,
-    imgSrc: "/images/courses/Poster course D5-03.jpg",
-    imgSrcSet: "/images/courses/Poster course D5-03.jpg 428w",
-    category: "Home Decor",
-    date: "February 19, 2025",
-    author: "Jane Cooper",
-    title: "Coming Soon - D5 Render Course",
-  },
-  {
-    id: 118,
-    imgSrc: "/images/courses/Exection Files Poster.jpg",
-    imgSrcSet: "/images/courses/Exection Files Poster.jpg 428w",
-    category: "Fashion",
-    date: "February 19, 2025",
-    author: "Ralph Edwards",
-    title: "Coming Soon - Execution Files Course",
-  },
-  {
-    id: 119,
-    imgSrc: "/images/courses/Rhino Course 001.jpg",
-    imgSrcSet: "/images/courses/Rhino Course 001.jpg 200w",
-    category: "Mindfulness",
-    date: "February 6, 2025",
-    author: "Ralph Edwards",
-    title: "Coming Soon - Rhino & Grasshopper Course",
-  },
-];
-
 export const largeFeatureCompetitions = [
   {
     id: 120,

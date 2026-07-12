@@ -7,6 +7,7 @@ import {
   buildDashboardAuthUrl,
   getCurrentReturnUrl,
 } from "@/lib/dashboard-auth";
+import { getLmsUrl } from "@/lib/lms";
 import { useAuthUser } from "@/hooks/useAuthUser";
 
 const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL || "";
@@ -142,6 +143,21 @@ export default function AccountMenu() {
             <div className="account-menu__body">
               {isAuthenticated ? (
                 <>
+                  <a
+                    href={getLmsUrl("/my-courses")}
+                    className="account-menu__item"
+                    role="menuitem"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="account-menu__item-icon">
+                      <i className="bi bi-mortarboard" aria-hidden="true" />
+                    </span>
+                    <span className="account-menu__item-label">My Courses</span>
+                    <i
+                      className="bi bi-arrow-right account-menu__item-arrow account-menu__item-arrow--visible"
+                      aria-hidden="true"
+                    />
+                  </a>
                   <a
                     href={myProjectsHref}
                     className="account-menu__item"

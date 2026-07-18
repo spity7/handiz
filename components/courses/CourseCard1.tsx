@@ -24,6 +24,13 @@ export default function CourseCard1({ course }: { course: Course }) {
             <span className="tag categories text-caption-2 text_white">
               {course.level || "Course"}
             </span>
+            {course.isEnrolled && (
+              <span className="tag categories text-caption-2 text_white bg-success">
+                {course.enrollmentStatus === "completed"
+                  ? "Completed"
+                  : "Enrolled"}
+              </span>
+            )}
             {course.totalDurationMinutes ? (
               <div className="tag time text-caption-2 text_white">
                 <i className="icon-Timer" />{" "}
@@ -67,6 +74,11 @@ export default function CourseCard1({ course }: { course: Course }) {
             {course.title}
           </a>
         </h5>
+        {course.isEnrolled && course.progressPercent != null && (
+          <p className="text-body-2 text-success mb_8">
+            Your progress: {course.progressPercent}%
+          </p>
+        )}
         {course.excerpt ? (
           <p className="text-body-1 line-clamp-2">{course.excerpt}</p>
         ) : (

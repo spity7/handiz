@@ -11,6 +11,7 @@ import HighlightPosts from "@/components/homes/home-2/HighlightPosts";
 import InstagramPosts from "@/components/homes/home-2/InstagramPosts";
 import LatestPosts from "@/components/homes/home-2/LatestPosts";
 import PopularBlogs from "@/components/homes/home-1/PopularBlogs";
+import LatestPostsCourses from "@/components/homes/home-1/LatestPostsCourses";
 import StudentProjects from "@/components/homes/home-1/StudentProjects";
 import HomePageSkeleton from "@/components/skeletons/HomePageSkeleton";
 import { useSearchParams } from "next/navigation";
@@ -72,6 +73,7 @@ function PageContent() {
           selectedTypes={selectedTypes}
           searchQuery={searchQuery}
         />
+        <LatestPostsCourses />
         {/* <Categories />
         <Cta />
         <LatestPosts />

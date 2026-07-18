@@ -43,6 +43,9 @@ export type Course = {
   publishedAt?: string | null;
   lastPublishedAt?: string | null;
   createdAt?: string;
+  isEnrolled?: boolean;
+  enrollmentStatus?: "active" | "completed" | null;
+  progressPercent?: number | null;
 };
 
 export type Lesson = {

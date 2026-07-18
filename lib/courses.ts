@@ -3,12 +3,15 @@ import type { Course } from "@/types/course";
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5016/api/v1/";
 
-export async function fetchCourses(params?: {
-  tag?: string;
-  level?: string;
-  free?: string;
-  search?: string;
-}): Promise<Course[]> {
+export async function fetchCourses(
+  params?: {
+    tag?: string;
+    level?: string;
+    free?: string;
+    search?: string;
+  },
+  options?: { withAuth?: boolean },
+): Promise<Course[]> {
   const searchParams = new URLSearchParams();
   if (params?.tag) searchParams.set("tag", params.tag);
   if (params?.level) searchParams.set("level", params.level);
@@ -18,6 +21,9 @@ export async function fetchCourses(params?: {
   const qs = searchParams.toString();
   const res = await fetch(`${API_BASE_URL}courses${qs ? `?${qs}` : ""}`, {
     cache: "no-store",
+    ...(options?.withAuth
+      ? { credentials: "include" as RequestCredentials }
+      : {}),
   });
   if (!res.ok) return [];
   const data = await res.json();

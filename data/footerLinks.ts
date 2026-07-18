@@ -1,6 +1,6 @@
 export const quickLinks = [
   { label: "Homepage", href: "/" },
-  { label: "Courses", href: "#" },
+  { label: "Courses", href: "/courses" },
   { label: "Who We Are?", href: "#" },
   { label: "Volunteer", href: "#" },
 ];

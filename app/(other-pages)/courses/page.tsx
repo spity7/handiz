@@ -17,7 +17,7 @@ export default async function Page() {
     <>
       <Header1 />
       <div className="main-content">
-        <CoursesCatalog courses={courses} />
+        <CoursesCatalog initialCourses={courses} />
       </div>
       <Footer1 />
     </>

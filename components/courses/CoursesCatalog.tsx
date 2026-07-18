@@ -1,15 +1,41 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Course } from "@/types/course";
 import CourseCard1 from "@/components/courses/CourseCard1";
+import { fetchCourses } from "@/lib/courses";
 import { getPublicPriceDisplay } from "@/lib/coursePricing";
+import { useAuthUser } from "@/hooks/useAuthUser";
 
 type Filter = "all" | "free" | "paid";
 
-export default function CoursesCatalog({ courses }: { courses: Course[] }) {
+export default function CoursesCatalog({
+  initialCourses,
+}: {
+  initialCourses: Course[];
+}) {
+  const { isAuthenticated } = useAuthUser();
+  const [courses, setCourses] = useState(initialCourses);
   const [filter, setFilter] = useState<Filter>("all");
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setCourses(initialCourses);
+      return;
+    }
+
+    let cancelled = false;
+    fetchCourses(undefined, { withAuth: true }).then((personalized) => {
+      if (!cancelled && personalized.length > 0) {
+        setCourses(personalized);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthenticated, initialCourses]);
 
   const filtered = useMemo(() => {
     return courses.filter((c) => {

@@ -1,9 +1,20 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import CourseCard1 from "@/components/courses/CourseCard1";
 import { fetchCourses } from "@/lib/courses";
+import { useAuthUser } from "@/hooks/useAuthUser";
+import type { Course } from "@/types/course";
 import Link from "next/link";
 
-export default async function LatestPostsCourses() {
-  const courses = await fetchCourses();
+export default function LatestPostsCourses() {
+  const { isAuthenticated } = useAuthUser();
+  const [courses, setCourses] = useState<Course[]>([]);
+
+  useEffect(() => {
+    fetchCourses(undefined, { withAuth: isAuthenticated }).then(setCourses);
+  }, [isAuthenticated]);
+
   const featured = courses.slice(0, 3);
 
   return (

@@ -28,11 +28,6 @@ const nextConfig: NextConfig = {
         destination: `${lmsUrl}/courses/:slug/learn/:lessonSlug`,
         permanent: false,
       },
-      {
-        source: "/courses/:slug",
-        destination: `${lmsUrl}/courses/:slug`,
-        permanent: false,
-      },
     ];
   },
 };

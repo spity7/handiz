@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { Course } from "@/types/course";
 import { formatDuration } from "@/lib/courses";
 import { formatUsd, getPublicPriceDisplay } from "@/lib/coursePricing";
-import { getLmsUrl } from "@/lib/lms";
 
 export default function CourseCard1({ course }: { course: Course }) {
   const priceDisplay = getPublicPriceDisplay(course.pricing);
@@ -38,10 +37,7 @@ export default function CourseCard1({ course }: { course: Course }) {
               </div>
             ) : null}
           </div>
-          <a
-            href={getLmsUrl(`/courses/${course.slug}`)}
-            className="overlay-link"
-          />
+          <Link href={`/courses/${course.slug}`} className="overlay-link" />
         </div>
       ) : (
         ""
@@ -67,12 +63,9 @@ export default function CourseCard1({ course }: { course: Course }) {
           </li>
         </ul>
         <h5 className="title">
-          <a
-            href={getLmsUrl(`/courses/${course.slug}`)}
-            className="line-clamp-2 link"
-          >
+          <Link href={`/courses/${course.slug}`} className="line-clamp-2 link">
             {course.title}
-          </a>
+          </Link>
         </h5>
         {course.isEnrolled && course.progressPercent != null && (
           <p className="text-body-2 text-success mb_8">

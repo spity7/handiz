@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Course } from "@/types/course";
 import CourseCard1 from "@/components/courses/CourseCard1";
-import CoursesEmptyIcon from "@/components/courses/CoursesEmptyIcon";
+import CoursesCatalogEmpty from "@/components/courses/CoursesCatalogEmpty";
 import { fetchCourses } from "@/lib/courses";
 import { useAuthUser } from "@/hooks/useAuthUser";
 
@@ -40,25 +40,11 @@ export default function CoursesCatalog({
       <header className="courses-catalog__header">
         <div className="courses-catalog__intro">
           <h1 className="courses-catalog__title">Courses</h1>
-          <p className="courses-catalog__subtitle text-body-1">
-            Learn architecture software and design skills with video courses on
-            D5 Render, Rhino, Grasshopper, and more.
-          </p>
         </div>
       </header>
 
       {isCatalogEmpty ? (
-        <div className="courses-catalog__empty">
-          <div className="courses-catalog__empty-icon" aria-hidden="true">
-            <CoursesEmptyIcon />
-          </div>
-          <h2 className="courses-catalog__empty-title">Courses coming soon</h2>
-          <p className="courses-catalog__empty-text text-body-1">
-            We are preparing new video courses on architecture software and
-            design workflows. Check back soon for hands-on lessons you can start
-            right away.
-          </p>
-        </div>
+        <CoursesCatalogEmpty />
       ) : (
         <div className="tf-grid-layout xxl-col-4 sm-col-2 courses-catalog__grid">
           {courses.map((course) => (

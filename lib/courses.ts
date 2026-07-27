@@ -1,4 +1,4 @@
-import type { Course, CourseModule, Enrollment } from "@/types/course";
+import type { Course, CourseModule, Enrollment, Lesson } from "@/types/course";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5016/api/v1/";

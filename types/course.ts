@@ -16,6 +16,13 @@ export type CoursePricing = {
   freeOfferExpired?: boolean;
 };
 
+export type CourseMarketingVideo = {
+  url: string;
+  embedUrl?: string;
+  thumbnailUrl?: string;
+  order: number;
+};
+
 export type CourseInstructor = {
   _id: string;
   firstname?: string;
@@ -39,6 +46,7 @@ export type Course = {
   level?: string;
   tags?: string[];
   heroHighlights?: string[];
+  marketingVideos?: CourseMarketingVideo[];
   order?: number;
   lessonCount?: number;
   totalDurationMinutes?: number;

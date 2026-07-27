@@ -1,5 +1,6 @@
 import type { Course, Lesson } from "@/types/course";
 import CourseDetailHero from "@/components/course-detail/CourseDetailHero";
+import CourseDetailPreviewSection from "@/components/course-detail/CourseDetailPreviewSection";
 
 type CourseDetailProps = {
   course: Course;
@@ -13,6 +14,7 @@ export default function CourseDetail({
   return (
     <div className="course-detail">
       <CourseDetailHero course={course} previewLesson={previewLesson} />
+      <CourseDetailPreviewSection course={course} />
     </div>
   );
 }

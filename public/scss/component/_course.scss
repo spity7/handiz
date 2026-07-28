@@ -775,6 +775,15 @@
   --course-hero-fallback:
     radial-gradient(circle at 20% 20%, rgba(20, 24, 31, 0.06), transparent 42%),
     linear-gradient(135deg, #f8fafc 0%, #f1f5f9 45%, #ffffff 100%);
+  --course-about-accordion-bg: var(--Surface);
+  --course-about-accordion-border: var(--Line);
+  --course-about-trigger-hover: rgba(20, 24, 31, 0.04);
+  --course-about-content-bg: rgba(20, 24, 31, 0.03);
+  --course-about-content-text: var(--On-surface);
+  --course-about-count-text: var(--Secondary2);
+  --course-about-count-bg: rgba(20, 24, 31, 0.06);
+  --course-about-accordion-shadow: 0 12px 40px rgba(20, 24, 31, 0.06);
+  --course-about-chevron-open-bg: rgba(20, 24, 31, 0.06);
 }
 
 .dark-mode .course-detail {
@@ -818,6 +827,21 @@
       transparent 42%
     ),
     linear-gradient(135deg, #0a0a0a 0%, #151515 45%, #0d0d0d 100%);
+  --course-about-accordion-bg: rgba(255, 255, 255, 0.04);
+  --course-about-accordion-border: rgba(255, 255, 255, 0.1);
+  --course-about-trigger-hover: rgba(255, 255, 255, 0.06);
+  --course-about-content-bg: rgba(255, 255, 255, 0.05);
+  --course-about-content-text: rgba(255, 255, 255, 0.88);
+  --course-about-count-text: rgba(255, 255, 255, 0.55);
+  --course-about-count-bg: rgba(255, 255, 255, 0.08);
+  --course-about-accordion-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  --course-about-chevron-open-bg: rgba(255, 255, 255, 0.08);
+
+  .course-detail-preview {
+    --course-preview-scroll-track: transparent;
+    --course-preview-scroll-thumb: rgba(255, 255, 255, 0.22);
+    --course-preview-scroll-thumb-hover: rgba(255, 255, 255, 0.38);
+  }
 
   .course-detail-hero__level {
     &--beginner {
@@ -1808,6 +1832,10 @@
 }
 
 .course-detail-preview {
+  --course-preview-scroll-track: transparent;
+  --course-preview-scroll-thumb: rgba(20, 24, 31, 0.22);
+  --course-preview-scroll-thumb-hover: rgba(20, 24, 31, 0.38);
+
   &__grid {
     align-items: stretch;
 
@@ -1909,7 +1937,47 @@
     min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
     scrollbar-width: thin;
+    scrollbar-color: var(--course-preview-scroll-thumb)
+      var(--course-preview-scroll-track);
+    padding-right: 6px;
+    margin-right: -2px;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--course-preview-scroll-track);
+      border-radius: 999px;
+      margin: 4px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--course-preview-scroll-thumb);
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      min-height: 40px;
+      @include transition3();
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--course-preview-scroll-thumb-hover);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: var(--course-preview-scroll-thumb-hover);
+    }
+
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-corner {
+      display: none;
+      width: 0;
+      height: 0;
+    }
   }
 
   &__aside-title {
@@ -1983,4 +2051,288 @@
 
 body.course-detail-preview-modal-open {
   overflow: hidden;
+}
+
+.course-detail-about {
+  &__layout {
+    display: grid;
+    gap: 32px;
+    align-items: start;
+
+    @include res(lg, min) {
+      grid-template-columns: minmax(260px, 330px) minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    @include res(xxl, min) {
+      grid-template-columns: minmax(280px, 389px) minmax(0, 1fr);
+      gap: 48px;
+    }
+  }
+
+  &__header {
+    margin-bottom: 24px;
+
+    @include res(md, min) {
+      margin-bottom: 28px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(28px, 2.6vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  &__sidebar {
+    @include res(lg, min) {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+    }
+  }
+
+  &__author {
+    margin-bottom: 0;
+    padding: 24px 16px;
+    border: 1px solid var(--Line);
+    border-radius: 16px;
+    background: var(--Surface);
+
+    @include res(lg, min) {
+      padding: 32px 24px;
+    }
+
+    .social {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 12px;
+      width: 100%;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0;
+      list-style: none;
+
+      li {
+        width: 100%;
+      }
+
+      a {
+        justify-content: flex-start;
+        width: 100%;
+      }
+    }
+  }
+
+  &__bio {
+    margin: 0 0 20px;
+    text-align: center;
+    color: var(--Secondary2);
+    line-height: 1.6;
+  }
+
+  &__avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--Mono-gray-2);
+    color: var(--On-surface);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+  }
+
+  &__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+    box-shadow: none;
+
+    @include res(md, min) {
+      gap: 14px;
+    }
+  }
+
+  &__panel {
+    border: 1px solid var(--course-about-accordion-border);
+    border-radius: 16px;
+    background: var(--course-about-accordion-bg);
+    overflow: hidden;
+    box-shadow: var(--course-about-accordion-shadow);
+
+    &:has(.collapse.show) {
+      .course-detail-about__trigger {
+        background: var(--course-about-trigger-hover);
+      }
+
+      .course-detail-about__chevron {
+        border-color: var(--On-surface);
+        background: var(--course-about-chevron-open-bg);
+      }
+    }
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 18px 20px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    color: var(--On-surface);
+    @include transition3();
+
+    @include res(md, min) {
+      padding: 20px 28px;
+    }
+
+    &:hover {
+      background: var(--course-about-trigger-hover);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--Primary);
+      outline-offset: -2px;
+      z-index: 1;
+    }
+
+    &.collapsed {
+      background: transparent;
+
+      .course-detail-about__chevron::before {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+  }
+
+  &__trigger-leading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__chevron {
+    position: relative;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--course-about-accordion-border);
+    color: var(--On-surface);
+    @include transition3();
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      margin: 0;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translate(-50%, -50%) rotate(45deg);
+      transform-origin: center center;
+      @include transition3();
+    }
+  }
+
+  &__trigger-title {
+    font-size: clamp(18px, 1.6vw, 22px);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--On-surface);
+  }
+
+  &__count {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  &__count-value {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--course-about-count-text);
+    background: var(--course-about-count-bg);
+    border: 1px solid var(--course-about-accordion-border);
+  }
+
+  &__collapse-inner {
+    padding: 0 20px 20px;
+    background: var(--course-about-content-bg);
+
+    @include res(md, min) {
+      padding: 0 28px 24px 78px;
+    }
+  }
+
+  &__items {
+    margin: 0;
+    padding: 16px 0 4px;
+    list-style: none;
+    color: var(--course-about-content-text);
+    font-size: 16px;
+    line-height: 1.7;
+    border-top: 1px solid var(--course-about-accordion-border);
+
+    @include res(md, min) {
+      padding-top: 18px;
+    }
+
+    li {
+      position: relative;
+      padding: 10px 0 10px 1.75em;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--course-about-accordion-border);
+        margin-bottom: 0;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 1.15em;
+        width: 8px;
+        height: 5px;
+        border-left: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(-45deg);
+        opacity: 0.7;
+        border-radius: 0;
+        background: transparent;
+      }
+    }
+  }
+
+  @include res(md) {
+    &__layout {
+      gap: 28px;
+    }
+
+    &__header .title {
+      font-size: 26px;
+    }
+  }
 }

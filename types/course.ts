@@ -29,6 +29,18 @@ export type CourseInstructor = {
   lastname?: string;
   email?: string;
   username?: string;
+  avatarUrl?: string;
+  bio?: string;
+  location?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  xUrl?: string;
+};
+
+export type CourseAboutSection = {
+  title: string;
+  items: string[];
+  order: number;
 };
 
 export type Course = {
@@ -47,6 +59,7 @@ export type Course = {
   tags?: string[];
   heroHighlights?: string[];
   marketingVideos?: CourseMarketingVideo[];
+  aboutCourseSections?: CourseAboutSection[];
   order?: number;
   lessonCount?: number;
   totalDurationMinutes?: number;

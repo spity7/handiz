@@ -43,6 +43,15 @@ export type CourseAboutSection = {
   order: number;
 };
 
+export const COURSE_STATUS = {
+  DRAFT: "Draft",
+  COMING_SOON: "Coming Soon",
+  PUBLISHED: "Published",
+  ARCHIVED: "Archived",
+} as const;
+
+export type CourseStatus = (typeof COURSE_STATUS)[keyof typeof COURSE_STATUS];
+
 export type Course = {
   _id: string;
   title: string;
@@ -52,7 +61,7 @@ export type Course = {
   thumbnailUrl?: string;
   heroImageDesktopUrl?: string;
   heroImageMobileUrl?: string;
-  status: string;
+  status: CourseStatus;
   pricing: CoursePricing;
   instructorId?: CourseInstructor;
   level?: string;

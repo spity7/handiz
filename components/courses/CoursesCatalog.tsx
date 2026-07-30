@@ -4,25 +4,23 @@ import { useEffect, useState } from "react";
 import type { Course } from "@/types/course";
 import CourseCard1 from "@/components/courses/CourseCard1";
 import CoursesCatalogEmpty from "@/components/courses/CoursesCatalogEmpty";
-import { fetchCourses } from "@/lib/courses";
-import { useAuthUser } from "@/hooks/useAuthUser";
+import { prefetchAuthCourses } from "@/lib/courses";
+
+if (typeof window !== "undefined") {
+  prefetchAuthCourses();
+}
 
 export default function CoursesCatalog({
   initialCourses,
 }: {
   initialCourses: Course[];
 }) {
-  const { isAuthenticated } = useAuthUser();
   const [courses, setCourses] = useState(initialCourses);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      setCourses(initialCourses);
-      return;
-    }
-
     let cancelled = false;
-    fetchCourses(undefined, { withAuth: true }).then((personalized) => {
+
+    prefetchAuthCourses().then((personalized) => {
       if (!cancelled && personalized.length > 0) {
         setCourses(personalized);
       }
@@ -31,7 +29,7 @@ export default function CoursesCatalog({
     return () => {
       cancelled = true;
     };
-  }, [isAuthenticated, initialCourses]);
+  }, []);
 
   const isCatalogEmpty = courses.length === 0;
 

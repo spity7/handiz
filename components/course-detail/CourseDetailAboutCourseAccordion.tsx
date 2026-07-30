@@ -20,6 +20,7 @@ export default function CourseDetailAboutCourseAccordion({
     <div className="course-detail-about__accordion" role="list">
       {sections.map((section, index) => {
         const collapseId = `course-about-${slug}-${baseId}-${index}`;
+        const isFirst = index === 0;
         const itemLabel =
           section.items.length === 1
             ? "1 item"
@@ -33,10 +34,10 @@ export default function CourseDetailAboutCourseAccordion({
           >
             <button
               type="button"
-              className="course-detail-about__trigger"
+              className={`course-detail-about__trigger${isFirst ? "" : " collapsed"}`}
               data-bs-toggle="collapse"
               data-bs-target={`#${collapseId}`}
-              aria-expanded="true"
+              aria-expanded={isFirst}
               aria-controls={collapseId}
             >
               <span className="course-detail-about__trigger-leading">
@@ -56,7 +57,7 @@ export default function CourseDetailAboutCourseAccordion({
             </button>
             <div
               id={collapseId}
-              className="collapse show course-detail-about__collapse"
+              className={`collapse${isFirst ? " show" : ""} course-detail-about__collapse`}
             >
               <div className="course-detail-about__collapse-inner">
                 <ul className="course-detail-about__items">

@@ -1,7 +1,27 @@
 import type { Course, CourseModule, Enrollment, Lesson } from "@/types/course";
+import { COURSE_STATUS } from "@/types/course";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5016/api/v1/";
+
+let authCoursesRequest: Promise<Course[]> | null = null;
+
+export function prefetchAuthCourses(params?: {
+  tag?: string;
+  level?: string;
+  free?: string;
+  search?: string;
+}): Promise<Course[]> {
+  if (typeof window === "undefined") {
+    return fetchCourses(params, { withAuth: true });
+  }
+
+  if (!authCoursesRequest) {
+    authCoursesRequest = fetchCourses(params, { withAuth: true });
+  }
+
+  return authCoursesRequest;
+}
 
 export async function fetchCourses(
   params?: {
@@ -28,6 +48,10 @@ export async function fetchCourses(
   if (!res.ok) return [];
   const data = await res.json();
   return data.courses || [];
+}
+
+export function isComingSoonCourse(course: Pick<Course, "status">) {
+  return course.status === COURSE_STATUS.COMING_SOON;
 }
 
 export function formatDuration(minutes?: number) {

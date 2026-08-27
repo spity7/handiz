@@ -1,9 +1,12 @@
 import type { CourseMarketingVideo } from "@/types/course";
 
+export const MIN_COURSE_MARKETING_VIDEOS = 4;
+export const MAX_COURSE_MARKETING_VIDEOS = 7;
+
 export function getCourseMarketingVideos(
   videos: CourseMarketingVideo[] | undefined,
 
-  limit = 3,
+  limit = MAX_COURSE_MARKETING_VIDEOS,
 ): CourseMarketingVideo[] {
   if (!videos?.length) return [];
 

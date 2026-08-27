@@ -87,10 +87,8 @@ export default function CourseDetailMarketingVideoCard({
               className="lazyload course-detail-preview__thumb"
               src={thumbnail}
               alt=""
-              width={0}
-              height={0}
-              sizes="(max-width: 767px) 50vw, 25vw"
-              style={{ width: "100%", height: "auto" }}
+              fill
+              sizes="(max-width: 767px) 50vw, (max-width: 1399px) 20vw, 14vw"
               onError={onThumbnailError}
             />
             <button

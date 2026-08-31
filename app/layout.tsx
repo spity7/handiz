@@ -1,3 +1,4 @@
+import GoogleAnalytics from "@/components/common/GoogleAnalytics";
 import GlobalEffectsProvider from "@/components/common/GlobalEffectsProvider";
 import { ProjectsProvider } from "@/components/providers/ProjectsProvider";
 import "../public/scss/main.scss";
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
+        <GoogleAnalytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var s=localStorage.getItem("darkMode");var d=s!==null?JSON.parse(s):true;if(d)document.body.classList.add("dark-mode");}catch(e){}})();`,

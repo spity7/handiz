@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import type { CourseMarketingVideo } from "@/types/course";
 import {
+  buildChromelessEmbedUrl,
   canEmbedMarketingVideo,
   getMarketingVideoThumbnailFallbacks,
   getMarketingVideoThumbnailUrl,
@@ -14,14 +15,17 @@ type CourseDetailMarketingVideoCardProps = {
   video: CourseMarketingVideo;
   videoIndex: number;
   fallbackThumbnail?: string;
+  isPlaying: boolean;
+  onTogglePlay: () => void;
 };
 
 export default function CourseDetailMarketingVideoCard({
   video,
   videoIndex,
   fallbackThumbnail,
+  isPlaying,
+  onTogglePlay,
 }: CourseDetailMarketingVideoCardProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
   const embeddable = canEmbedMarketingVideo(video);
   const isPortrait = isPortraitMarketingVideo(video);
   const thumbnailFallbacks = useMemo(
@@ -37,19 +41,15 @@ export default function CourseDetailMarketingVideoCard({
 
   useEffect(() => {
     setThumbnailIndex(0);
-    setIsPlaying(false);
   }, [video.url, video.thumbnailUrl, fallbackThumbnail]);
 
-  const startVideo = () => {
-    if (embeddable) {
-      setIsPlaying(true);
+  const handleToggle = () => {
+    if (!embeddable) {
+      window.open(video.url, "_blank", "noopener,noreferrer");
       return;
     }
-    window.open(video.url, "_blank", "noopener,noreferrer");
-  };
 
-  const stopVideo = () => {
-    setIsPlaying(false);
+    onTogglePlay();
   };
 
   const onThumbnailError = () => {
@@ -58,31 +58,44 @@ export default function CourseDetailMarketingVideoCard({
     );
   };
 
+  const embedSrc = video.embedUrl
+    ? buildChromelessEmbedUrl(
+        video.embedUrl,
+        typeof window !== "undefined" ? window.location.origin : undefined,
+      )
+    : "";
+
   return (
     <article className="feature-post-item style-default course-detail-preview__card course-detail-preview__grid-cell course-detail-preview__card--media-only">
       <div
         className={`img-style course-detail-preview__media${isPlaying ? " course-detail-preview__media--playing" : ""}`}
       >
-        {isPlaying && embeddable && video.embedUrl ? (
-          <div
-            className={`course-detail-preview__player${isPortrait ? " course-detail-preview__player--portrait" : ""}`}
+        {isPlaying && embeddable && embedSrc ? (
+          <button
+            type="button"
+            className="course-detail-preview__player-trigger"
+            aria-label={stopLabel}
+            onClick={handleToggle}
           >
-            <iframe
-              src={`${video.embedUrl}?autoplay=1`}
-              title={playLabel}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
-            <button
-              type="button"
-              className="course-detail-preview__player-stop btn-close btn-close-white"
-              aria-label={stopLabel}
-              onClick={stopVideo}
-            />
-          </div>
+            <div
+              className={`course-detail-preview__player${isPortrait ? " course-detail-preview__player--portrait" : ""}`}
+            >
+              <iframe
+                src={embedSrc}
+                title={playLabel}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                referrerPolicy="strict-origin-when-cross-origin"
+                tabIndex={-1}
+              />
+            </div>
+          </button>
         ) : (
-          <>
+          <button
+            type="button"
+            className="course-detail-preview__media-trigger"
+            aria-label={playLabel}
+            onClick={handleToggle}
+          >
             <Image
               className="lazyload course-detail-preview__thumb"
               src={thumbnail}
@@ -91,15 +104,7 @@ export default function CourseDetailMarketingVideoCard({
               sizes="(max-width: 767px) 50vw, (max-width: 1399px) 20vw, 14vw"
               onError={onThumbnailError}
             />
-            <button
-              type="button"
-              className="video_btn_play"
-              aria-label={playLabel}
-              onClick={startVideo}
-            >
-              <i className="icon-play-filled play" />
-            </button>
-          </>
+          </button>
         )}
       </div>
     </article>

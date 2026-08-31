@@ -21,10 +21,6 @@ export default function CourseDetailAboutCourseAccordion({
       {sections.map((section, index) => {
         const collapseId = `course-about-${slug}-${baseId}-${index}`;
         const isFirst = index === 0;
-        const itemLabel =
-          section.items.length === 1
-            ? "1 item"
-            : `${section.items.length} items`;
 
         return (
           <div
@@ -47,11 +43,6 @@ export default function CourseDetailAboutCourseAccordion({
                 />
                 <span className="course-detail-about__trigger-title">
                   {section.title}
-                </span>
-              </span>
-              <span className="course-detail-about__count">
-                <span className="course-detail-about__count-value">
-                  {itemLabel}
                 </span>
               </span>
             </button>

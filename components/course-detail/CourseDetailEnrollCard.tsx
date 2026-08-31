@@ -1,6 +1,6 @@
 import type { Course } from "@/types/course";
 import { getCourseSalePrice, getPublicPriceDisplay } from "@/lib/coursePricing";
-import { getLmsUrl } from "@/lib/lms";
+import { getCourseEnrollmentHref } from "@/lib/courses";
 
 type CourseDetailEnrollCardProps = {
   course: Course;
@@ -40,8 +40,12 @@ export default function CourseDetailEnrollCard({
   course,
 }: CourseDetailEnrollCardProps) {
   const priceDisplay = getPublicPriceDisplay(course.pricing);
-  const enrollHref = getLmsUrl(`/courses/${course.slug}`);
+  const enrollHref = getCourseEnrollmentHref(course);
   const enrollLabel = priceDisplay.isFree ? "Enroll for Free" : "Enroll Now";
+
+  if (!enrollHref) {
+    return null;
+  }
 
   return (
     <aside

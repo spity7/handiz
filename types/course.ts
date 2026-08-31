@@ -67,6 +67,9 @@ export type Course = {
   level?: string;
   tags?: string[];
   heroHighlights?: string[];
+  introVideoUrl?: string;
+  introVideoEmbedUrl?: string;
+  enrollmentUrl?: string;
   marketingVideos?: CourseMarketingVideo[];
   aboutCourseSections?: CourseAboutSection[];
   order?: number;

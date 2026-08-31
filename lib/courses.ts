@@ -113,6 +113,23 @@ export function getCourseHeroHighlights(course: Course) {
   return highlights;
 }
 
+export function getCourseEnrollmentHref(course: Pick<Course, "enrollmentUrl">) {
+  const url = course.enrollmentUrl?.trim();
+  return url || null;
+}
+
+export function getCourseIntroVideo(
+  course: Pick<Course, "introVideoUrl" | "introVideoEmbedUrl">,
+) {
+  const url = course.introVideoUrl?.trim();
+  if (!url) return null;
+
+  return {
+    url,
+    embedUrl: course.introVideoEmbedUrl?.trim() || "",
+  };
+}
+
 export function getPreviewLesson(curriculum: CourseModule[] = []) {
   for (const module of curriculum) {
     const preview = module.lessons.find((lesson) => lesson.isPreview);

@@ -43,6 +43,7 @@ export default function CourseDetailPreviewSection({
     course.marketingVideos,
     MAX_COURSE_MARKETING_VIDEOS,
   );
+  const [activeVideoKey, setActiveVideoKey] = useState<string | null>(null);
 
   const updateMetrics = useCallback(() => {
     const scroller = scrollerRef.current;
@@ -193,14 +194,24 @@ export default function CourseDetailPreviewSection({
         style={gridStyle}
         onScroll={updateMetrics}
       >
-        {marketingVideos.map((video, index) => (
-          <CourseDetailMarketingVideoCard
-            key={`${video.order}-${video.url}`}
-            video={video}
-            videoIndex={index}
-            fallbackThumbnail={course.thumbnailUrl}
-          />
-        ))}
+        {marketingVideos.map((video, index) => {
+          const videoKey = `${video.order}-${video.url}`;
+
+          return (
+            <CourseDetailMarketingVideoCard
+              key={videoKey}
+              video={video}
+              videoIndex={index}
+              fallbackThumbnail={course.thumbnailUrl}
+              isPlaying={activeVideoKey === videoKey}
+              onTogglePlay={() =>
+                setActiveVideoKey((current) =>
+                  current === videoKey ? null : videoKey,
+                )
+              }
+            />
+          );
+        })}
       </div>
 
       <div

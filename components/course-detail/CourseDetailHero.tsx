@@ -1,15 +1,16 @@
-import type { Course, Lesson } from "@/types/course";
+import type { Course } from "@/types/course";
 import {
   getCourseHeroHighlights,
   getCourseHeroImages,
+  getCourseEnrollmentHref,
+  getCourseIntroVideo,
   formatDuration,
 } from "@/lib/courses";
 import { getCourseSalePrice, getPublicPriceDisplay } from "@/lib/coursePricing";
-import { getLmsUrl } from "@/lib/lms";
+import CourseDetailIntroButton from "@/components/course-detail/CourseDetailIntroButton";
 
 type CourseDetailHeroProps = {
   course: Course;
-  previewLesson?: Lesson | null;
 };
 
 function CheckIcon() {
@@ -48,20 +49,6 @@ function ArrowIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
-  );
-}
-
-function PlayIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M3 2.2v9.6c0 .7.8 1.1 1.4.7l7.4-4.8c.5-.3.5-1.1 0-1.4L4.4 1.5C3.8 1.1 3 1.5 3 2.2z" />
     </svg>
   );
 }
@@ -132,10 +119,7 @@ function UsdPrice({ amount }: { amount: number }) {
   );
 }
 
-export default function CourseDetailHero({
-  course,
-  previewLesson = null,
-}: CourseDetailHeroProps) {
+export default function CourseDetailHero({ course }: CourseDetailHeroProps) {
   const highlights = getCourseHeroHighlights(course);
   const heroImages = getCourseHeroImages(course);
   const priceDisplay = getPublicPriceDisplay(course.pricing);
@@ -143,7 +127,8 @@ export default function CourseDetailHero({
   const description =
     course.excerpt ||
     "Master professional workflows with step-by-step lessons designed for architects and designers.";
-  const enrollHref = getLmsUrl(`/courses/${course.slug}`);
+  const enrollHref = getCourseEnrollmentHref(course);
+  const introVideo = getCourseIntroVideo(course);
   const hasHeroImage = Boolean(heroImages.desktop || heroImages.mobile);
 
   return (
@@ -246,33 +231,32 @@ export default function CourseDetailHero({
           ) : null}
 
           <div className="course-detail-hero__actions">
-            <div className="course-detail-hero__btn-ring">
-              <span
-                className="course-detail-hero__btn-border"
-                aria-hidden="true"
+            {enrollHref ? (
+              <div className="course-detail-hero__btn-ring">
+                <span
+                  className="course-detail-hero__btn-border"
+                  aria-hidden="true"
+                />
+                <a
+                  href={enrollHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="course-detail-hero__btn course-detail-hero__btn--primary"
+                >
+                  <span className="course-detail-hero__btn-label">
+                    {priceDisplay.isFree ? "Enroll for Free" : "Enroll Now"}
+                  </span>
+                  <span className="course-detail-hero__btn-icon">
+                    <ArrowIcon />
+                  </span>
+                </a>
+              </div>
+            ) : null}
+            {introVideo ? (
+              <CourseDetailIntroButton
+                introVideoUrl={introVideo.url}
+                introVideoEmbedUrl={introVideo.embedUrl}
               />
-              <a
-                href={enrollHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="course-detail-hero__btn course-detail-hero__btn--primary"
-              >
-                <span className="course-detail-hero__btn-label">
-                  {priceDisplay.isFree ? "Enroll for Free" : "Enroll Now"}
-                </span>
-                <span className="course-detail-hero__btn-icon">
-                  <ArrowIcon />
-                </span>
-              </a>
-            </div>
-            {previewLesson ? (
-              <button
-                type="button"
-                className="course-detail-hero__btn course-detail-hero__btn--secondary"
-              >
-                <PlayIcon />
-                Watch the Intro
-              </button>
             ) : null}
           </div>
 

@@ -1,7 +1,7 @@
 import CourseDetail from "@/components/course-detail/CourseDetail";
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
-import { fetchCourseBySlug, getPreviewLesson } from "@/lib/courses";
+import { fetchCourseBySlug } from "@/lib/courses";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -43,13 +43,11 @@ export default async function CourseDetailPage({ params }: Props) {
 
   if (!data) notFound();
 
-  const previewLesson = getPreviewLesson(data.curriculum);
-
   return (
     <>
       <Header1 />
       <div className="main-content">
-        <CourseDetail course={data.course} previewLesson={previewLesson} />
+        <CourseDetail course={data.course} />
       </div>
       <Footer1 />
     </>

@@ -1,0 +1,20 @@
+# Prerequisites:
+#   1. cp .env.example .env
+#   2. docker compose up --build
+#
+# Toggle local/production by commenting/uncommenting lines in .env
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_DASHBOARD_URL: ${NEXT_PUBLIC_DASHBOARD_URL}
+        NEXT_PUBLIC_LMS_URL: ${NEXT_PUBLIC_LMS_URL}
+        NEXT_PUBLIC_GA_MEASUREMENT_ID: ${NEXT_PUBLIC_GA_MEASUREMENT_ID}
+    ports:
+      - "127.0.0.1:3017:3017"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true

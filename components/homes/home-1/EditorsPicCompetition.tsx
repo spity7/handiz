@@ -2,48 +2,57 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { largeFeatureCompetitions, listStyleCompetitions } from "@/data/blogs";
 import React, { useCallback, useState, useEffect } from "react";
 import type { Competition } from "@/types/competitions";
 import CompetitionsPageSkeleton from "@/components/skeletons/CompetitionsPageSkeleton";
+import { fetchCompetitions, splitCompetitionsBySide } from "@/lib/competitions";
+
+function stripHtml(html: string) {
+  return html.replace(/<[^>]+>/g, "");
+}
 
 export default function EditorsPicCompetition() {
   const [side1, setSide1] = useState<Competition[]>([]);
   const [side2, setSide2] = useState<Competition[]>([]);
   const [openVideo, setOpenVideo] = useState(-1);
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
 
   const toggleVideo = useCallback((index: number) => {
     setOpenVideo((prev) => (prev === index ? -1 : index));
   }, []);
 
   useEffect(() => {
-    const fetchCompetitions = async () => {
+    let cancelled = false;
+
+    const load = async () => {
+      setLoading(true);
+      setLoadFailed(false);
+
       try {
-        setLoading(true);
-
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}competitions`,
-        );
-        const data = await res.json();
-
-        const competitions: Competition[] = data.competitions;
-
-        // sort by order
-        const sorted = competitions.sort((a, b) => a.order - b.order);
-
-        // split by side
-        setSide1(sorted.filter((c) => c.side === "1"));
-        setSide2(sorted.filter((c) => c.side === "2"));
-      } catch (error) {
-        console.error("Failed to fetch competitions", error);
+        const { competitions, ok } = await fetchCompetitions();
+        if (cancelled) return;
+        if (!ok) {
+          setLoadFailed(true);
+          return;
+        }
+        const { side1: s1, side2: s2 } = splitCompetitionsBySide(competitions);
+        setSide1(s1);
+        setSide2(s2);
+      } catch {
+        if (!cancelled) setLoadFailed(true);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
-    fetchCompetitions();
+    void load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  const isEmpty = !loading && side1.length === 0 && side2.length === 0;
 
   return (
     <div className="section-editor-pick mt_22 mb_27">
@@ -52,9 +61,16 @@ export default function EditorsPicCompetition() {
           <h3>Competitions</h3>
         </div>
 
-        {/* LOADING STATE */}
         {loading ? (
           <CompetitionsPageSkeleton />
+        ) : loadFailed ? (
+          <p className="text-body-1 text-muted">
+            Competitions are unavailable right now. Please try again later.
+          </p>
+        ) : isEmpty ? (
+          <p className="text-body-1 text-muted">
+            No competitions listed at the moment. Check back soon.
+          </p>
         ) : (
           <div className="row wrap">
             <div className="col-lg-6">
@@ -77,7 +93,7 @@ export default function EditorsPicCompetition() {
 
                     <div className="wrap-tag">
                       <Link
-                        href={"#"}
+                        href="#"
                         className="tag categories text-caption-2 text_white"
                       >
                         {post.category}
@@ -104,16 +120,6 @@ export default function EditorsPicCompetition() {
                           {post.deadline}
                         </li>
                       </ul>
-                      {/* <ul className="meta-feature interact fw-7 d-flex text-body-1">
-                      <li>
-                        <i className="icon-Eye" />
-                        {post.views}
-                      </li>
-                      <li>
-                        <i className="icon-ChatsCircle" />
-                        {post.comments}
-                      </li>
-                    </ul> */}
                     </div>
 
                     <h2 className="title mb_20">
@@ -127,14 +133,8 @@ export default function EditorsPicCompetition() {
                     </h2>
 
                     <p className="text-body-1 mb_28 line-clamp-2">
-                      {post.description.replace(/<[^>]+>/g, "")}
+                      {stripHtml(post.description)}
                     </p>
-                    {/* <Link
-                    href={`/single-post-1/${post.id}`}
-                    className="hover-underline-link text-body-1 fw-7 text_on-surface-color"
-                  >
-                    Read More Post
-                  </Link> */}
                   </div>
                 </div>
               ))}
@@ -162,7 +162,7 @@ export default function EditorsPicCompetition() {
 
                     <div className="wrap-tag">
                       <Link
-                        href={"#"}
+                        href="#"
                         className="tag categories text-caption-2 text_white"
                       >
                         {post.category}
@@ -181,14 +181,11 @@ export default function EditorsPicCompetition() {
 
                   <div className="content">
                     <ul className="meta-feature fw-7 d-flex mb_12 text-caption-2 text-uppercase">
-                      {/* <li>{post.date}</li> */}
                       <li>
                         <span className="text_secodary2-color">
                           REGISTRATION DEADLINE:
                         </span>{" "}
-                        <a href="#" className="link">
-                          {post.deadline}
-                        </a>
+                        <span>{post.deadline}</span>
                       </li>
                     </ul>
 
@@ -203,7 +200,7 @@ export default function EditorsPicCompetition() {
                     </h5>
 
                     <p className="text-body-1 line-clamp-2">
-                      {post.description.replace(/<[^>]+>/g, "")}
+                      {stripHtml(post.description)}
                     </p>
                   </div>
                 </div>

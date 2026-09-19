@@ -1,10 +1,29 @@
 import type { Course, CourseModule, Enrollment, Lesson } from "@/types/course";
 import { COURSE_STATUS } from "@/types/course";
+import { getLmsUrl } from "@/lib/lms";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5016/api/v1/";
 
 let authCoursesRequest: Promise<Course[]> | null = null;
+const authCourseBySlugRequests = new Map<
+  string,
+  ReturnType<typeof fetchCourseBySlug>
+>();
+
+export type CourseEnrollmentCta =
+  | {
+      mode: "enroll";
+      href: string;
+      label: string;
+      external: true;
+    }
+  | {
+      mode: "continue" | "review";
+      href: string;
+      label: string;
+      external: false;
+    };
 
 export function prefetchAuthCourses(params?: {
   tag?: string;
@@ -62,6 +81,37 @@ export function formatDuration(minutes?: number) {
   return m > 0 ? `${h}h ${m}m` : `${h}h`;
 }
 
+export function prefetchAuthCourseBySlug(slug: string) {
+  if (typeof window === "undefined") {
+    return fetchCourseBySlug(slug, { withAuth: true });
+  }
+
+  const existing = authCourseBySlugRequests.get(slug);
+  if (existing) return existing;
+
+  const request = fetchCourseBySlug(slug, { withAuth: true });
+  authCourseBySlugRequests.set(slug, request);
+  return request;
+}
+
+export function applyCourseEnrollmentFromDetail(
+  course: Course,
+  detail: NonNullable<Awaited<ReturnType<typeof fetchCourseBySlug>>>,
+): Course {
+  const enrollmentStatus = detail.enrollment?.status;
+
+  return {
+    ...course,
+    ...detail.course,
+    isEnrolled: detail.isEnrolled,
+    enrollmentStatus:
+      enrollmentStatus === "active" || enrollmentStatus === "completed"
+        ? enrollmentStatus
+        : null,
+    progressPercent: detail.enrollment?.progressPercent ?? null,
+  };
+}
+
 export async function fetchCourseBySlug(
   slug: string,
   options?: { withAuth?: boolean },
@@ -116,6 +166,50 @@ export function getCourseHeroHighlights(course: Course) {
 export function getCourseEnrollmentHref(course: Pick<Course, "enrollmentUrl">) {
   const url = course.enrollmentUrl?.trim();
   return url || null;
+}
+
+export function getCourseEnrollmentCta(
+  course: Pick<
+    Course,
+    | "slug"
+    | "pricing"
+    | "isEnrolled"
+    | "enrollmentStatus"
+    | "progressPercent"
+    | "enrollmentUrl"
+  >,
+): CourseEnrollmentCta | null {
+  if (course.isEnrolled) {
+    const progressPercent = Math.min(
+      100,
+      Math.max(0, course.progressPercent ?? 0),
+    );
+    const isComplete =
+      progressPercent >= 100 || course.enrollmentStatus === "completed";
+
+    return {
+      mode: isComplete ? "review" : "continue",
+      href: getCourseLearningHref(course),
+      label: isComplete ? "Review Course" : "Continue Learning",
+      external: false,
+    };
+  }
+
+  const enrollHref = getCourseEnrollmentHref(course);
+  if (!enrollHref) return null;
+
+  const isFree = Boolean(course.pricing?.isFree);
+
+  return {
+    mode: "enroll",
+    href: enrollHref,
+    label: isFree ? "Enroll for Free" : "Enroll Now",
+    external: true,
+  };
+}
+
+export function getCourseLearningHref(course: Pick<Course, "slug">) {
+  return getLmsUrl(`/courses/${course.slug}`);
 }
 
 export function getCourseIntroVideo(

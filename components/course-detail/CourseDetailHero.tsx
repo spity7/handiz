@@ -2,12 +2,12 @@ import type { Course } from "@/types/course";
 import {
   getCourseHeroHighlights,
   getCourseHeroImages,
-  getCourseEnrollmentHref,
   getCourseIntroVideo,
   formatDuration,
 } from "@/lib/courses";
 import { getCourseSalePrice, getPublicPriceDisplay } from "@/lib/coursePricing";
 import CourseDetailIntroButton from "@/components/course-detail/CourseDetailIntroButton";
+import CourseDetailHeroEnrollAction from "@/components/course-detail/CourseDetailHeroEnrollAction";
 
 type CourseDetailHeroProps = {
   course: Course;
@@ -24,26 +24,6 @@ function CheckIcon() {
     >
       <path
         d="M3.2 7.1L5.6 9.5L10.8 4.3"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M3.5 9h10.2M9.8 4.7L14.3 9l-4.5 4.3"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
@@ -127,7 +107,6 @@ export default function CourseDetailHero({ course }: CourseDetailHeroProps) {
   const description =
     course.excerpt ||
     "Master professional workflows with step-by-step lessons designed for architects and designers.";
-  const enrollHref = getCourseEnrollmentHref(course);
   const introVideo = getCourseIntroVideo(course);
   const hasHeroImage = Boolean(heroImages.desktop || heroImages.mobile);
 
@@ -231,27 +210,7 @@ export default function CourseDetailHero({ course }: CourseDetailHeroProps) {
           ) : null}
 
           <div className="course-detail-hero__actions">
-            {enrollHref ? (
-              <div className="course-detail-hero__btn-ring">
-                <span
-                  className="course-detail-hero__btn-border"
-                  aria-hidden="true"
-                />
-                <a
-                  href={enrollHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="course-detail-hero__btn course-detail-hero__btn--primary"
-                >
-                  <span className="course-detail-hero__btn-label">
-                    {priceDisplay.isFree ? "Enroll for Free" : "Enroll Now"}
-                  </span>
-                  <span className="course-detail-hero__btn-icon">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </div>
-            ) : null}
+            <CourseDetailHeroEnrollAction course={course} />
             {introVideo ? (
               <CourseDetailIntroButton
                 introVideoUrl={introVideo.url}

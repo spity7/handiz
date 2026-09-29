@@ -10,6 +10,7 @@ import {
 } from "@/data/menu";
 import { usePathname } from "next/navigation";
 import { MenuItem } from "@/types/menu-item";
+import { isArchOfficesEnabled } from "@/lib/offices";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -141,6 +142,25 @@ export default function Nav() {
           </span>
         </a>
       </li>
+
+      {isArchOfficesEnabled() ? (
+        <li
+          className={`text-menu ${
+            isMenuActive({ href: "/arch-offices" }) ? "current-menu" : ""
+          }`}
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+        >
+          <a href="/arch-offices" className="toggle splitting link-no-action">
+            <span className="text" data-splitting="">
+              Arch Offices
+            </span>
+            <span className="text" data-splitting="">
+              Arch Offices
+            </span>
+          </a>
+        </li>
+      ) : null}
 
       {/* Categories */}
       <li

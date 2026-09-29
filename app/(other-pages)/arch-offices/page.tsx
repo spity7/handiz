@@ -1,32 +1,19 @@
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
-import LatestPostsOffices from "@/components/homes/home-1/LatestPostsOffices";
+import ArchOfficesListing from "@/components/offices/ArchOfficesListing";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Arch. Offices || Handiz",
-  description: "Handiz",
+  title: "Arch Offices || Handiz",
+  description: "Architecture studios hiring on Handiz.",
 };
 
-async function getOffices() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}offices`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch offices");
-  }
-  return res.json();
-}
-
-export default async function Page() {
-  const data = await getOffices();
-  const offices = data.offices;
-
+export default function Page() {
   return (
     <>
       <Header1 />
       <div className="main-content">
-        <LatestPostsOffices offices={offices} />
+        <ArchOfficesListing />
       </div>
       <Footer1 />
     </>

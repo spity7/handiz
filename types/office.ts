@@ -1,10 +1,11 @@
 export type Office = {
   _id: string;
   title: string;
-  location: string;
+  location: string | string[];
   email: string;
   instagram: string;
   linkedin: string;
+  link?: string;
   teamNb: number;
   order: number;
   thumbnailUrl: string;

@@ -10,6 +10,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { MenuItem } from "@/types/menu-item";
+import { isArchOfficesEnabled } from "@/lib/offices";
 import { useEffect, useRef } from "react";
 type BootstrapModule = {
   Modal: {
@@ -123,6 +124,17 @@ export default function MobileMenu() {
                 Who We Are?
               </Link>
             </li>
+            {isArchOfficesEnabled() ? (
+              <li
+                className={`menu-item ${
+                  isMenuActive({ href: "/arch-offices" }) ? "active" : ""
+                }`}
+              >
+                <Link href="/arch-offices" className="item-menu-mobile">
+                  Arch Offices
+                </Link>
+              </li>
+            ) : null}
             <li className="menu-item">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScI0HN9XiNjEmMJVr_Pd0wMiXrixp8OMQ8zL5x1_bGFvQk7qQ/viewform?pli=1"

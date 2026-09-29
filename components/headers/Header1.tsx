@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import DarkModeToggler from "./DarkModeToggler";
 import AccountMenu from "./AccountMenu";
+import ShopCartLink from "./ShopCartLink";
 
 const studentProjectsHref = `${process.env.NEXT_PUBLIC_DASHBOARD_URL || ""}/ecommerce/student-projects`;
 
@@ -85,6 +86,7 @@ export default function Header1() {
             </Link>
             <div className="wrap d-flex justify-content-end">
               <DarkModeToggler />
+              <ShopCartLink />
               <a
                 href={studentProjectsHref}
                 className="tf-btn style-2 btn-project-cta btn-switch-text animate-hover-btn md-hide"

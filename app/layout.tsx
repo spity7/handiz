@@ -1,6 +1,7 @@
 import GoogleAnalytics from "@/components/common/GoogleAnalytics";
 import GlobalEffectsProvider from "@/components/common/GlobalEffectsProvider";
 import { ProjectsProvider } from "@/components/providers/ProjectsProvider";
+import { ShopCartProvider } from "@/components/providers/ShopCartProvider";
 import "../public/scss/main.scss";
 import SearchModal from "@/components/modals/SearchModal";
 import MobileMenu from "@/components/modals/MobileMenu";
@@ -22,11 +23,13 @@ export default function RootLayout({
           }}
         />
         <ProjectsProvider>
-          <div id="wrapper">{children}</div>
-          <SearchModal />
-          <MobileMenu />
-          <ScrollTop />
-          <GlobalEffectsProvider />
+          <ShopCartProvider>
+            <div id="wrapper">{children}</div>
+            <SearchModal />
+            <MobileMenu />
+            <ScrollTop />
+            <GlobalEffectsProvider />
+          </ShopCartProvider>
         </ProjectsProvider>
       </body>
     </html>

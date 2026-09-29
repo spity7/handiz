@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Handiz (public website)
 
-## Getting Started
+Next.js marketing site: student projects, courses catalog, competitions, arch offices, AI prompts, and the **Handiz Shop** storefront.
 
-First, run the development server:
+Data and admin flows are backed by the **handiz-dashboard** repo (Express API + React admin). Course learning redirects to the LMS when configured.
+
+## Getting started
 
 ```bash
+cp .env.example .env.local   # or use .env for docker compose
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable                          | Purpose                                                                                                |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_API_URL`             | Handiz API base (e.g. `http://localhost:5016/api/v1/`) — **required for shop, courses, offices, etc.** |
+| `NEXT_PUBLIC_DASHBOARD_URL`       | Sign-in and admin links                                                                                |
+| `NEXT_PUBLIC_LMS_URL`             | “My courses” / learn redirects                                                                         |
+| `NEXT_PUBLIC_ENABLE_ARCH_OFFICES` | `false` hides Arch Offices nav only                                                                    |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID`   | Optional analytics                                                                                     |
 
-## Learn More
+The shop does **not** need extra `NEXT_PUBLIC_*` keys. Checkout, shipping fee, and Whish redirects are configured on the **API** (`handiz-dashboard/server/.env`). See `server/SHOP.md` in the dashboard repo.
 
-To learn more about Next.js, take a look at the following resources:
+## Shop (storefront)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Route                   | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| `/shop`                 | Landing + featured products                                           |
+| `/shop/products`        | Catalog (search, category, sort, pagination via URL)                  |
+| `/shop/products/[slug]` | Product detail, add to cart                                           |
+| `/shop/cart`            | Cart (guest: `localStorage`; signed-in: server cart, merged on login) |
+| `/shop/checkout`        | Shipping form + Whish Pay (requires login; cookie session with API)   |
+| `/shop/orders`          | Order history                                                         |
+| `/shop/orders/[id]`     | Order status / payment result                                         |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Admin:** manage products, categories, and orders in the dashboard under **Shop** (see `README.md` in the handiz-dashboard repo).
 
-## Deploy on Vercel
+## Docker
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+cp .env.example .env
+docker compose up --build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Serves on [http://127.0.0.1:3017](http://127.0.0.1:3017). Build args pass `NEXT_PUBLIC_*` from `.env` (including `NEXT_PUBLIC_ENABLE_ARCH_OFFICES`).
+
+## Scripts
+
+| Command         | Description                  |
+| --------------- | ---------------------------- |
+| `npm run dev`   | Development server           |
+| `npm run build` | Production build             |
+| `npm run start` | Run production build locally |
+
+## Related documentation
+
+In the **handiz-dashboard** repository:
+
+- Root `README.md` — local dev, Docker, env file map
+- `server/SHOP.md` — shop API env, webhooks, admin routes

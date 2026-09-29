@@ -99,6 +99,23 @@ export default function Nav() {
       {/* Post Styles */}
       <li
         className={`text-menu ${
+          isMenuActive({ href: "/shop" }) ? "current-menu" : ""
+        }`}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      >
+        <a href="/shop" className="toggle splitting link-no-action">
+          <span className="text" data-splitting="">
+            Shop
+          </span>
+          <span className="text" data-splitting="">
+            Shop
+          </span>
+        </a>
+      </li>
+
+      <li
+        className={`text-menu ${
           isMenuActive({ href: "/courses" }) ? "current-menu" : ""
         }`}
         onMouseEnter={handleEnter}

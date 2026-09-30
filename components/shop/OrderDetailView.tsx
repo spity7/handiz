@@ -49,7 +49,7 @@ export default function OrderDetailView({ order }: { order: ShopOrder }) {
         >
           All orders
         </Link>
-        <Link href="/shop/products" className="tf-btn animate-hover-btn">
+        <Link href="/shop" className="tf-btn animate-hover-btn">
           Continue shopping
         </Link>
       </div>

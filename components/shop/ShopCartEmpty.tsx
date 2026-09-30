@@ -18,7 +18,7 @@ export default function ShopCartEmpty() {
       </p>
       <div className="courses-catalog__empty-action shop-cart__empty-actions">
         <Link
-          href="/shop/products"
+          href="/shop"
           className="tf-btn btn-fill animate-hover-btn btn-switch-text courses-catalog__empty-btn shop-cart__empty-btn"
         >
           <span>
@@ -26,9 +26,6 @@ export default function ShopCartEmpty() {
               Browse products
             </span>
           </span>
-        </Link>
-        <Link href="/shop" className="shop-cart__empty-link">
-          Back to shop home
         </Link>
       </div>
       <ul className="shop-cart__empty-trust">

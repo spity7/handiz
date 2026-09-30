@@ -30,8 +30,7 @@ The shop does **not** need extra `NEXT_PUBLIC_*` keys. Checkout, shipping fee, a
 
 | Route                   | Description                                                           |
 | ----------------------- | --------------------------------------------------------------------- |
-| `/shop`                 | Landing + featured products                                           |
-| `/shop/products`        | Catalog (search, category, sort, pagination via URL)                  |
+| `/shop`                 | Catalog (search, category, sort, pagination via URL)                  |
 | `/shop/products/[slug]` | Product detail, add to cart                                           |
 | `/shop/cart`            | Cart (guest: `localStorage`; signed-in: server cart, merged on login) |
 | `/shop/checkout`        | Shipping form + Whish Pay (requires login; cookie session with API)   |

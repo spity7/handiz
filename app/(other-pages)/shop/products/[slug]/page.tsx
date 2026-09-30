@@ -1,7 +1,8 @@
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 import ProductDetailView from "@/components/shop/ProductDetailView";
-import { fetchShopProductBySlug } from "@/lib/shop";
+import ProductCard from "@/components/shop/ProductCard";
+import { fetchShopProductBySlug, fetchShopProducts } from "@/lib/shop";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -23,6 +24,17 @@ export default async function ShopProductPage({ params }: Props) {
 
   const { product, purchasable, shippingFee } = data;
   const price = product.unitPrice ?? product.price;
+
+  const firstCategory = product.categoryIds?.[0];
+  const categorySlug =
+    firstCategory && typeof firstCategory !== "string"
+      ? firstCategory.slug
+      : undefined;
+  const related = (
+    await fetchShopProducts({ category: categorySlug, limit: 5 })
+  ).products
+    .filter((p) => p._id !== product._id)
+    .slice(0, 4);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -53,6 +65,16 @@ export default async function ShopProductPage({ params }: Props) {
           purchasable={purchasable}
           shippingFee={shippingFee}
         />
+        {related.length > 0 && (
+          <section className="shop-pdp-related tf-container tf-spacing-1">
+            <h2 className="shop-pdp-related__title">You may also like</h2>
+            <div className="tf-grid-layout tf-col-2 lg-col-4 md-col-3 sm-col-2 gap30">
+              {related.map((p) => (
+                <ProductCard key={p._id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
       <Footer1 />
     </>

@@ -35,7 +35,6 @@ export default function DarkModeToggler() {
           onClick={toggleMode}
           style={{ cursor: "pointer" }}
         >
-          <span className="label light sm-hide">Light</span>
           <div
             className={`toggle toggle-switch-mode ${darkMode ? "active" : ""}`}
           >

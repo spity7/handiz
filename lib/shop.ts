@@ -22,14 +22,17 @@ export async function fetchShopCategories(): Promise<ShopCategory[]> {
   }
 }
 
-export async function fetchShopProducts(params?: {
-  page?: number;
-  limit?: number;
-  q?: string;
-  category?: string;
-  sort?: string;
-  featured?: boolean;
-}): Promise<ShopProductsResponse> {
+export async function fetchShopProducts(
+  params?: {
+    page?: number;
+    limit?: number;
+    q?: string;
+    category?: string;
+    sort?: string;
+    featured?: boolean;
+  },
+  init?: RequestInit,
+): Promise<ShopProductsResponse> {
   const search = new URLSearchParams();
   if (params?.page) search.set("page", String(params.page));
   if (params?.limit) search.set("limit", String(params.limit));
@@ -42,7 +45,7 @@ export async function fetchShopProducts(params?: {
   const url = `${API_BASE_URL}shop/products${qs ? `?${qs}` : ""}`;
 
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, { cache: "no-store", ...init });
     if (!res.ok) {
       return {
         products: [],
@@ -50,7 +53,13 @@ export async function fetchShopProducts(params?: {
       };
     }
     return await res.json();
-  } catch {
+  } catch (error) {
+    if (
+      init?.signal?.aborted ||
+      (error instanceof DOMException && error.name === "AbortError")
+    ) {
+      throw error;
+    }
     return {
       products: [],
       pagination: { page: 1, limit: 12, total: 0, pages: 0 },

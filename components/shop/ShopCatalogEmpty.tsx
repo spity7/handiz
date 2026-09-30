@@ -33,30 +33,25 @@ export default function ShopCatalogEmpty({
       </p>
       <div className="courses-catalog__empty-action shop-catalog__results-empty-actions">
         {filtered ? (
-          <>
-            <button
-              type="button"
-              className="tf-btn btn-fill animate-hover-btn btn-switch-text courses-catalog__empty-btn shop-catalog__results-empty-btn"
-              onClick={onClearFilters}
-            >
-              <span>
-                <span className="btn-double-text" data-text="Clear filters">
-                  Clear filters
-                </span>
+          <button
+            type="button"
+            className="tf-btn btn-fill animate-hover-btn btn-switch-text courses-catalog__empty-btn shop-catalog__results-empty-btn"
+            onClick={onClearFilters}
+          >
+            <span>
+              <span className="btn-double-text" data-text="Clear filters">
+                Clear filters
               </span>
-            </button>
-            <Link href="/shop" className="shop-catalog__results-empty-link">
-              Shop home
-            </Link>
-          </>
+            </span>
+          </button>
         ) : (
           <Link
-            href="/shop"
+            href="/"
             className="tf-btn btn-fill animate-hover-btn btn-switch-text courses-catalog__empty-btn shop-catalog__results-empty-btn"
           >
             <span>
-              <span className="btn-double-text" data-text="Back to shop home">
-                Back to shop home
+              <span className="btn-double-text" data-text="Back to home">
+                Back to home
               </span>
             </span>
           </Link>

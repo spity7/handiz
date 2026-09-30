@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
 
     return [
       { source: "/ai-tools", destination: "/ai-prompts", permanent: true },
+      { source: "/shop/products", destination: "/shop", permanent: true },
       {
         source: "/my-courses",
         destination: `${lmsUrl}/my-courses`,

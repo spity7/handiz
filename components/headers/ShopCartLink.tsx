@@ -3,13 +3,17 @@
 import Link from "next/link";
 import { useShopCart } from "@/components/providers/ShopCartProvider";
 
-export default function ShopCartLink() {
+type ShopCartLinkProps = {
+  className?: string;
+};
+
+export default function ShopCartLink({ className }: ShopCartLinkProps) {
   const { itemCount } = useShopCart();
 
   return (
     <Link
       href="/shop/cart"
-      className="shop-cart-link"
+      className={["shop-cart-link", className].filter(Boolean).join(" ")}
       aria-label={`Shopping cart, ${itemCount} items`}
     >
       <i className="bi bi-bag" aria-hidden />

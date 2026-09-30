@@ -45,17 +45,32 @@
     transform: translateX(23px);
   }
   @include res(md) {
-    gap: 4px;
+    gap: 3px;
+
+    .label {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .label.light {
+      display: none;
+    }
+
     .toggle {
-      width: 42px;
-      height: 23px;
+      width: 34px;
+      height: 18px;
+      border-width: 1.5px;
     }
+
     .toggle-button {
-      height: 15px;
-      width: 15px;
+      top: 1px;
+      left: 1px;
+      height: 12px;
+      width: 12px;
     }
+
     .toggle.active .toggle-button {
-      transform: translateX(18px);
+      transform: translateX(15px);
     }
   }
 }
@@ -832,7 +847,9 @@
     top: 49%;
     opacity: 0;
     transform: rotate(4deg) scale(0.8) translateY(calc(-50% + 14px));
-    transition: opacity 0.35s, transform 0.5s ease-out;
+    transition:
+      opacity 0.35s,
+      transform 0.5s ease-out;
     pointer-events: none;
     overflow: hidden;
     border-radius: 8px;

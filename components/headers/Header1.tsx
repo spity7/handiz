@@ -86,7 +86,7 @@ export default function Header1() {
             </Link>
             <div className="wrap d-flex justify-content-end">
               <DarkModeToggler />
-              <ShopCartLink />
+              <ShopCartLink className="md-hide" />
               <a
                 href={studentProjectsHref}
                 className="tf-btn style-2 btn-project-cta btn-switch-text animate-hover-btn md-hide"

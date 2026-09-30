@@ -8,13 +8,16 @@ import {
   getCurrentReturnUrl,
 } from "@/lib/dashboard-auth";
 import { getLmsUrl } from "@/lib/lms";
+import Link from "next/link";
 import { useAuthUser } from "@/hooks/useAuthUser";
+import { useShopCart } from "@/components/providers/ShopCartProvider";
 
 const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL || "";
 const myProjectsHref = `${dashboardUrl}/ecommerce/student-projects`;
 
 export default function AccountMenu() {
   const { user, isAuthenticated, loading, refresh } = useAuthUser();
+  const { itemCount } = useShopCart();
   const [open, setOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const [signInHref] = useState(() =>
@@ -141,6 +144,32 @@ export default function AccountMenu() {
             )}
 
             <div className="account-menu__body">
+              <Link
+                href="/shop/cart"
+                className="account-menu__item account-menu__item--mobile-only"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+              >
+                <span className="account-menu__item-icon">
+                  <i className="bi bi-bag" aria-hidden="true" />
+                </span>
+                <span className="account-menu__item-label">
+                  Cart
+                  {itemCount > 0 && (
+                    <span className="account-menu__item-badge">
+                      {itemCount}
+                    </span>
+                  )}
+                </span>
+                <i
+                  className="bi bi-arrow-right account-menu__item-arrow account-menu__item-arrow--visible"
+                  aria-hidden="true"
+                />
+              </Link>
+              <div
+                className="account-menu__divider account-menu__divider--mobile-only"
+                role="separator"
+              />
               {isAuthenticated ? (
                 <>
                   <a

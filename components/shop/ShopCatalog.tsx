@@ -4,7 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { ShopCategory, ShopProduct } from "@/types/shop";
 import { fetchShopProducts } from "@/lib/shop";
+import Link from "next/link";
 import ProductCard from "./ProductCard";
+import ShopCatalogEmpty from "./ShopCatalogEmpty";
 
 export default function ShopCatalog({
   initialProducts,
@@ -60,11 +62,17 @@ export default function ShopCatalog({
     router.push(`/shop/products?${next.toString()}`);
   };
 
+  const hasActiveFilters = Boolean(q || category);
+
+  const clearFilters = () => {
+    updateParams({ q: "", category: "", page: "1" });
+  };
+
   return (
     <section className="shop-catalog tf-container tf-spacing-1">
       <header className="shop-catalog__header">
         <h1 className="shop-catalog__title">Shop</h1>
-        <p className="shop-catalog__lead text-muted">
+        <p className="shop-catalog__lead">
           Architecture resources and Handiz merchandise. Shipping from $
           {shippingFee.toFixed(2)}.
         </p>
@@ -104,9 +112,14 @@ export default function ShopCatalog({
       </div>
 
       {loading ? (
-        <p className="shop-catalog__loading">Loading products…</p>
+        <p className="shop-catalog__loading" aria-busy="true">
+          Loading products…
+        </p>
       ) : products.length === 0 ? (
-        <p className="shop-catalog__empty">No products match your filters.</p>
+        <ShopCatalogEmpty
+          filtered={hasActiveFilters}
+          onClearFilters={clearFilters}
+        />
       ) : (
         <div className="tf-grid-layout xxl-col-4 sm-col-2 shop-catalog__grid">
           {products.map((product) => (

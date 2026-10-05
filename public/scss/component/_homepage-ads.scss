@@ -1,17 +1,21 @@
 @use "../abstracts/index" as *;
 
 .page-title.homepage-2.homepage-ads-bar {
-  padding-top: 29px;
+  padding-top: 14px;
   padding-bottom: 0;
 
   .wrap-feature {
-    margin-bottom: 18px;
+    margin-bottom: 8px;
+  }
+
+  .spd-home-ads {
+    margin-top: 12px !important;
   }
 
   .homepage-ads-bar__skeleton {
     height: 92px;
     border-radius: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
   }
 
   @include res(lg, min) {
@@ -32,7 +36,7 @@
 }
 
 .homepage-ads-bar + .page-title.homepage-2 {
-  padding-top: 12px;
+  padding-top: 6px;
 }
 
 .home-page-skeleton__ads {
@@ -63,6 +67,24 @@
 
 .homepage-ads-bar {
   .homepage-ad-card {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background-color: var(--White);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 6px 20px rgba(15, 23, 42, 0.08);
+    text-decoration: none;
+    color: inherit;
+    @include transition3();
+
+    &:not(.homepage-ad-card--disabled):hover {
+      box-shadow:
+        0 2px 4px rgba(15, 23, 42, 0.06),
+        0 10px 28px rgba(15, 23, 42, 0.12);
+    }
+
     &__thumb {
       flex-shrink: 0;
       display: block;
@@ -83,7 +105,10 @@
 
     &--disabled {
       cursor: default;
-      opacity: 0.85;
+      opacity: 0.92;
+      box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 4px 14px rgba(15, 23, 42, 0.06);
 
       .title .link {
         color: var(--Secondary);
@@ -93,6 +118,20 @@
 }
 
 body.dark-mode {
+  .homepage-ads-bar .homepage-ad-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.35),
+      0 8px 24px rgba(0, 0, 0, 0.45);
+
+    &:not(.homepage-ad-card--disabled):hover {
+      box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.4),
+        0 12px 32px rgba(0, 0, 0, 0.55);
+    }
+  }
+
   .homepage-ad-status {
     &--available {
       color: #4ade80;

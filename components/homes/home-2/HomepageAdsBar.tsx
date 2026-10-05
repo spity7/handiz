@@ -65,7 +65,7 @@ export default function HomepageAdsBar() {
               <AdStripCard ad={ad} />
             </SwiperSlide>
           ))}
-          <div className="sw-dots sw-pagination-layout mt_24 justify-content-center d-flex mt_22 spd-home-ads" />
+          <div className="sw-dots sw-pagination-layout justify-content-center d-flex d-md-none spd-home-ads" />
         </Swiper>
       </div>
     </div>

@@ -7,6 +7,7 @@ import Categories from "@/components/homes/home-2/Categories";
 import Cta from "@/components/homes/home-2/Cta";
 import Hero from "@/components/homes/home-2/Hero";
 import HeroSP from "@/components/homes/home-2/HeroSP";
+import HomepageAdsBar from "@/components/homes/home-2/HomepageAdsBar";
 import HighlightPosts from "@/components/homes/home-2/HighlightPosts";
 import InstagramPosts from "@/components/homes/home-2/InstagramPosts";
 import LatestPosts from "@/components/homes/home-2/LatestPosts";
@@ -55,6 +56,7 @@ function PageContent() {
     <>
       {/* <Header2 /> */}
       <Header1 />
+      <HomepageAdsBar />
       {/* <Hero /> */}
       <HeroSP
         selectedCategories={selectedCategories}

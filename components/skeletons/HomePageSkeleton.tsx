@@ -8,6 +8,12 @@ export default function HomePageSkeleton() {
     <>
       <Header1 />
 
+      <div className="page-title homepage-2 sw-layout homepage-ads-bar">
+        <div className="tf-container w-xxl home-page-skeleton">
+          <span className="skeleton-block home-page-skeleton__ads d-block" />
+        </div>
+      </div>
+
       <div className="page-title homepage-2 sw-layout">
         <div className="tf-container w-xxl home-page-skeleton">
           <span className="skeleton-block home-page-skeleton__search d-block" />

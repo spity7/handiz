@@ -1,6 +1,12 @@
 "use client";
 
 import type { HomepageAd } from "@/lib/homepageAds";
+import {
+  getHomepageAdStatusClassName,
+  getHomepageAdStatusLabel,
+  isHomepageAdClickable,
+  normalizeHomepageAdStatus,
+} from "@/lib/homepageAdStatus";
 import Image from "next/image";
 
 declare global {
@@ -17,8 +23,36 @@ type Props = {
   ad: HomepageAd;
 };
 
+function AdThumbnail({
+  title,
+  thumbnailUrl,
+}: {
+  title: string;
+  thumbnailUrl: string;
+}) {
+  return (
+    <span className="img-style homepage-ad-card__thumb">
+      <Image
+        decoding="async"
+        loading="lazy"
+        width={123}
+        height={92}
+        alt={title}
+        src={thumbnailUrl}
+        className="homepage-ad-card__image"
+      />
+    </span>
+  );
+}
+
 export default function AdStripCard({ ad }: Props) {
+  const status = normalizeHomepageAdStatus(ad.status);
+  const clickable = isHomepageAdClickable(status);
+  const statusLabel = getHomepageAdStatusLabel(status);
+  const statusClass = getHomepageAdStatusClassName(status);
+
   const handleClick = () => {
+    if (!clickable) return;
     if (typeof window === "undefined" || !window.gtag) return;
     window.gtag("event", "homepage_ad_click", {
       ad_id: ad._id,
@@ -26,33 +60,21 @@ export default function AdStripCard({ ad }: Props) {
     });
   };
 
-  return (
-    <a
-      href={ad.externalUrl}
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      className="feature-post-item style-small d-flex align-items-center hover-image-rotate"
-      onClick={handleClick}
-      aria-label={`${ad.metaPrimary}: ${ad.title}`}
-    >
-      <span className="img-style">
-        {ad.thumbnailUrl ? (
-          <Image
-            decoding="async"
-            loading="lazy"
-            width={123}
-            height={92}
-            alt={ad.title}
-            src={ad.thumbnailUrl}
-          />
-        ) : null}
-      </span>
+  const content = (
+    <>
+      {ad.thumbnailUrl ? (
+        <AdThumbnail title={ad.title} thumbnailUrl={ad.thumbnailUrl} />
+      ) : null}
       <span className="content">
-        <ul className="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-          <li>{ad.metaPrimary}</li>
+        <ul className="meta-feature text-caption-2 fw-7 d-flex align-items-center mb_8 text-uppercase">
+          <li>
+            <span className={statusClass}>{statusLabel}</span>
+          </li>
           {ad.metaSecondary ? (
             <li>
-              <span className="text-uppercase">{ad.metaSecondary}</span>
+              <span className="text_secodary-color text-uppercase">
+                {ad.metaSecondary}
+              </span>
             </li>
           ) : null}
         </ul>
@@ -60,6 +82,37 @@ export default function AdStripCard({ ad }: Props) {
           <span className="link line-clamp-2">{ad.title}</span>
         </h6>
       </span>
+    </>
+  );
+
+  const className = [
+    "feature-post-item style-small d-flex align-items-center homepage-ad-card",
+    clickable ? "hover-image-rotate" : "homepage-ad-card--disabled",
+  ].join(" ");
+
+  if (!clickable) {
+    return (
+      <div
+        className={className}
+        role="group"
+        aria-label={`${statusLabel}: ${ad.title}`}
+        aria-disabled="true"
+      >
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={ad.externalUrl}
+      target="_blank"
+      rel="noopener noreferrer sponsored"
+      className={className}
+      onClick={handleClick}
+      aria-label={`${statusLabel}: ${ad.title}`}
+    >
+      {content}
     </a>
   );
 }

@@ -1,10 +1,12 @@
 const API_BASE =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5016/api/v1/";
 
+import type { HomepageAdStatus } from "./homepageAdStatus";
+
 export type HomepageAd = {
   _id: string;
   title: string;
-  metaPrimary: string;
+  status: HomepageAdStatus;
   metaSecondary?: string;
   externalUrl: string;
   thumbnailUrl: string;

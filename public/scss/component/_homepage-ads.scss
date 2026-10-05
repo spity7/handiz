@@ -40,3 +40,74 @@
   border-radius: 12px;
   margin-bottom: 18px;
 }
+
+.homepage-ad-status {
+  font-weight: 700;
+
+  &--available {
+    color: #22c55e;
+  }
+
+  &--coming_soon {
+    color: #f59e0b;
+  }
+
+  &--sold_out {
+    color: #ef4444;
+  }
+
+  &--limited {
+    color: #38bdf8;
+  }
+}
+
+.homepage-ads-bar {
+  .homepage-ad-card {
+    &__thumb {
+      flex-shrink: 0;
+      display: block;
+      width: 123px;
+      height: 92px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    &__image {
+      display: block;
+      width: 123px !important;
+      height: 92px !important;
+      max-width: none;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    &--disabled {
+      cursor: default;
+      opacity: 0.85;
+
+      .title .link {
+        color: var(--Secondary);
+      }
+    }
+  }
+}
+
+body.dark-mode {
+  .homepage-ad-status {
+    &--available {
+      color: #4ade80;
+    }
+
+    &--coming_soon {
+      color: #fbbf24;
+    }
+
+    &--sold_out {
+      color: #f87171;
+    }
+
+    &--limited {
+      color: #7dd3fc;
+    }
+  }
+}

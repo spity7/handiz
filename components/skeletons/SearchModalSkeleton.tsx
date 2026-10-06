@@ -2,6 +2,8 @@ type SearchModalSkeletonProps = {
   trendingCount?: number;
 };
 
+const FILTER_SECTIONS = ["Categories", "Concepts", "Types"] as const;
+
 export default function SearchModalSkeleton({
   trendingCount = 6,
 }: SearchModalSkeletonProps) {
@@ -11,21 +13,16 @@ export default function SearchModalSkeleton({
       aria-busy="true"
       aria-label="Loading filters"
     >
-      {["Categories", "Concepts", "Types"].map((section) => (
-        <div className="popular-searches mb_16" key={section}>
-          <span className="skeleton-block search-modal-skeleton__title" />
-          <ul
-            className="list d-flex align-items-center flex-wrap"
-            style={{ gap: "8px" }}
-          >
-            {Array.from({ length: 6 }, (_, index) => (
-              <li key={`${section}-${index}`}>
-                <span className="skeleton-block search-modal-skeleton__chip" />
-              </li>
-            ))}
-          </ul>
+      <div className="search-filters search-modal-skeleton__filters">
+        <div className="search-filters__grid">
+          {FILTER_SECTIONS.map((section) => (
+            <div className="filter-group" key={section}>
+              <span className="skeleton-block search-modal-skeleton__title" />
+              <span className="skeleton-block search-modal-skeleton__dropdown" />
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
 
       <div className="tf-line" />
 

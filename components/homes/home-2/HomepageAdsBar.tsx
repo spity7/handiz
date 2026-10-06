@@ -46,13 +46,13 @@ export default function HomepageAdsBar() {
       <div className="tf-container w-xxl">
         <Swiper
           className="swiper wrap-feature"
-          spaceBetween={15}
+          spaceBetween={8}
           breakpoints={{
             0: { slidesPerView: 1 },
-            575: { slidesPerView: 2 },
-            768: { slidesPerView: 3, spaceBetween: 24 },
-            992: { slidesPerView: 3, spaceBetween: 24 },
-            1200: { slidesPerView: 4, spaceBetween: 60 },
+            575: { slidesPerView: 2, spaceBetween: 10 },
+            768: { slidesPerView: 3, spaceBetween: 12 },
+            992: { slidesPerView: 3, spaceBetween: 12 },
+            1200: { slidesPerView: 4, spaceBetween: 16 },
           }}
           modules={[Pagination]}
           pagination={{

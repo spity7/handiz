@@ -33,6 +33,8 @@ export function getHomepageAdStatusClassName(status: HomepageAdStatus): string {
   return `homepage-ad-status homepage-ad-status--${status}`;
 }
 
+const NON_CLICKABLE_STATUSES: HomepageAdStatus[] = ["coming_soon", "sold_out"];
+
 export function isHomepageAdClickable(status: HomepageAdStatus): boolean {
-  return status !== "coming_soon";
+  return !NON_CLICKABLE_STATUSES.includes(status);
 }

@@ -45,16 +45,12 @@ export function ProjectsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const categories = useMemo(
-    () =>
-      Array.from(
-        new Set(projects.flatMap((p) => p.category ?? [])),
-      ),
+    () => Array.from(new Set(projects.flatMap((p) => p.category ?? []))),
     [projects],
   );
 
   const concepts = useMemo(
-    () =>
-      Array.from(new Set(projects.flatMap((p) => p.concept ?? []))),
+    () => Array.from(new Set(projects.flatMap((p) => p.concept ?? []))),
     [projects],
   );
 
@@ -63,10 +59,13 @@ export function ProjectsProvider({ children }: { children: ReactNode }) {
     [projects],
   );
 
+  const value = useMemo(
+    () => ({ projects, loading, categories, concepts, types }),
+    [projects, loading, categories, concepts, types],
+  );
+
   return (
-    <ProjectsContext.Provider
-      value={{ projects, loading, categories, concepts, types }}
-    >
+    <ProjectsContext.Provider value={value}>
       {children}
     </ProjectsContext.Provider>
   );

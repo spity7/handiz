@@ -10,23 +10,18 @@ import {
   Parallax,
 } from "swiper/modules";
 import { useProjects } from "@/components/providers/ProjectsProvider";
+import { useHomeProjectFilters } from "@/components/providers/HomeProjectFiltersProvider";
 import ProjectCategoriesSkeleton from "@/components/skeletons/ProjectCategoriesSkeleton";
 import { useEffect, useState } from "react";
 
 type Props = {
-  selectedCategories: string[];
-  setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
   searchQuery: string;
   setSearchQuery: (v: string) => void;
 };
 
-export default function HeroSP({
-  selectedCategories,
-  setSelectedCategories,
-  searchQuery,
-  setSearchQuery,
-}: Props) {
+export default function HeroSP({ searchQuery, setSearchQuery }: Props) {
   const { categories, loading } = useProjects();
+  const { selectedCategories, toggleCategory } = useHomeProjectFilters();
   // Track dark mode by observing the class on document.body
   const [isDark, setIsDark] = useState(false);
 
@@ -65,12 +60,8 @@ export default function HeroSP({
     };
   }, []);
 
-  const toggleCategory = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category],
-    );
+  const toggleCategoryChip = (category: string) => {
+    toggleCategory(category);
   };
 
   return (
@@ -127,7 +118,8 @@ export default function HeroSP({
                 height="24px"
                 viewBox="0 -960 960 960"
                 width="24px"
-                fill="#000000"
+                fill="currentColor"
+                aria-hidden
               >
                 <path d="M440-120v-240h80v80h320v80H520v80h-80Zm-320-80v-80h240v80H120Zm160-160v-80H120v-80h160v-80h80v240h-80Zm160-80v-80h400v80H440Zm160-160v-240h80v80h160v80H680v80h-80Zm-480-80v-80h400v80H120Z" />
               </svg>
@@ -167,7 +159,7 @@ export default function HeroSP({
                 return (
                   <SwiperSlide className="swiper-slide" key={category}>
                     <button
-                      onClick={() => toggleCategory(category)}
+                      onClick={() => toggleCategoryChip(category)}
                       className="tag h6"
                       style={{
                         // If dark mode (isDark=true): active is white bg/black text, inactive is transparent/white text

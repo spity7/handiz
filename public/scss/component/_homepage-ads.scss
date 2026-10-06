@@ -17,22 +17,6 @@
     border-radius: 12px;
     margin-bottom: 8px;
   }
-
-  @include res(lg, min) {
-    .swiper-slide {
-      position: relative;
-
-      &:not(:last-child)::after {
-        position: absolute;
-        content: "";
-        width: 1px;
-        height: 100%;
-        background-color: var(--Line);
-        top: 0;
-        right: -30px;
-      }
-    }
-  }
 }
 
 .homepage-ads-bar + .page-title.homepage-2 {
@@ -68,7 +52,8 @@
 .homepage-ads-bar {
   .homepage-ad-card {
     width: 100%;
-    padding: 12px 14px;
+    padding: 6px 8px;
+    gap: 12px;
     border-radius: 12px;
     background-color: var(--White);
     border: 1px solid rgba(0, 0, 0, 0.06);
